@@ -5,17 +5,19 @@ import model.questions.*;
 import java.util.ArrayList;
 
 public class Quiz {
+    String name;
     ArrayList<Question> questions;
 
-    void addQuestion() {
+    public Quiz(String name, ArrayList<Question> questions) {
+        this.name = name;
+        this.questions = questions;
+    }
+
+    public void takeQuiz() {
         // stub;
     }
 
-    void takeQuiz() {
-        // stub;
-    }
-
-    void printScore() {
+    public void printScore() {
         // stub;
     }
 }

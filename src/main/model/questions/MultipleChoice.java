@@ -6,7 +6,9 @@ public class MultipleChoice extends Question {
     private String answer;
     private ArrayList<String> choices;
 
-    MultipleChoice(String prompt, ArrayList<String> choices, String answer) {
+    // REQUIRES: choices <= 5
+    // EFFECTS: creates a new question
+    public MultipleChoice(String prompt, ArrayList<String> choices, String answer) {
         super(prompt);
         this.choices = choices;
         this.answer = answer;
