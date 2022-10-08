@@ -1,8 +1,9 @@
 package model.questions;
 
+import ui.ConsoleInput;
+
 public abstract class Question {
-    private String prompt;
-    protected boolean answeredCorrectly;
+    private final String prompt;
 
     Question(String prompt) {
         this.prompt = prompt;
@@ -12,11 +13,7 @@ public abstract class Question {
         return prompt;
     }
 
-    public boolean isAnsweredCorrectly() {
-        return answeredCorrectly;
-    }
-
-    public abstract void answerQuestion();
+    public abstract boolean attempt(ConsoleInput input);
 
     @Override
     public String toString() {

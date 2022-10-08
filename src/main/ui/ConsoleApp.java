@@ -1,21 +1,20 @@
 package ui;
 
 import model.Quiz;
+import model.Result;
 import model.questions.MultipleChoice;
 import model.questions.Question;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class ConsoleApp {
-    private List<Quiz> quizzes;
-    private Scanner input;
+    private ArrayList<Quiz> quizzes;
+    private ConsoleInput input;
 
     // EFFECTS: runs the quiz console application
     ConsoleApp() {
-        quizzes = new ArrayList<Quiz>();
-        input = new Scanner(System.in);
+        quizzes = new ArrayList<>();
+        input = new ConsoleInput();
 
         System.out.println("Welcome! This is a quiz app.");
 
@@ -27,7 +26,7 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: processes user input
     void runApp() {
-        String command = null;
+        String command;
         boolean exitProgram = false;
 
         System.out.println("What would you like to do?");
@@ -71,12 +70,7 @@ public class ConsoleApp {
         Quiz quiz = new Quiz(quizName, questions);
 
         quizzes.add(quiz);
-        System.out.println("New quiz made!");
-    }
-
-    // EFFECTS: conducts a test and gives user results
-    void takeQuiz() {
-        // stub;
+        System.out.println("New quiz made!\n");
     }
 
     ArrayList<Question> getQuestions() {
@@ -84,41 +78,33 @@ public class ConsoleApp {
 
         do {
             System.out.println("What is your question's prompt?");
-
             String prompt = input.nextLine();
+
             ArrayList<String> choices = getQuestionChoices();
 
-            Question question = new MultipleChoice(prompt, choices, choices.get(0));
+            Question question = new MultipleChoice(prompt, choices);
 
             result.add(question);
-        } while (getPermission("Would you like to add another question?"));
+        } while (input.getPermission("Would you like to add another question?"));
 
         return result;
     }
 
-    // EFFECTS: returns int within range of min and max, depending on user input.
-    int getIntWithinRange(int min, int max) {
-        int result;
-
-        do {
-            System.out.println(String.format("Choose a integer between %s and %s (inclusive)", min, max));
-            result = input.nextInt();;
-        } while (result < min || result > max);
-
-        return  result;
-    }
-
     ArrayList<String> getQuestionChoices() {
         ArrayList<String> result = new ArrayList<>();
-        int amountOfChoices = getIntWithinRange(2, 5);
+        System.out.println("How many possible choices would you like for this question?");
+        int amountOfChoices = input.getIntWithinRange(2, 5);
 
         System.out.println("Type the CORRECT answer");
-        result.add(input.nextLine());
+        String ans = input.nextLine();
+        result.add(ans);
 
         for (int i = 0; i < amountOfChoices - 1; i++) {
-            System.out.println("Type in trick answers");
+            System.out.println("Type in a trick answer");
             result.add(input.nextLine());
         }
+
+        System.out.println(result);
 
         return result;
     }
@@ -127,10 +113,29 @@ public class ConsoleApp {
         System.out.println(String.format("'%s' is not a valid option.", option));
     }
 
-    // EFFECTS: returns true or false depending on user input
-    boolean getPermission(String prompt) {
-        System.out.println(prompt + " (y/n)");
-        String command = input.nextLine().toLowerCase();
-        return command.length() > 0 && command.charAt(0) == 'y';
+    // EFFECTS: selects a quiz to take, depending on user input
+    void takeQuiz() {
+        if (quizzes.size() == 0) {
+            System.out.println("You have no quizzes!");
+            return;
+        }
+
+        System.out.println("Which quiz would you like to take?");
+        listQuizzes();
+
+        Quiz selectedQuiz = input.getItemFromArrayList(quizzes);
+
+        Result result =  selectedQuiz.start(input);
+
+        System.out.println(result);
+        System.out.println();
     }
+
+    void listQuizzes() {
+        for (int i = 0; i < quizzes.size(); i++) {
+            Quiz quiz = quizzes.get(i);
+            System.out.println((i + 1) + ") " + quiz.getName());
+        }
+    }
+
 }

@@ -13,6 +13,5 @@ with my goals - doing well on my tests.
 - As a user, I want the quizzes that I make to be saved to storage
 - As a user, I want to be able to take the quizzes I make
 
-
-
-
+### Credit:
+I took inspiration from the TellerApp reference project when designing my application.
