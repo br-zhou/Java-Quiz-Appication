@@ -1,5 +1,6 @@
 package ui;
 
+import model.InputOutput;
 import model.Quiz;
 import model.Result;
 import model.questions.FreeResponse;
@@ -11,12 +12,12 @@ import java.util.List;
 
 public class QuizApp {
     private final List<Quiz> quizzes;
-    private final Console input;
+    private final InputOutput console;
 
     // EFFECTS: runs the quiz console application
     public QuizApp() {
         quizzes = new ArrayList<>();
-        input = new Console();
+        console = new Console();
 
         System.out.println("Welcome! This is a quiz app.");
 
@@ -34,7 +35,7 @@ public class QuizApp {
 
         while (!exitProgram) {
             printMenuOptions();
-            String command = input.getString().toLowerCase();
+            String command = console.getString().toLowerCase();
 
             switch (command) {
                 case "n":
@@ -64,7 +65,7 @@ public class QuizApp {
     // EFFECTS: creates new quiz and adds it to test repository
     private void newQuiz() {
         System.out.println("What would you like to name your quiz?");
-        String quizName = input.getString();
+        String quizName = console.getString();
 
         Quiz quiz = new Quiz(quizName, generateQuestions());
 
@@ -86,7 +87,7 @@ public class QuizApp {
                 System.out.format("%s) %s\n", i + 1, questionTypes.get(i));
             }
 
-            String choice = input.getItemFromList(questionTypes);
+            String choice = console.getItemFromList(questionTypes);
 
             switch (choice) {
                 case "Multiple Choice": // TODO is this code duplication? from above?
@@ -100,7 +101,7 @@ public class QuizApp {
             }
 
             System.out.println("Would you like to add another question?");
-        } while (input.getPermission());
+        } while (console.getPermission());
 
         return result;
     }
@@ -115,17 +116,17 @@ public class QuizApp {
 
     private String getQuestionPrompt() {
         System.out.println("What is your question's prompt?");
-        return input.getString();
+        return console.getString();
     }
 
     private List<String> getFreeResponseKeywords() {
         List<String> result = new ArrayList<>();
         System.out.println("How many keywords does this question have?");
-        int numOfKeywords = input.getIntWithinRange(1, 10);
+        int numOfKeywords = console.getIntWithinRange(1, 10);
 
         for (int i = 0; i < numOfKeywords; i++) {
             System.out.format("Type in keyword #%s\n", i + 1);
-            result.add(input.getString());
+            result.add(console.getString());
         }
 
         System.out.println(result);
@@ -137,15 +138,15 @@ public class QuizApp {
     private List<String> getQuestionChoices() {
         List<String> result = new ArrayList<>();
         System.out.println("How many possible choices would you like for this question?");
-        int amountOfChoices = input.getIntWithinRange(2, 5);
+        int amountOfChoices = console.getIntWithinRange(2, 5);
 
         System.out.println("Type the CORRECT answer");
-        String ans = input.getString();
+        String ans = console.getString();
         result.add(ans);
 
         for (int i = 0; i < amountOfChoices - 1; i++) {
             System.out.println("Type in a trick answer");
-            result.add(input.getString());
+            result.add(console.getString());
         }
 
         System.out.println(result);
@@ -167,12 +168,24 @@ public class QuizApp {
         System.out.println("Which quiz would you like to take?");
         listQuizzes();
 
-        Quiz selectedQuiz = input.getItemFromList(quizzes);
+        Quiz selectedQuiz = console.getItemFromList(quizzes);
 
-        Result result =  selectedQuiz.start(input);
+        Result result =  startQuiz(selectedQuiz);
 
         System.out.println("Test results: " + result);
         System.out.println();
+    }
+
+    /*
+     * EFFECTS: does quiz and returns result
+     */
+    public Result startQuiz(Quiz quiz) {
+        for (Question question : quiz.getQuestions()) {
+            console.displayQuestion(question);
+            question.attempt(console);
+        }
+
+        return quiz.getResult();
     }
 
     private void listQuizzes() {

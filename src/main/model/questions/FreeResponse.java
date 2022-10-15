@@ -17,16 +17,16 @@ public class FreeResponse extends Question {
      * EFFECTS: returns true if input contains specific keywords TODO ass description
      */
     @Override
-    public boolean attempt(InputOutput inputOutput) {
+    public void attempt(InputOutput inputOutput) {
         String response = inputOutput.getString();
 
+        correct = true;
         for (String keyword : keywords) {
             if (!response.contains(keyword)) {
-                return false;
+                correct = false;
+                break;
             }
         }
-
-        return true;
     }
 
     @Override

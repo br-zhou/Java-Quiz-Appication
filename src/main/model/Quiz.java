@@ -25,13 +25,13 @@ public class Quiz {
     }
 
     /*
-     * EFFECTS: does quiz and returns result
+     * EFFECTS: returns the amount of questions answered correctly
      */
-    public Result start(InputOutput inputOutput) {
+    public Result getResult() {
         Result result = new Result(questions.size());
+
         for (Question question : questions) {
-            inputOutput.displayQuestion(question);
-            if (question.attempt(inputOutput)) {
+            if (question.isCorrect()) {
                 result.incrementScore();
             }
         }

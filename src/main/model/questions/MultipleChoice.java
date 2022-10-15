@@ -18,10 +18,10 @@ public class MultipleChoice extends Question {
     }
 
     @Override
-    public boolean attempt(InputOutput inputOutput) {
+    public void attempt(InputOutput inputOutput) {
         String choice = inputOutput.getItemFromList(choices);
 
-        return choice.equals(correctChoice);
+        correct = choice.equals(correctChoice);
     }
 
     @Override
