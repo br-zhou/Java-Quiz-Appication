@@ -1,9 +1,10 @@
 package ui;
 
-import java.util.ArrayList;
+import model.Input;
+
 import java.util.Scanner;
 
-public class ConsoleInput {
+public class ConsoleInput extends Input {
     private final Scanner input;
 
     ConsoleInput() {
@@ -11,17 +12,17 @@ public class ConsoleInput {
     }
 
     // EFFECTS: returns true or false depending on user input
-    public boolean getPermission(String prompt) {
-        System.out.println(prompt + " (y/n)");
+    public boolean getPermission() {
+        System.out.println("(y/n)");
         String command = input.nextLine().toLowerCase();
         return command.length() > 0 && command.charAt(0) == 'y';
     }
 
-    public String nextLine() {
+    public String getString() {
         return input.nextLine();
     }
 
-    public int nextInt() {
+    public int getInt() {
         while (true) {
             try {
                 return Integer.parseInt(input.nextLine());
@@ -32,20 +33,14 @@ public class ConsoleInput {
     }
 
     // EFFECTS: returns int within range of min and max, depending on user input.
-    int getIntWithinRange(int min, int max) {
+    public int getIntWithinRange(int min, int max) {
         int result;
 
         do {
             System.out.println(String.format("Choose a integer between %s and %s (inclusive)", min, max));
-            result = nextInt();
+            result = getInt();
         } while (result < min || result > max);
 
         return  result;
-    }
-
-    // REQUIRES: list cannot be empty
-    public <T> T getItemFromArrayList(ArrayList<T> list) {
-        int index = getIntWithinRange(1, list.size()) - 1;
-        return list.get(index);
     }
 }

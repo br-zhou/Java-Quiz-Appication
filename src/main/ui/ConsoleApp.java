@@ -2,13 +2,15 @@ package ui;
 
 import model.Quiz;
 import model.Result;
+import model.questions.FreeResponse;
 import model.questions.MultipleChoice;
 import model.questions.Question;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ConsoleApp {
-    private ArrayList<Quiz> quizzes;
+    private List<Quiz> quizzes;
     private ConsoleInput input;
 
     // EFFECTS: runs the quiz console application
@@ -33,7 +35,7 @@ public class ConsoleApp {
 
         while (!exitProgram) {
             printMenuOptions();
-            command = input.nextLine().toLowerCase();
+            command = input.getString().toLowerCase();
 
             switch (command) {
                 case "n":
@@ -63,9 +65,9 @@ public class ConsoleApp {
     // EFFECTS: creates new quiz and adds it to test repository
     void newQuiz() {
         System.out.println("What would you like to name your quiz?");
-        String quizName = input.nextLine();
+        String quizName = input.getString();
 
-        ArrayList<Question> questions = getQuestions();
+        List<Question> questions = getQuestions();
 
         Quiz quiz = new Quiz(quizName, questions);
 
@@ -73,35 +75,82 @@ public class ConsoleApp {
         System.out.println("New quiz made!\n");
     }
 
-    ArrayList<Question> getQuestions() {
-        ArrayList<Question> result = new ArrayList<>();
+    List<Question> getQuestions() {
+        List<String> questionTypes = new ArrayList<>();
+        List<Question> result = new ArrayList<>();
+
+        questionTypes.add("Multiple Choice");
+        questionTypes.add("Free Response");
 
         do {
-            System.out.println("What is your question's prompt?");
-            String prompt = input.nextLine();
+            Question question;
 
-            ArrayList<String> choices = getQuestionChoices();
+            System.out.println("What type of question do you want?");
 
-            Question question = new MultipleChoice(prompt, choices);
+            for (int i = 0; i < questionTypes.size(); i++) {
+                System.out.println(String.format("%s) %s", i + 1, questionTypes.get(i)));
+            }
 
-            result.add(question);
-        } while (input.getPermission("Would you like to add another question?"));
+            String choice = input.getItemFromList(questionTypes);
+
+            switch (choice) {
+                case "Multiple Choice":
+                    result.add(newMultipleChoiceQuestion());
+                    break;
+                case "Free Response":
+                    result.add(newFreeResponseQuestion());
+                    break;
+                default:
+                    System.out.println("ERROR: invalid question type!");
+            }
+
+            System.out.println("Would you like to add another question?");
+        } while (input.getPermission());
 
         return result;
     }
 
-    ArrayList<String> getQuestionChoices() {
-        ArrayList<String> result = new ArrayList<>();
+    Question newFreeResponseQuestion() {
+        return new FreeResponse(getPrompt(), getFreeResponseKeywords());
+    }
+
+    Question newMultipleChoiceQuestion() {
+        return new MultipleChoice(getPrompt(), getQuestionChoices());
+    }
+
+    String getPrompt() {
+        System.out.println("What is your question's prompt?");
+        return input.getString();
+    }
+
+    List<String> getFreeResponseKeywords() {
+        List<String> result = new ArrayList<>();
+        System.out.println("How many keywords does this question have?");
+        int numOfKeywords = input.getIntWithinRange(1, 10);
+
+        for (int i = 0; i < numOfKeywords; i++) {
+            System.out.println(String.format("Type in keyword #%s", i + 1));
+            result.add(input.getString());
+        }
+
+        System.out.println(result);
+
+        return result;
+    }
+
+
+    List<String> getQuestionChoices() {
+        List<String> result = new ArrayList<>();
         System.out.println("How many possible choices would you like for this question?");
         int amountOfChoices = input.getIntWithinRange(2, 5);
 
         System.out.println("Type the CORRECT answer");
-        String ans = input.nextLine();
+        String ans = input.getString();
         result.add(ans);
 
         for (int i = 0; i < amountOfChoices - 1; i++) {
             System.out.println("Type in a trick answer");
-            result.add(input.nextLine());
+            result.add(input.getString());
         }
 
         System.out.println(result);
@@ -123,7 +172,7 @@ public class ConsoleApp {
         System.out.println("Which quiz would you like to take?");
         listQuizzes();
 
-        Quiz selectedQuiz = input.getItemFromArrayList(quizzes);
+        Quiz selectedQuiz = input.getItemFromList(quizzes);
 
         Result result =  selectedQuiz.start(input);
 

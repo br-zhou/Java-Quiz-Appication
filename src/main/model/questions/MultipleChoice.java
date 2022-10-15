@@ -1,30 +1,27 @@
 package model.questions;
 
-import ui.ConsoleInput;
-
-import java.util.ArrayList;
+import model.Input;
+import java.util.List;
 
 public class MultipleChoice extends Question {
-    private ArrayList<String> choices;
-    private final String answer;
+    private List<String> choices;
 
     // REQUIRES: 2 < choices size < 5, with the correct choice being the first element
-    // EFFECTS: creates a new question
-    public MultipleChoice(String prompt, ArrayList<String> choices) {
+    // EFFECTS: creates a new question, TODO more description. what abt prompt, choices, correct answer?
+    public MultipleChoice(String prompt, List<String> choices) {
         super(prompt);
         this.choices = choices;
-        answer = choices.get(0);
     }
 
     private String getCorrectAnswer() {
-        return answer;
+        return choices.get(0);
     }
 
     @Override
-    public boolean attempt(ConsoleInput input) {
+    public boolean attempt(Input input) {
         System.out.println(this);
 
-        String choice = input.getItemFromArrayList(choices);
+        String choice = input.getItemFromList(choices);
 
         return choice.equals(getCorrectAnswer());
     }

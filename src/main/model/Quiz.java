@@ -3,14 +3,14 @@ package model;
 import model.questions.*;
 import ui.ConsoleInput;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Quiz {
     String name;
-    ArrayList<Question> questions;
+    List<Question> questions;
 
     // Requires: name must not be empty
-    public Quiz(String name, ArrayList<Question> questions) {
+    public Quiz(String name, List<Question> questions) {
         this.name = name;
         this.questions = questions;
     }
