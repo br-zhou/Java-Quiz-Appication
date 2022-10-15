@@ -28,14 +28,13 @@ public class ConsoleApp {
     // MODIFIES: this
     // EFFECTS: processes user input
     private void runApp() {
-        String command;
         boolean exitProgram = false;
 
         System.out.println("What would you like to do?");
 
         while (!exitProgram) {
             printMenuOptions();
-            command = input.getString().toLowerCase();
+            String command = input.getString().toLowerCase();
 
             switch (command) {
                 case "n":
@@ -172,7 +171,7 @@ public class ConsoleApp {
 
         Result result =  selectedQuiz.start(input);
 
-        System.out.println(result);
+        System.out.println("Test results: " + result);
         System.out.println();
     }
 

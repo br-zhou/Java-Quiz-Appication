@@ -12,7 +12,15 @@ public class Result {
         this.score += 1;
     }
 
+    public int getMaxScore() {
+        return maxScore;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     public String toString() {
-        return String.format("Test results: %s / %s", score, maxScore);
+        return String.format("%s / %s", score, maxScore);
     }
 }
