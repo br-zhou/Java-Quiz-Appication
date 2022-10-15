@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ConsoleInput extends Input {
     private final Scanner input;
 
-    ConsoleInput() {
+    public ConsoleInput() {
         input = new Scanner(System.in);
     }
 

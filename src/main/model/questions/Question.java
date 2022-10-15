@@ -5,7 +5,7 @@ import model.Input;
 public abstract class Question {
     private final String prompt;
 
-    Question(String prompt) {
+    public Question(String prompt) {
         this.prompt = prompt;
     }
 

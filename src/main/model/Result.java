@@ -4,7 +4,7 @@ public class Result {
     private int score;
     private final int maxScore;
 
-    Result(int maxScore) {
+    public Result(int maxScore) {
         this.maxScore = maxScore;
     }
 

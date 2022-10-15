@@ -14,7 +14,7 @@ public class ConsoleApp {
     private ConsoleInput input;
 
     // EFFECTS: runs the quiz console application
-    ConsoleApp() {
+    public ConsoleApp() {
         quizzes = new ArrayList<>();
         input = new ConsoleInput();
 
@@ -27,7 +27,7 @@ public class ConsoleApp {
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    void runApp() {
+    private void runApp() {
         String command;
         boolean exitProgram = false;
 
@@ -54,7 +54,7 @@ public class ConsoleApp {
     }
 
     // EFFECTS: prints out menu options
-    void printMenuOptions() {
+    private void printMenuOptions() {
         System.out.println("select from:");
         System.out.println("    n -> new quiz");
         System.out.println("    t -> take quiz");
@@ -63,19 +63,17 @@ public class ConsoleApp {
 
     // MODIFIES: this
     // EFFECTS: creates new quiz and adds it to test repository
-    void newQuiz() {
+    private void newQuiz() {
         System.out.println("What would you like to name your quiz?");
         String quizName = input.getString();
 
-        List<Question> questions = getQuestions();
-
-        Quiz quiz = new Quiz(quizName, questions);
+        Quiz quiz = new Quiz(quizName, generateQuestions());
 
         quizzes.add(quiz);
         System.out.println("New quiz made!\n");
     }
 
-    List<Question> getQuestions() {
+    private List<Question> generateQuestions() {
         List<String> questionTypes = new ArrayList<>();
         List<Question> result = new ArrayList<>();
 
@@ -92,7 +90,7 @@ public class ConsoleApp {
             String choice = input.getItemFromList(questionTypes);
 
             switch (choice) {
-                case "Multiple Choice":
+                case "Multiple Choice": // TODO is this code duplication? from above?
                     result.add(newMultipleChoiceQuestion());
                     break;
                 case "Free Response":
@@ -108,20 +106,20 @@ public class ConsoleApp {
         return result;
     }
 
-    Question newFreeResponseQuestion() {
-        return new FreeResponse(getPrompt(), getFreeResponseKeywords());
+    private Question newFreeResponseQuestion() {
+        return new FreeResponse(getQuestionPrompt(), getFreeResponseKeywords());
     }
 
-    Question newMultipleChoiceQuestion() {
-        return new MultipleChoice(getPrompt(), getQuestionChoices());
+    private Question newMultipleChoiceQuestion() {
+        return new MultipleChoice(getQuestionPrompt(), getQuestionChoices());
     }
 
-    String getPrompt() {
+    private String getQuestionPrompt() {
         System.out.println("What is your question's prompt?");
         return input.getString();
     }
 
-    List<String> getFreeResponseKeywords() {
+    private List<String> getFreeResponseKeywords() {
         List<String> result = new ArrayList<>();
         System.out.println("How many keywords does this question have?");
         int numOfKeywords = input.getIntWithinRange(1, 10);
@@ -137,7 +135,7 @@ public class ConsoleApp {
     }
 
 
-    List<String> getQuestionChoices() {
+    private List<String> getQuestionChoices() {
         List<String> result = new ArrayList<>();
         System.out.println("How many possible choices would you like for this question?");
         int amountOfChoices = input.getIntWithinRange(2, 5);
@@ -156,12 +154,12 @@ public class ConsoleApp {
         return result;
     }
 
-    void warnInvalidOption(String option) {
+    private void warnInvalidOption(String option) {
         System.out.println(String.format("'%s' is not a valid option.", option));
     }
 
     // EFFECTS: selects a quiz to take, depending on user input
-    void takeQuiz() {
+    private void takeQuiz() {
         if (quizzes.size() == 0) {
             System.out.println("You have no quizzes!");
             return;
@@ -178,7 +176,7 @@ public class ConsoleApp {
         System.out.println();
     }
 
-    void listQuizzes() {
+    private void listQuizzes() {
         for (int i = 0; i < quizzes.size(); i++) {
             Quiz quiz = quizzes.get(i);
             System.out.println((i + 1) + ") " + quiz.getName());
