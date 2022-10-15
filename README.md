@@ -7,11 +7,14 @@ to create a quizzes with an arbitrary number of questions. After taking a quiz, 
 will get feedback and a score. I choose this project idea because the subject aligns
 with my goals - doing well on my tests.
 
-### User Stores:
+### User Stories:
 - As a user, I want to be able to create new quizzes
 - As a user, I want to be able to add an arbitrary number of questions per quiz
 - As a user, I want the quizzes that I make to be saved to storage
+- As a user, I want to be able to have different types of question types to choose from
+  when making a new question
 - As a user, I want to be able to take the quizzes I make
+- As a user, I want to be able to edit the quizzes I make
 
 ### Credit:
 I took inspiration from the TellerApp reference project when designing my application.
