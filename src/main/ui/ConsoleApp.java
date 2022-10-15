@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConsoleApp {
-    private List<Quiz> quizzes;
-    private ConsoleInput input;
+    private final List<Quiz> quizzes;
+    private final ConsoleInput input;
 
     // EFFECTS: runs the quiz console application
     public ConsoleApp() {
@@ -84,7 +84,7 @@ public class ConsoleApp {
             System.out.println("What type of question do you want?");
 
             for (int i = 0; i < questionTypes.size(); i++) {
-                System.out.println(String.format("%s) %s", i + 1, questionTypes.get(i)));
+                System.out.format("%s) %s\n", i + 1, questionTypes.get(i));
             }
 
             String choice = input.getItemFromList(questionTypes);
@@ -125,7 +125,7 @@ public class ConsoleApp {
         int numOfKeywords = input.getIntWithinRange(1, 10);
 
         for (int i = 0; i < numOfKeywords; i++) {
-            System.out.println(String.format("Type in keyword #%s", i + 1));
+            System.out.format("Type in keyword #%s\n", i + 1);
             result.add(input.getString());
         }
 
@@ -155,7 +155,7 @@ public class ConsoleApp {
     }
 
     private void warnInvalidOption(String option) {
-        System.out.println(String.format("'%s' is not a valid option.", option));
+        System.out.format("'%s' is not a valid option.\n", option);
     }
 
     // EFFECTS: selects a quiz to take, depending on user input

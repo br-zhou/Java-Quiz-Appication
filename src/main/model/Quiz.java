@@ -4,8 +4,8 @@ import model.questions.*;
 import java.util.List;
 
 public class Quiz {
-    private String name;
-    private List<Question> questions;
+    private final String name;
+    private final List<Question> questions;
 
     // Requires: name must not be empty
     public Quiz(String name, List<Question> questions) {
