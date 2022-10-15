@@ -9,14 +9,14 @@ import model.questions.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsoleApp {
+public class QuizApp {
     private final List<Quiz> quizzes;
-    private final ConsoleInput input;
+    private final Console input;
 
     // EFFECTS: runs the quiz console application
-    public ConsoleApp() {
+    public QuizApp() {
         quizzes = new ArrayList<>();
-        input = new ConsoleInput();
+        input = new Console();
 
         System.out.println("Welcome! This is a quiz app.");
 

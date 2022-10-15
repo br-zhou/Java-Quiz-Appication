@@ -1,10 +1,10 @@
 package model.questions;
 
-import model.Input;
+import model.InputOutput;
 import java.util.List;
 
 public class FreeResponse extends Question {
-    private List<String> keywords;
+    private final List<String> keywords;
 
     // REQUIRES: 2 < keywords size < 5, with the correct choice being the first element
     // EFFECTS: creates a new question
@@ -17,8 +17,8 @@ public class FreeResponse extends Question {
      * EFFECTS: returns true if input contains specific keywords TODO ass description
      */
     @Override
-    public boolean attempt(Input input) {
-        String response = input.getString();
+    public boolean attempt(InputOutput inputOutput) {
+        String response = inputOutput.getString();
 
         for (String keyword : keywords) {
             if (!response.contains(keyword)) {
@@ -31,9 +31,8 @@ public class FreeResponse extends Question {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        result.append(super.toString());
-        result.append("\nPlease type your answer below.");
-        return result.toString();
+        String result = super.toString();
+        result += "\nPlease type your answer below.";
+        return result;
     }
 }

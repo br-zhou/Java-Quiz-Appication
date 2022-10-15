@@ -1,6 +1,6 @@
 package model.questions;
 
-import model.Input;
+import model.InputOutput;
 
 public abstract class Question {
     private final String prompt;
@@ -13,7 +13,7 @@ public abstract class Question {
         return prompt;
     }
 
-    public abstract boolean attempt(Input input);
+    public abstract boolean attempt(InputOutput inputOutput);
 
     @Override
     public String toString() {

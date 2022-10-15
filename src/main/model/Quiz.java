@@ -7,7 +7,10 @@ public class Quiz {
     private final String name;
     private final List<Question> questions;
 
-    // Requires: name must not be empty
+    /*
+     * REQUIRES: questions list cannot be empty
+     * EFFECTS: creates a new quiz with the given name and questions
+     */
     public Quiz(String name, List<Question> questions) {
         this.name = name;
         this.questions = questions;
@@ -17,11 +20,18 @@ public class Quiz {
         return name;
     }
 
-    public Result start(Input input) {
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    /*
+     * EFFECTS: does quiz and returns result
+     */
+    public Result start(InputOutput inputOutput) {
         Result result = new Result(questions.size());
         for (Question question : questions) {
-            input.displayQuestion(question.toString());
-            if (question.attempt(input)) {
+            inputOutput.displayQuestion(question);
+            if (question.attempt(inputOutput)) {
                 result.incrementScore();
             }
         }

@@ -1,12 +1,14 @@
 package ui;
 
-import model.Input;
+import model.InputOutput;
+import model.questions.Question;
+
 import java.util.Scanner;
 
-public class ConsoleInput extends Input {
+public class Console extends InputOutput {
     private final Scanner input;
 
-    public ConsoleInput() {
+    public Console() {
         input = new Scanner(System.in);
     }
 
@@ -36,14 +38,14 @@ public class ConsoleInput extends Input {
         int result;
 
         do {
-            System.out.println(String.format("Choose a integer between %s and %s (inclusive)", min, max));
+            System.out.format("Choose a integer between %s and %s (inclusive)\n", min, max);
             result = getInt();
         } while (result < min || result > max);
 
         return  result;
     }
 
-    public void displayQuestion(String prompt) {
-        System.out.println(prompt);
+    public void displayQuestion(Question question) {
+        System.out.println(question);
     }
 }
