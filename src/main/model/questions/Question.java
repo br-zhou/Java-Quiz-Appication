@@ -1,9 +1,6 @@
 package model.questions;
 
 import model.Input;
-import ui.ConsoleInput;
-
-import java.util.List;
 
 public abstract class Question {
     private final String prompt;

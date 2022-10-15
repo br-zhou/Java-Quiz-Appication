@@ -17,6 +17,8 @@ public abstract class Input {
     // EFFECTS: returns int within range of min and max, depending on user input.
     public abstract int getIntWithinRange(int min, int max);
 
+    public abstract void displayQuestion(String prompt);
+
     // REQUIRES: list cannot be empty
     public <T> T getItemFromList(List<T> list) {
         int index = getIntWithinRange(1, list.size()) - 1;

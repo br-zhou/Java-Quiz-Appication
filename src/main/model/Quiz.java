@@ -1,8 +1,6 @@
 package model;
 
 import model.questions.*;
-import ui.ConsoleInput;
-
 import java.util.List;
 
 public class Quiz {
@@ -19,9 +17,10 @@ public class Quiz {
         return name;
     }
 
-    public Result start(ConsoleInput input) {
+    public Result start(Input input) {
         Result result = new Result(questions.size());
         for (Question question : questions) {
+            input.displayQuestion(question.toString());
             if (question.attempt(input)) {
                 result.incrementScore();
             }

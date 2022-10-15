@@ -83,8 +83,6 @@ public class ConsoleApp {
         questionTypes.add("Free Response");
 
         do {
-            Question question;
-
             System.out.println("What type of question do you want?");
 
             for (int i = 0; i < questionTypes.size(); i++) {

@@ -1,7 +1,6 @@
 package ui;
 
 import model.Input;
-
 import java.util.Scanner;
 
 public class ConsoleInput extends Input {
@@ -42,5 +41,9 @@ public class ConsoleInput extends Input {
         } while (result < min || result > max);
 
         return  result;
+    }
+
+    public void displayQuestion(String prompt) {
+        System.out.println(prompt);
     }
 }

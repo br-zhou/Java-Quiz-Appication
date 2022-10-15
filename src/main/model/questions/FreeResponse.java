@@ -18,8 +18,6 @@ public class FreeResponse extends Question {
      */
     @Override
     public boolean attempt(Input input) {
-        System.out.println(this);
-
         String response = input.getString();
 
         for (String keyword : keywords) {
