@@ -4,10 +4,21 @@ public class Result {
     private int score;
     private final int maxScore;
 
+    /*
+     * REQUIRES: maxScore > 0
+     * EFFECTS: max possible score is set to maxScore
+     *          score set to 0
+     */
     public Result(int maxScore) {
         this.maxScore = maxScore;
+        this.score = 0;
     }
 
+    /*
+     * REQUIRES: score < maxScore
+     * MODIFIES: this
+     * EFFECTS: increases score by 1
+     */
     public void incrementScore() {
         this.score += 1;
     }
@@ -20,6 +31,9 @@ public class Result {
         return score;
     }
 
+    /*
+     * EFFECTS: Returns score and max score as a string
+     */
     public String toString() {
         return String.format("%s / %s", score, maxScore);
     }
