@@ -14,7 +14,9 @@ public class QuizApp {
     private final List<Quiz> quizzes;
     private final InputOutput console;
 
-    // EFFECTS: runs the quiz console application
+    /*
+     * EFFECTS: creates and runs the Quiz application
+     */
     public QuizApp() {
         quizzes = new ArrayList<>();
         console = new Console();
@@ -26,8 +28,11 @@ public class QuizApp {
         System.out.println("Bye! (and good luck on your tests!)");
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes user input
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: processes user input
+     */
     private void runApp() {
         boolean exitProgram = false;
 
@@ -53,7 +58,9 @@ public class QuizApp {
         }
     }
 
-    // EFFECTS: prints out menu options
+    /*
+     * EFFECTS: prints out menu options
+     */
     private void printMenuOptions() {
         System.out.println("select from:");
         System.out.println("    n -> new quiz");
@@ -61,8 +68,10 @@ public class QuizApp {
         System.out.println("    q -> quit");
     }
 
-    // MODIFIES: this
-    // EFFECTS: creates new quiz and adds it to test repository
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates new quiz and adds it to test repository
+     */
     private void newQuiz() {
         System.out.println("What would you like to name your quiz?");
         String quizName = console.getString();
@@ -73,11 +82,14 @@ public class QuizApp {
         System.out.println("New quiz made!\n");
     }
 
+    /*
+     * EFFECTS: returns a set of questions based on user input
+     */
     private List<Question> generateQuestions() {
         List<Question> result = new ArrayList<>();
 
         do {
-            result.add(generateQuestion());
+            result.add(createQuestion());
 
             System.out.println("Would you like to add another question?");
         } while (console.getPermission());
@@ -85,7 +97,10 @@ public class QuizApp {
         return result;
     }
 
-    private Question generateQuestion() {
+    /*
+     * EFFECTS: creates and returns a new question based on user input
+     */
+    private Question createQuestion() {
         final String MULTIPLE_CHOICE_STR = "Multiple Choice";
         final String FREE_RESPONSE_STR = "Free Response";
 
@@ -105,10 +120,10 @@ public class QuizApp {
 
         switch (choice) {
             case MULTIPLE_CHOICE_STR:
-                result = newMultipleChoiceQuestion();
+                result = new MultipleChoice(getQuestionPrompt(), getQuestionChoices());
                 break;
             case FREE_RESPONSE_STR:
-                result = newFreeResponseQuestion();
+                result = new FreeResponse(getQuestionPrompt(), getFreeResponseKeywords());
                 break;
             default:
                 result = null;
@@ -118,19 +133,17 @@ public class QuizApp {
         return result;
     }
 
-    private Question newFreeResponseQuestion() {
-        return new FreeResponse(getQuestionPrompt(), getFreeResponseKeywords());
-    }
-
-    private Question newMultipleChoiceQuestion() {
-        return new MultipleChoice(getQuestionPrompt(), getQuestionChoices());
-    }
-
+    /*
+     * EFFECTS: returns string depending on user input
+     */
     private String getQuestionPrompt() {
         System.out.println("What is your question's prompt?");
         return console.getNonEmptyString();
     }
 
+    /*
+     * EFFECTS: returns list of strings depending on user input
+     */
     private List<String> getFreeResponseKeywords() {
         List<String> result = new ArrayList<>();
         System.out.println("How many keywords does this question have?");
@@ -146,7 +159,9 @@ public class QuizApp {
         return result;
     }
 
-
+    /*
+     * EFFECTS: returns list of strings, depending on user input
+     */
     private List<String> getQuestionChoices() {
         List<String> result = new ArrayList<>();
         System.out.println("How many possible choices would you like for this question?");
@@ -166,11 +181,16 @@ public class QuizApp {
         return result;
     }
 
+    /*
+     * EFFECTS: warns user that option is not valid
+     */
     private void warnInvalidOption(String option) {
         System.out.format("'%s' is not a valid option.\n", option);
     }
 
-    // EFFECTS: selects a quiz to take, depending on user input
+    /*
+     * EFFECTS:  selects a quiz to take, depending on user input
+     */
     private void takeQuiz() {
         if (quizzes.size() == 0) {
             System.out.println("You have no quizzes!");
@@ -200,6 +220,9 @@ public class QuizApp {
         return quiz.getResult();
     }
 
+    /*
+     * EFFECTS:  prints all quizzes to console
+     */
     private void listQuizzes() {
         for (int i = 0; i < quizzes.size(); i++) {
             Quiz quiz = quizzes.get(i);

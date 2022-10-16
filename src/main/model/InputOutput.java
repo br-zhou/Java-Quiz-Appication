@@ -27,7 +27,7 @@ public abstract class InputOutput {
     public abstract int getInt();
 
     /*
-     * EFFECTS: returns an integer within the two ranges
+     * EFFECTS: returns an integer within the two ranges, depending on user input
      */
     public abstract int getIntWithinRange(int min, int max);
 

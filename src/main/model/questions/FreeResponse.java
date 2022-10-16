@@ -7,7 +7,7 @@ public class FreeResponse extends Question {
     private final List<String> keywords;
 
     /*
-     * REQUIRES: 2 <= keywords size <= 5
+     * REQUIRES: 1 <= keywords size <= 10
      * EFFECTS: question prompt is set to prompt; required keywords is set to keywords
      */
     public FreeResponse(String prompt, List<String> keywords) {
@@ -16,7 +16,7 @@ public class FreeResponse extends Question {
     }
 
     /*
-     * EFFECTS: returns true if input contains required keywords
+     * EFFECTS: returns true if input contains all required keywords
      */
     @Override
     public void attempt(InputOutput inputOutput) {

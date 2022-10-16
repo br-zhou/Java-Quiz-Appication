@@ -15,15 +15,8 @@ public abstract class Question {
         this.correct = false;
     }
 
-    public String getPrompt() {
-        return prompt;
-    }
-
-    public void setCorrect(boolean value) {
-        this.correct = value;
-    }
-
     /*
+     * MODIFIES: this
      * EFFECTS: if user input is correct, 'isCorrect' method now output true.
      *          Otherwise, 'isCorrect' method outputs false
      */
@@ -39,5 +32,16 @@ public abstract class Question {
 
     public boolean isCorrect() {
         return correct;
+    }
+
+    public String getPrompt() {
+        return prompt;
+    }
+
+    /*
+     * MODIFIES: this
+     */
+    public void setCorrect(boolean value) {
+        this.correct = value;
     }
 }

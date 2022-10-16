@@ -8,21 +8,26 @@ import java.util.Scanner;
 public class Console extends InputOutput {
     private final Scanner input;
 
+    /*
+     * EFFECTS: creates a new InputOutput based on the console
+     */
     public Console() {
         input = new Scanner(System.in);
     }
 
-    // EFFECTS: returns true or false depending on user input
+    @Override
     public boolean getPermission() {
         System.out.println("(y/n)");
         String command = input.nextLine().toLowerCase();
         return command.length() > 0 && command.charAt(0) == 'y';
     }
 
+    @Override
     public String getString() {
         return input.nextLine();
     }
 
+    @Override
     public String getNonEmptyString() {
         String result = "";
 
@@ -33,6 +38,7 @@ public class Console extends InputOutput {
         return result;
     }
 
+    @Override
     public int getInt() {
         while (true) {
             try {
@@ -43,7 +49,7 @@ public class Console extends InputOutput {
         }
     }
 
-    // EFFECTS: returns int within range of min and max, depending on user input.
+    @Override
     public int getIntWithinRange(int min, int max) {
         int result;
 
@@ -55,6 +61,7 @@ public class Console extends InputOutput {
         return  result;
     }
 
+    @Override
     public void displayQuestion(Question question) {
         System.out.println(question);
     }

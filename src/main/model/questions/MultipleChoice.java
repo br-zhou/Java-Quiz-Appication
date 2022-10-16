@@ -9,14 +9,19 @@ public class MultipleChoice extends Question {
     private final List<String> choices;
     private final String correctChoice;
 
-    // REQUIRES: 2 < choices size < 5, with the correct choice being the first element
-    // EFFECTS: creates a new question, TODO more description. what abt prompt, choices, correct answer?
+    /*
+     * REQUIRES: 2 <= choices size <= 5, with the correct choice being the first element
+     * EFFECTS: creates a new multiple choice question with prompt and choices set to given arguments
+     */
     public MultipleChoice(String prompt, List<String> choices) {
         super(prompt);
         this.choices = choices;
         this.correctChoice = choices.get(0);
     }
 
+    /*
+     * EFFECTS: sets isCorrect to true if user inputs correct choice
+     */
     @Override
     public void attempt(InputOutput inputOutput) {
         String choice = inputOutput.getItemFromList(choices);
@@ -24,6 +29,9 @@ public class MultipleChoice extends Question {
         correct = choice.equals(correctChoice);
     }
 
+    /*
+     * EFFECTS: returns choices alongside question prompt
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
