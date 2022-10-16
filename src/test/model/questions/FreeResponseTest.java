@@ -78,4 +78,10 @@ public class FreeResponseTest {
         question2.attempt(correctInputForQ2);
         assertTrue(question2.isCorrect());
     }
+
+    @Test
+    public void testToString() {
+        assertEquals(question1.getPrompt() + "\nPlease type your answer below.", question1.toString());
+        assertEquals(question2.getPrompt() + "\nPlease type your answer below.", question2.toString());
+    }
 }

@@ -89,4 +89,24 @@ public class MultipleChoiceTest {
         question3.attempt(correctInput);
         assertTrue(question3.isCorrect());
     }
+
+    @Test
+    public void testToString() {
+        String question1String = question1.toString();
+        assertEquals(
+                question1.getPrompt() +
+                        "\n 1) " + question1Answers.get(0) +
+                        "\n 2) " + question1Answers.get(1),
+                question1String);
+
+        String question3String = question3.toString();
+        assertEquals(
+                question3.getPrompt() +
+                        "\n 1) " + question3Answers.get(0) +
+                        "\n 2) " + question3Answers.get(1) +
+                        "\n 3) " + question3Answers.get(2) +
+                        "\n 4) " + question3Answers.get(3) +
+                        "\n 5) " + question3Answers.get(4),
+                question3String);
+    }
 }
