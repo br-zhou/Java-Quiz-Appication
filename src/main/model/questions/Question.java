@@ -6,6 +6,10 @@ public abstract class Question {
     private final String prompt;
     protected boolean correct;
 
+    /*
+     * REQUIRES: prompt cannot be an empty string
+     * EFFECTS: creates a new question with the given prompt
+     */
     public Question(String prompt) {
         this.prompt = prompt;
         this.correct = false;
@@ -19,8 +23,15 @@ public abstract class Question {
         this.correct = value;
     }
 
+    /*
+     * EFFECTS: if user input is correct, 'isCorrect' method now output true.
+     *          Otherwise, 'isCorrect' method outputs false
+     */
     public abstract void attempt(InputOutput inputOutput);
 
+    /*
+     * EFFECTS: returns the question prompt and all relevant information
+     */
     @Override
     public String toString() {
         return prompt;

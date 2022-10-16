@@ -17,6 +17,11 @@ public abstract class InputOutput {
     public abstract String getString();
 
     /*
+     * EFFECTS: returns a string depending on user input; string will not be empty
+     */
+    public abstract String getNonEmptyString();
+
+    /*
      * EFFECTS: returns an integer depending on user input
      */
     public abstract int getInt();

@@ -37,4 +37,8 @@ public class MultipleChoice extends Question {
 
         return result.toString();
     }
+
+    public List<String> getChoices() {
+        return choices;
+    }
 }

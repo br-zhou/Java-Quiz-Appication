@@ -23,18 +23,18 @@ public class Result {
         this.score += 1;
     }
 
+    /*
+     * EFFECTS: Returns score and max score as a string
+     */
+    public String toString() {
+        return String.format("%s / %s", score, maxScore);
+    }
+
     public int getMaxScore() {
         return maxScore;
     }
 
     public int getScore() {
         return score;
-    }
-
-    /*
-     * EFFECTS: Returns score and max score as a string
-     */
-    public String toString() {
-        return String.format("%s / %s", score, maxScore);
     }
 }

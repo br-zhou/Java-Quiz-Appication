@@ -16,14 +16,6 @@ public class Quiz {
         this.questions = questions;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
     /*
      * EFFECTS: returns the amount of questions answered correctly
      */
@@ -37,5 +29,13 @@ public class Quiz {
         }
 
         return result;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
     }
 }

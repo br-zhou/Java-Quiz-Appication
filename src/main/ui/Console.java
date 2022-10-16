@@ -23,6 +23,16 @@ public class Console extends InputOutput {
         return input.nextLine();
     }
 
+    public String getNonEmptyString() {
+        String result = "";
+
+        while (result.length() < 1) {
+            result = getString();
+        }
+
+        return result;
+    }
+
     public int getInt() {
         while (true) {
             try {

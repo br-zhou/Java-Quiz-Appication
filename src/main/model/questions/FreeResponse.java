@@ -6,15 +6,17 @@ import java.util.List;
 public class FreeResponse extends Question {
     private final List<String> keywords;
 
-    // REQUIRES: 2 < keywords size < 5, with the correct choice being the first element
-    // EFFECTS: creates a new question
+    /*
+     * REQUIRES: 2 <= keywords size <= 5
+     * EFFECTS: question prompt is set to prompt; required keywords is set to keywords
+     */
     public FreeResponse(String prompt, List<String> keywords) {
         super(prompt);
         this.keywords = keywords;
     }
 
     /*
-     * EFFECTS: returns true if input contains specific keywords TODO ass description
+     * EFFECTS: returns true if input contains required keywords
      */
     @Override
     public void attempt(InputOutput inputOutput) {

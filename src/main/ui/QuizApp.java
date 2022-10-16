@@ -74,34 +74,46 @@ public class QuizApp {
     }
 
     private List<Question> generateQuestions() {
-        List<String> questionTypes = new ArrayList<>();
         List<Question> result = new ArrayList<>();
 
-        questionTypes.add("Multiple Choice");
-        questionTypes.add("Free Response");
-
         do {
-            System.out.println("What type of question do you want?");
-
-            for (int i = 0; i < questionTypes.size(); i++) {
-                System.out.format("%s) %s\n", i + 1, questionTypes.get(i));
-            }
-
-            String choice = console.getItemFromList(questionTypes);
-
-            switch (choice) {
-                case "Multiple Choice": // TODO is this code duplication? from above?
-                    result.add(newMultipleChoiceQuestion());
-                    break;
-                case "Free Response":
-                    result.add(newFreeResponseQuestion());
-                    break;
-                default:
-                    System.out.println("ERROR: invalid question type!");
-            }
+            result.add(generateQuestion());
 
             System.out.println("Would you like to add another question?");
         } while (console.getPermission());
+
+        return result;
+    }
+
+    private Question generateQuestion() {
+        final String MULTIPLE_CHOICE_STR = "Multiple Choice";
+        final String FREE_RESPONSE_STR = "Free Response";
+
+        List<String> questionTypes = new ArrayList<>();
+        Question result;
+
+        questionTypes.add(MULTIPLE_CHOICE_STR);
+        questionTypes.add(FREE_RESPONSE_STR);
+
+        System.out.println("What type of question do you want?");
+
+        for (int i = 0; i < questionTypes.size(); i++) {
+            System.out.format("%s) %s\n", i + 1, questionTypes.get(i));
+        }
+
+        String choice = console.getItemFromList(questionTypes);
+
+        switch (choice) {
+            case MULTIPLE_CHOICE_STR:
+                result = newMultipleChoiceQuestion();
+                break;
+            case FREE_RESPONSE_STR:
+                result = newFreeResponseQuestion();
+                break;
+            default:
+                result = null;
+                System.out.println("ERROR: invalid question type!");
+        }
 
         return result;
     }
@@ -116,7 +128,7 @@ public class QuizApp {
 
     private String getQuestionPrompt() {
         System.out.println("What is your question's prompt?");
-        return console.getString();
+        return console.getNonEmptyString();
     }
 
     private List<String> getFreeResponseKeywords() {
@@ -126,7 +138,7 @@ public class QuizApp {
 
         for (int i = 0; i < numOfKeywords; i++) {
             System.out.format("Type in keyword #%s\n", i + 1);
-            result.add(console.getString());
+            result.add(console.getNonEmptyString());
         }
 
         System.out.println(result);
@@ -141,12 +153,12 @@ public class QuizApp {
         int amountOfChoices = console.getIntWithinRange(2, 5);
 
         System.out.println("Type the CORRECT answer");
-        String ans = console.getString();
+        String ans = console.getNonEmptyString();
         result.add(ans);
 
         for (int i = 0; i < amountOfChoices - 1; i++) {
             System.out.println("Type in a trick answer");
-            result.add(console.getString());
+            result.add(console.getNonEmptyString());
         }
 
         System.out.println(result);
