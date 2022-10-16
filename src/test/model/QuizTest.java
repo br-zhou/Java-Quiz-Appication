@@ -18,15 +18,19 @@ public class QuizTest {
 
     @BeforeEach
     public void runBefore() {
+        List<String> questionChoices = new ArrayList<>();
+        questionChoices.add("true");
+        questionChoices.add("false");
+
         quiz1Questions = new ArrayList<>();
-        quiz1Questions.add(new MultipleChoice("question 1", List.of("true", "false")));
+        quiz1Questions.add(new MultipleChoice("question 1", questionChoices));
 
         quiz1 = new Quiz("Quiz 1", quiz1Questions);
 
         quiz2Questions = new ArrayList<>();
-        quiz2Questions.add(new MultipleChoice("question 1", List.of("true", "false")));
-        quiz2Questions.add(new MultipleChoice("question 2", List.of("true", "false")));
-        quiz2Questions.add(new MultipleChoice("question 3", List.of("true", "false")));
+        quiz2Questions.add(new MultipleChoice("question 1", questionChoices));
+        quiz2Questions.add(new MultipleChoice("question 2", questionChoices));
+        quiz2Questions.add(new MultipleChoice("question 3", questionChoices));
 
         quiz2 = new Quiz("Quiz 2", quiz2Questions);
     }
