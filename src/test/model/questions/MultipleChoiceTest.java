@@ -5,6 +5,7 @@ import model.InputOutputForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,19 +22,21 @@ public class MultipleChoiceTest {
 
     @BeforeEach
     public void runBefore() {
-        question1Answers = List.of("correct", "incorrect");
-        question2Answers = List.of(
-                "correct",
-                "incorrect 1",
-                "incorrect 2"
-        );
-        question3Answers = List.of(
-                "correct",
-                "incorrect 1",
-                "incorrect 2",
-                "incorrect 3",
-                "incorrect 4"
-        );
+        question1Answers = new ArrayList<>();
+        question1Answers.add("correct");
+        question1Answers.add("incorrect");
+
+        question2Answers = new ArrayList<>();
+        question2Answers.add("correct");
+        question2Answers.add("incorrect 1");
+        question2Answers.add("incorrect 2");
+
+        question3Answers = new ArrayList<>();
+        question3Answers.add("correct");
+        question3Answers.add("incorrect 1");
+        question3Answers.add("incorrect 2");
+        question3Answers.add("incorrect 3");
+        question3Answers.add("incorrect 4");
 
         question1 = new MultipleChoice("Question 1", question1Answers);
         question2 = new MultipleChoice("Question 2", question2Answers);

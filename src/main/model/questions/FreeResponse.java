@@ -38,4 +38,8 @@ public class FreeResponse extends Question {
         result += "\nPlease type your answer below.";
         return result;
     }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
 }
