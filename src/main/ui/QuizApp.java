@@ -10,6 +10,7 @@ import model.questions.Question;
 import java.util.ArrayList;
 import java.util.List;
 
+// Quiz Application
 public class QuizApp {
     private final List<Quiz> quizzes;
     private final InputOutput console;

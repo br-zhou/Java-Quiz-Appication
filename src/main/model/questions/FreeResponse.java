@@ -3,6 +3,7 @@ package model.questions;
 import model.InputOutput;
 import java.util.List;
 
+// Represents a free response question, with the required keywords to make response correct
 public class FreeResponse extends Question {
     private final List<String> keywords;
 

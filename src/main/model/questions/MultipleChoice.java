@@ -5,6 +5,7 @@ import model.InputOutput;
 import java.util.Collections;
 import java.util.List;
 
+// represents a multiple choice question, with choices and a correct answer
 public class MultipleChoice extends Question {
     private final List<String> choices;
     private final String correctChoice;

@@ -2,6 +2,7 @@ package model.questions;
 
 import model.InputOutput;
 
+// represents a question, with a prompt and a variable holding whether the question was answered correctly
 public abstract class Question {
     private final String prompt;
     protected boolean correct;

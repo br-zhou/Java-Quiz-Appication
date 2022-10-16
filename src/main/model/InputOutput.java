@@ -4,6 +4,7 @@ import model.questions.Question;
 
 import java.util.List;
 
+// used to communicate between model user input
 public abstract class InputOutput {
 
     /*

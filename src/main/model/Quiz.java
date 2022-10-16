@@ -3,6 +3,7 @@ package model;
 import model.questions.*;
 import java.util.List;
 
+// represents a quiz with a quiz name and a list of questions
 public class Quiz {
     private final String name;
     private final List<Question> questions;

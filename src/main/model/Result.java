@@ -1,5 +1,6 @@
 package model;
 
+// Represents results of quizzes, with a score and maximum score
 public class Result {
     private int score;
     private final int maxScore;
