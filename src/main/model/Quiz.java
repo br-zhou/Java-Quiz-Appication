@@ -1,10 +1,14 @@
 package model;
 
 import model.questions.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistance.Writable;
+
 import java.util.List;
 
 // represents a quiz with a quiz name and a list of questions
-public class Quiz {
+public class Quiz implements Writable {
     private final String name;
     private final List<Question> questions;
 
@@ -38,5 +42,28 @@ public class Quiz {
 
     public List<Question> getQuestions() {
         return questions;
+    }
+
+    /*
+     * EFFECTS: returns quiz object as json object
+     */
+    @Override
+    public JSONObject toJson() {
+        JSONObject result = new JSONObject();
+
+        result.put("name", name);
+        result.put("questions", questionsToJson());
+
+        return result;
+    }
+
+    private JSONArray questionsToJson() {
+        JSONArray result = new JSONArray();
+
+        for (Question question : questions) {
+            result.put(question.toJson());
+        }
+
+        return result;
     }
 }

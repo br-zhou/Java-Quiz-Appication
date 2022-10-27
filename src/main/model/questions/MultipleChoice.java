@@ -1,6 +1,8 @@
 package model.questions;
 
 import model.InputOutput;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,6 +47,23 @@ public class MultipleChoice extends Question {
         }
 
         return result.toString();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject result = super.toJson();
+        result.put("correctChoice", correctChoice);
+        result.put("choices", choicesToJson());
+
+        return result;
+    }
+
+    private JSONArray choicesToJson() {
+        JSONArray result = new JSONArray();
+        for (String choice : choices) {
+            result.put(choice);
+        }
+        return result;
     }
 
     public List<String> getChoices() {

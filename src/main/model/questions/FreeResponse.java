@@ -1,6 +1,9 @@
 package model.questions;
 
 import model.InputOutput;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
 // Represents a free response question, with the required keywords to make response correct
@@ -36,6 +39,23 @@ public class FreeResponse extends Question {
     public String toString() {
         String result = super.toString();
         result += "\nPlease type your answer below.";
+        return result;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject result = super.toJson();
+
+        result.put("keywords", keywordsToJson());
+
+        return result;
+    }
+
+    private JSONArray keywordsToJson() {
+        JSONArray result = new JSONArray();
+        for (String keyword : keywords) {
+            result.put(keyword);
+        }
         return result;
     }
 

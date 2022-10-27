@@ -1,9 +1,11 @@
 package model.questions;
 
 import model.InputOutput;
+import org.json.JSONObject;
+import persistance.Writable;
 
 // represents a question, with a prompt and a variable holding whether the question was answered correctly
-public abstract class Question {
+public abstract class Question implements Writable {
     private final String prompt;
     protected boolean correct;
 
@@ -29,6 +31,14 @@ public abstract class Question {
     @Override
     public String toString() {
         return prompt;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject result = new JSONObject();
+        result.put("prompt", prompt);
+        result.put("correct", false);
+        return result;
     }
 
     public boolean isCorrect() {

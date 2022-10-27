@@ -1,19 +1,25 @@
 package ui;
 
+import exceptions.ReadErrorException;
+import exceptions.WriteErrorException;
 import model.InputOutput;
 import model.Quiz;
 import model.Result;
 import model.questions.FreeResponse;
 import model.questions.MultipleChoice;
 import model.questions.Question;
+import persistance.DataHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 // Quiz Application
 public class QuizApp {
-    private final List<Quiz> quizzes;
+    private static final String FILE_PATH = "./data/data.json";
     private final InputOutput console;
+    private final DataHandler storage;
+    private List<Quiz> quizzes;
 
     /*
      * EFFECTS: creates and runs the Quiz application
@@ -21,6 +27,13 @@ public class QuizApp {
     public QuizApp() {
         quizzes = new ArrayList<>();
         console = new Console();
+        storage = new DataHandler(FILE_PATH);
+
+        try {
+            storage.ensureFileExists();
+        } catch (IOException e) {
+            System.out.println("Error connecting to storage... Loading and saving data may not work.");
+        }
 
         System.out.println("Welcome! This is a quiz app.");
 
@@ -34,6 +47,8 @@ public class QuizApp {
      * MODIFIES: this
      * EFFECTS: processes user input
      */
+
+    @SuppressWarnings("methodlength")
     private void runApp() {
         boolean exitProgram = false;
 
@@ -49,6 +64,12 @@ public class QuizApp {
                     break;
                 case "t":
                     takeQuiz();
+                    break;
+                case "l":
+                    loadData();
+                    break;
+                case "s":
+                    saveData();
                     break;
                 case "q":
                     exitProgram = true;
@@ -66,6 +87,8 @@ public class QuizApp {
         System.out.println("select from:");
         System.out.println("    n -> new quiz");
         System.out.println("    t -> take quiz");
+        System.out.println("    l -> load data");
+        System.out.println("    s -> save data");
         System.out.println("    q -> quit");
     }
 
@@ -228,6 +251,25 @@ public class QuizApp {
         for (int i = 0; i < quizzes.size(); i++) {
             Quiz quiz = quizzes.get(i);
             System.out.println((i + 1) + ") " + quiz.getName());
+        }
+    }
+
+    // todo add comments
+    public void loadData() {
+        try {
+            quizzes = storage.retrieveData();
+            System.out.println("data retrieved from " + FILE_PATH + ".");
+        } catch (ReadErrorException e) {
+            System.out.println("An error occurred while trying to load data");
+        }
+    }
+
+    public void saveData() {
+        try {
+            storage.updateData(quizzes);
+            System.out.println("data at " + FILE_PATH + " updated.");
+        } catch (WriteErrorException e) {
+            System.out.println("An error occurred while trying to save data.");
         }
     }
 
