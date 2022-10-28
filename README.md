@@ -11,7 +11,7 @@ with my goals - doing well on my tests.
 - As a user, I want to be able to create new quizzes
 - As a user, I want to be able to add an arbitrary number of questions per quiz
 - As a user, I want the ability to save all of my quizzes to storage
-- As a user, I want the ability to retrieve all of my saved quizzes from storage
+- As a user, I want the ability to retrieve my saved quizzes from storage
 - As a user, I want to be able to have different types of question types to choose from
   when making a new question
 - As a user, I want to be able to take the quizzes I make
