@@ -1,0 +1,21 @@
+{"quizzes": [{
+  "name": "MC Quiz",
+  "questions": [
+    {
+      "type": "MultipleChoice",
+      "correctChoice": "correct",
+      "choices": [
+        "correct",
+        "incorrect",
+        "incorrect",
+        "incorrect"
+      ],
+      "prompt": "Q#1"
+    },
+    {
+      "keywords": ["key"],
+      "type": "FreeResponse",
+      "prompt": "FREE RESPONSE"
+    }
+  ]
+}]}

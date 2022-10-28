@@ -7,14 +7,16 @@ import persistance.Writable;
 // represents a question, with a prompt and a variable holding whether the question was answered correctly
 public abstract class Question implements Writable {
     private final String prompt;
+    private final String type;
     protected boolean correct;
 
     /*
      * REQUIRES: prompt cannot be an empty string
      * EFFECTS: creates a new question with the given prompt
      */
-    public Question(String prompt) {
+    public Question(String prompt, String type) {
         this.prompt = prompt;
+        this.type = type;
         this.correct = false;
     }
 
@@ -37,7 +39,7 @@ public abstract class Question implements Writable {
     public JSONObject toJson() {
         JSONObject result = new JSONObject();
         result.put("prompt", prompt);
-        result.put("correct", false);
+        result.put("type", type);
         return result;
     }
 

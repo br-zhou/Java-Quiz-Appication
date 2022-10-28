@@ -1,0 +1,35 @@
+{"quizzes": [
+    {
+        "name": "MC Quiz",
+        "questions": [
+            {
+                "type": "MultipleChoice",
+                "correctChoice": "correct",
+                "choices": [
+                    "correct",
+                    "incorrect",
+                    "incorrect",
+                    "incorrect"
+                ],
+                "prompt": "Q#1"
+            },
+            {
+                "keywords": ["key"],
+                "type": "FreeResponse",
+                "prompt": "FREE RESPONSE"
+            }
+        ]
+    },
+    {
+        "name": "Another Qui",
+        "questions": [{
+            "type": "MultipleChoice",
+            "correctChoice": "1",
+            "choices": [
+                "1",
+                "1"
+            ],
+            "prompt": "12312321"
+        }]
+    }
+]}

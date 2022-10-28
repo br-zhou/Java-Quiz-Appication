@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.CorruptDataException;
 import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
 import model.InputOutput;
@@ -258,16 +259,16 @@ public class QuizApp {
     public void loadData() {
         try {
             quizzes = storage.retrieveData();
-            System.out.println("data retrieved from " + FILE_PATH + ".");
-        } catch (ReadErrorException e) {
-            System.out.println("An error occurred while trying to load data");
+            System.out.println("data retrieved from " + FILE_PATH);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     public void saveData() {
         try {
             storage.updateData(quizzes);
-            System.out.println("data at " + FILE_PATH + " updated.");
+            System.out.println("data saved to " + FILE_PATH);
         } catch (WriteErrorException e) {
             System.out.println("An error occurred while trying to save data.");
         }

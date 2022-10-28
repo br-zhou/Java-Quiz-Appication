@@ -15,7 +15,7 @@ public class FreeResponse extends Question {
      * EFFECTS: question prompt is set to prompt; required keywords is set to keywords
      */
     public FreeResponse(String prompt, List<String> keywords) {
-        super(prompt);
+        super(prompt, "FreeResponse");
         this.keywords = keywords;
     }
 

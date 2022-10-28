@@ -17,7 +17,7 @@ public class MultipleChoice extends Question {
      * EFFECTS: creates a new multiple choice question with prompt and choices set to given arguments
      */
     public MultipleChoice(String prompt, List<String> choices) {
-        super(prompt);
+        super(prompt, "MultipleChoice");
         this.choices = choices;
         this.correctChoice = choices.get(0);
     }
