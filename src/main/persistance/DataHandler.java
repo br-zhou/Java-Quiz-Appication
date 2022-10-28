@@ -39,7 +39,6 @@ public class DataHandler {
      * MODIFIES: the file of given path
      * EFFECTS: updates file at destination with current quizzes data
      *          throws WriteErrorException if unable to update data
-     * TODO TALK ABOUT ERRORS THROWN
      */
     public void updateData(List<Quiz> quizzes) throws WriteErrorException {
         final int TAB_SIZE = 4;
@@ -55,6 +54,8 @@ public class DataHandler {
     /*
      * EFFECTS: returns quizzes data from storage,
      *          returns empty list if file doesn't exist
+     *          throws ReadErrorException if unable to read file
+     *          throws CorruptDataException if file is formatted incorrectly
      */
     public List<Quiz> retrieveData() throws ReadErrorException, CorruptDataException {
         try {
@@ -81,7 +82,7 @@ public class DataHandler {
     /*
      * EFFECTS: reads source file as string and returns it
      *          throws IOException if file does not exist
-     * this method was taken from the demo TODO is this allowed
+     * this method was taken from the demo referenced before this class's definition
      */
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
@@ -97,6 +98,7 @@ public class DataHandler {
      * REQUIRES: jsonObject must contain these keys and values:
      *      - "quizzes" : [list of quizzes that follow jsonToQuiz requirements]
      * EFFECTS: returns new Quiz object constructed from jsonObject
+     *          throws CorruptDataException if file is formatted incorrectly
     */
     private List<Quiz> jsonToQuizzes(JSONObject jsonObject) throws CorruptDataException {
         List<Quiz> result = new ArrayList<>();
@@ -115,6 +117,7 @@ public class DataHandler {
      *      - "name" : String
      *      - "questions" : [list of questions that follow jsonToQuiz requirements]
      * EFFECTS: returns new Quiz object constructed from quizJson
+     *          throws CorruptDataException if file is formatted incorrectly
      */
     private Quiz jsonToQuiz(JSONObject quizJson) throws CorruptDataException {
         String name = quizJson.getString("name");
@@ -125,6 +128,7 @@ public class DataHandler {
     /*
      * REQUIRES: questions must be an array of Questions that follow jsonToQuestion requirements
      * EFFECTS: returns new list of Questions constructed from given JSONArray
+     *          throws CorruptDataException if file is formatted incorrectly
      */
     private List<Question> jsonToQuestionList(JSONArray questions) throws CorruptDataException {
         List<Question> result = new ArrayList<>();
@@ -142,6 +146,7 @@ public class DataHandler {
      *      and must follow either jsonToMultipleChoice or jsonToFreeResponse requirements,
      *      depending on the value of "type"
      * EFFECTS: returns new Question object constructed from given JSONObject
+     *          throws CorruptDataException if file is formatted incorrectly
      */
     private Question jsonToQuestion(JSONObject question) throws CorruptDataException {
         String type = question.getString("type");
@@ -215,6 +220,7 @@ public class DataHandler {
 
     /*
      * EFFECTS: creates a new file at path file does not exist
+     *          throws IOException if unable to create file
      */
     public void ensureFileExists() throws IOException {
         File dataFile = new File(filePath);
