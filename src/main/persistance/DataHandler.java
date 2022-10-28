@@ -38,6 +38,7 @@ public class DataHandler {
     /*
      * MODIFIES: the file of given path
      * EFFECTS: updates file at destination with current quizzes data
+     *          throws WriteErrorException if unable to update data
      * TODO TALK ABOUT ERRORS THROWN
      */
     public void updateData(List<Quiz> quizzes) throws WriteErrorException {
@@ -93,7 +94,7 @@ public class DataHandler {
     }
 
     /*
-     * REQUIRES: jsonObject must be formatted as such:
+     * REQUIRES: jsonObject must contain these keys and values:
      *      - "quizzes" : [list of quizzes that follow jsonToQuiz requirements]
      * EFFECTS: returns new Quiz object constructed from jsonObject
     */
@@ -110,7 +111,7 @@ public class DataHandler {
     }
 
     /*
-     * REQUIRES: quizJson must be formatted as such:
+     * REQUIRES: quizJson must contain these keys and values:
      *      - "name" : String
      *      - "questions" : [list of questions that follow jsonToQuiz requirements]
      * EFFECTS: returns new Quiz object constructed from quizJson
@@ -136,7 +137,7 @@ public class DataHandler {
     }
 
     /*
-     * REQUIRES: question must be formatted as such:
+     * REQUIRES: question must contain these keys and values:
      *      - "type" : String
      *      and must follow either jsonToMultipleChoice or jsonToFreeResponse requirements,
      *      depending on the value of "type"
@@ -157,8 +158,10 @@ public class DataHandler {
     }
 
     /*
-     * REQUIRES: questions must be an array of Questions that follow jsonToQuestion requirements
-     * EFFECTS: returns new list of Questions constructed from given JSONArray
+     * REQUIRES: question must contain these keys and values:
+     *      - "correctChoice" : String
+     *      - "choices" : [an array of strings]
+     * EFFECTS: returns new MultipleChoice object constructed from given JSONObject
      */
     private MultipleChoice jsonToMultipleChoice(JSONObject question, String prompt) {
         String correctChoice = question.getString("correctChoice");
@@ -170,11 +173,20 @@ public class DataHandler {
         return new MultipleChoice(prompt, choices);
     }
 
+    /*
+     * REQUIRES: question must contain these keys and values:
+     *      - "keywords" : [an array of strings]
+     * EFFECTS: returns new MultipleChoice object constructed from given JSONObject
+     */
     private FreeResponse jsonToFreeResponse(JSONObject question, String prompt) {
         ArrayList<String> keywords = jsonToStringList(question.getJSONArray("keywords"));
         return new FreeResponse(prompt, keywords);
     }
 
+    /*
+     * REQUIRES: given JSONArray must only contain Strings:
+     * EFFECTS: returns an ArrayList constructed from given JSONObject
+     */
     private ArrayList<String> jsonToStringList(JSONArray array) {
         ArrayList<String> result = new ArrayList<>();
 
@@ -205,9 +217,9 @@ public class DataHandler {
      * EFFECTS: creates a new file at path file does not exist
      */
     public void ensureFileExists() throws IOException {
-        File newFile = new File(filePath);
-        if (!newFile.exists()) {
-            newFile.createNewFile();
+        File dataFile = new File(filePath);
+        if (!dataFile.exists()) {
+            dataFile.createNewFile();
         }
     }
 }

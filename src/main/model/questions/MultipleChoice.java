@@ -58,6 +58,9 @@ public class MultipleChoice extends Question {
         return result;
     }
 
+    /*
+     * EFFECTS: returns choices list in JsonArray format
+     */
     private JSONArray choicesToJson() {
         JSONArray result = new JSONArray();
         for (String choice : choices) {

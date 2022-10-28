@@ -255,7 +255,11 @@ public class QuizApp {
         }
     }
 
-    // todo add comments
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads quizzes from storage
+     *          prints warning if unable to load resource
+     */
     public void loadData() {
         try {
             quizzes = storage.retrieveData();
@@ -265,6 +269,11 @@ public class QuizApp {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: saves quizzes to storage
+     *          prints warning if unable to save resource
+     */
     public void saveData() {
         try {
             storage.updateData(quizzes);

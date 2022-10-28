@@ -51,6 +51,9 @@ public class FreeResponse extends Question {
         return result;
     }
 
+    /*
+     * EFFECTS: Returns keywords list in JsonArray format
+     */
     private JSONArray keywordsToJson() {
         JSONArray result = new JSONArray();
         for (String keyword : keywords) {

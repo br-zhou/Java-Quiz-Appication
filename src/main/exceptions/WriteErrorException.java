@@ -1,4 +1,4 @@
 package exceptions;
 
-public class WriteErrorException extends Exception{
+public class WriteErrorException extends Exception {
 }
