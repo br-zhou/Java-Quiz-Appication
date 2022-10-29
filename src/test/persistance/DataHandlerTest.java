@@ -21,8 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DataHandlerTest {
     static final String TEST_EMPTY_FILE_PATH = "./data/testEmptyFile.json";
     static final String TEST_QUESTIONS_PROMPT = "this is a question prompt";
-    static final String QUIZ_1_NAME = "Quiz 1";
-    static final String QUIZ_2_NAME = "Quiz 2";
 
     DataHandler emptyFile;
     DataHandler invalidFile;
@@ -75,10 +73,9 @@ public class DataHandlerTest {
 
     @Test
     public void testUpdateData() {
-        DataHandler file = new DataHandler("./data/file.json");
-
+        DataHandler file = new DataHandler("./data/testFile.json");
         List<Quiz> quizzes = createQuizList1();
-        JSONObject importedQuizzesJson;
+
         try {
             file.updateData(quizzes);
             assertTrue(equalQuizList(quizzes, file.retrieveData()));
@@ -92,18 +89,16 @@ public class DataHandlerTest {
         } catch (WriteErrorException e) {
             // this passes
         }
-
     }
 
     @Test
     public void testRetrieveData() {
         DataHandler storedData = new DataHandler("./data/testRetrieveData.json");
+        List<Quiz> quizzes = createQuizList1();
 
         try {
-            List<Quiz> storeQuizzes = storedData.retrieveData();
-
-
-
+            storedData.updateData(quizzes);
+            assertTrue(equalQuizList(quizzes, storedData.retrieveData()));
         } catch (Exception e) {
             fail("Error occurred while running testUpdateData");
         }
@@ -124,26 +119,27 @@ public class DataHandlerTest {
 
     }
 
+    // EFFECTS: returns a new list of Quizzes
     private List<Quiz> createQuizList1() {
         List<Quiz> result = new ArrayList<>();
 
-        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
-        result.add(new Quiz(QUIZ_2_NAME, createQuestionList2()));
+        result.add(new Quiz("Quiz 1", createQuestionList1()));
+        result.add(new Quiz("Quiz 2", createQuestionList2()));
 
         return result;
     }
 
+    // EFFECTS: returns a new list of Quizzes
     private List<Quiz> createQuizList2() {
         List<Quiz> result = new ArrayList<>();
 
-        result.add(new Quiz(QUIZ_2_NAME, createQuestionList2()));
-        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
-        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
-        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
+        result.add(new Quiz("Quiz 1", createQuestionList1()));
+        result.add(new Quiz("Quiz 2", createQuestionList2()));
 
         return result;
     }
 
+    // EFFECTS: returns a new list of Questions
     private List<Question> createQuestionList1() {
         List<Question> result = new ArrayList<>();
 
@@ -160,18 +156,24 @@ public class DataHandlerTest {
         return result;
     }
 
+    // EFFECTS: returns a new list of Questions
     private List<Question> createQuestionList2() {
         List<Question> result = new ArrayList<>();
 
         MultipleChoice multipleChoice2 = new MultipleChoice(TEST_QUESTIONS_PROMPT, createMultipleChoiceAnswers2());
+        MultipleChoice multipleChoice1 = new MultipleChoice(TEST_QUESTIONS_PROMPT, createMultipleChoiceAnswers1());
         FreeResponse freeResponse2 = new FreeResponse(TEST_QUESTIONS_PROMPT, createKeywords2());
+        FreeResponse freeResponse1 = new FreeResponse(TEST_QUESTIONS_PROMPT, createKeywords1());
 
+        result.add(multipleChoice1);
+        result.add(freeResponse1);
         result.add(multipleChoice2);
         result.add(freeResponse2);
 
         return result;
     }
 
+    // EFFECTS: returns a new list of Strings
     private List<String> createMultipleChoiceAnswers1() {
         List<String> result = new ArrayList<>();
         result.add("true");
@@ -179,6 +181,7 @@ public class DataHandlerTest {
         return result;
     }
 
+    // EFFECTS: returns a new list of Strings
     private List<String> createMultipleChoiceAnswers2() {
         List<String> result = new ArrayList<>();
         result.add("correct answer");
@@ -189,12 +192,14 @@ public class DataHandlerTest {
         return result;
     }
 
+    // EFFECTS: returns a new list of Strings
     private List<String> createKeywords1() {
         List<String> result = new ArrayList<>();
         result.add("keyword");
         return result;
     }
 
+    // EFFECTS: returns a new list of Strings
     private List<String> createKeywords2() {
         List<String> result = new ArrayList<>();
         result.add("apple");
@@ -203,6 +208,7 @@ public class DataHandlerTest {
         return result;
     }
 
+    // returns whether Quiz List a has the same values as Quiz list b
     private boolean equalQuizList(List<Quiz> a, List<Quiz> b) {
         if (a.size() != b.size()) {
             return false;
@@ -217,6 +223,7 @@ public class DataHandlerTest {
         return true;
     }
 
+    // returns whether Quiz a has the same values as Quiz b
     private boolean equalQuizzes(Quiz a, Quiz b) {
         if (a.getQuestions().size() != b.getQuestions().size()) {
             return false;
@@ -235,6 +242,7 @@ public class DataHandlerTest {
         return true;
     }
 
+    // returns whether Question a has the same values as Question b
     private boolean equalQuestions(Question a, Question b) {
         if (!a.getPrompt().equals(b.getPrompt())) {
             return false;
@@ -254,14 +262,17 @@ public class DataHandlerTest {
         }
     }
 
+    // returns whether MultipleChoice Question a has the same values as Question b
     private boolean equalMultipleChoiceQuestions(MultipleChoice a, MultipleChoice b) {
         return equalArrayList(a.getChoices(), b.getChoices());
     }
 
+    // returns whether FreeResponse Question a has the same values as Question b
     private boolean equalFreeResponseQuestions(FreeResponse a, FreeResponse b) {
         return equalArrayList(a.getKeywords(), b.getKeywords());
     }
 
+    // returns whether String List a has the same values as String List b
     private boolean equalArrayList(List<String> a, List<String>  b) {
         if (a.size() != b.size()) {
             return false;

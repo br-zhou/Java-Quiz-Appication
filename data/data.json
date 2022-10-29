@@ -1,35 +1,45 @@
 {"quizzes": [
     {
-        "name": "MC Quiz",
+        "name": "Quiz 1",
         "questions": [
             {
                 "type": "MultipleChoice",
-                "correctChoice": "correct",
+                "correctChoice": "true",
                 "choices": [
-                    "correct",
-                    "incorrect",
-                    "incorrect",
-                    "incorrect"
+                    "true",
+                    "false"
                 ],
-                "prompt": "Q#1"
+                "prompt": "prompt"
             },
             {
-                "keywords": ["key"],
+                "keywords": [
+                    "key1",
+                    "key2"
+                ],
                 "type": "FreeResponse",
-                "prompt": "FREE RESPONSE"
+                "prompt": "prompt"
             }
         ]
     },
     {
-        "name": "Another Qui",
-        "questions": [{
-            "type": "MultipleChoice",
-            "correctChoice": "1",
-            "choices": [
-                "1",
-                "1"
-            ],
-            "prompt": "12312321"
-        }]
+        "name": "Quiz 2",
+        "questions": [
+            {
+                "keywords": ["key"],
+                "type": "FreeResponse",
+                "prompt": "prompt"
+            },
+            {
+                "type": "MultipleChoice",
+                "correctChoice": "true",
+                "choices": [
+                    "true",
+                    "false",
+                    "false",
+                    "false"
+                ],
+                "prompt": "prompt"
+            }
+        ]
     }
 ]}
