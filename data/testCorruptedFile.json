@@ -1,0 +1,19 @@
+{"quizzes": [
+  {
+    "name": "Quiz 1",
+    "questions": [
+      {
+        "type": "CORRUPTION",
+        "correctChoice": "true",
+        "choices": [
+          "true",
+          "false"
+        ],
+        "prompt": "this is a question prompt"
+      }
+    ]
+  },
+  {
+
+  }
+]}

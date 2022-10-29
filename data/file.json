@@ -1,0 +1,66 @@
+{"quizzes": [
+    {
+        "name": "Quiz 1",
+        "questions": [
+            {
+                "type": "MultipleChoice",
+                "correctChoice": "true",
+                "choices": [
+                    "true",
+                    "false"
+                ],
+                "prompt": "this is a question prompt"
+            },
+            {
+                "keywords": ["keyword"],
+                "type": "FreeResponse",
+                "prompt": "this is a question prompt"
+            },
+            {
+                "type": "MultipleChoice",
+                "correctChoice": "correct answer",
+                "choices": [
+                    "correct answer",
+                    "incorrect answer #1",
+                    "incorrect answer #2",
+                    "incorrect answer #3"
+                ],
+                "prompt": "this is a question prompt"
+            },
+            {
+                "keywords": [
+                    "apple",
+                    "peach",
+                    "banana"
+                ],
+                "type": "FreeResponse",
+                "prompt": "this is a question prompt"
+            }
+        ]
+    },
+    {
+        "name": "Quiz 2",
+        "questions": [
+            {
+                "type": "MultipleChoice",
+                "correctChoice": "correct answer",
+                "choices": [
+                    "correct answer",
+                    "incorrect answer #1",
+                    "incorrect answer #2",
+                    "incorrect answer #3"
+                ],
+                "prompt": "this is a question prompt"
+            },
+            {
+                "keywords": [
+                    "apple",
+                    "peach",
+                    "banana"
+                ],
+                "type": "FreeResponse",
+                "prompt": "this is a question prompt"
+            }
+        ]
+    }
+]}

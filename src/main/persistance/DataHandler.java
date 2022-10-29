@@ -1,6 +1,5 @@
 package persistance;
 
-import exceptions.CorruptDataException;
 import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
 import model.Quiz;
@@ -8,6 +7,7 @@ import model.questions.FreeResponse;
 import model.questions.MultipleChoice;
 import model.questions.Question;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -57,7 +57,7 @@ public class DataHandler {
      *          throws ReadErrorException if unable to read file
      *          throws CorruptDataException if file is formatted incorrectly
      */
-    public List<Quiz> retrieveData() throws ReadErrorException, CorruptDataException {
+    public List<Quiz> retrieveData() throws ReadErrorException {
         try {
             String stringData = readFile(filePath);
             JSONObject jsonData = new JSONObject(stringData);
@@ -100,7 +100,7 @@ public class DataHandler {
      * EFFECTS: returns new Quiz object constructed from jsonObject
      *          throws CorruptDataException if file is formatted incorrectly
     */
-    private List<Quiz> jsonToQuizzes(JSONObject jsonObject) throws CorruptDataException {
+    private List<Quiz> jsonToQuizzes(JSONObject jsonObject) {
         List<Quiz> result = new ArrayList<>();
         JSONArray quizzesJsonArray = jsonObject.getJSONArray("quizzes");
 
@@ -119,7 +119,7 @@ public class DataHandler {
      * EFFECTS: returns new Quiz object constructed from quizJson
      *          throws CorruptDataException if file is formatted incorrectly
      */
-    private Quiz jsonToQuiz(JSONObject quizJson) throws CorruptDataException {
+    private Quiz jsonToQuiz(JSONObject quizJson) {
         String name = quizJson.getString("name");
         JSONArray questionsJson = quizJson.getJSONArray("questions");
         return new Quiz(name, jsonToQuestionList(questionsJson));
@@ -130,7 +130,7 @@ public class DataHandler {
      * EFFECTS: returns new list of Questions constructed from given JSONArray
      *          throws CorruptDataException if file is formatted incorrectly
      */
-    private List<Question> jsonToQuestionList(JSONArray questions) throws CorruptDataException {
+    private List<Question> jsonToQuestionList(JSONArray questions) {
         List<Question> result = new ArrayList<>();
         for (Object json : questions) {
             JSONObject questionJson = (JSONObject) json;
@@ -148,7 +148,7 @@ public class DataHandler {
      * EFFECTS: returns new Question object constructed from given JSONObject
      *          throws CorruptDataException if file is formatted incorrectly
      */
-    private Question jsonToQuestion(JSONObject question) throws CorruptDataException {
+    private Question jsonToQuestion(JSONObject question) {
         String type = question.getString("type");
         String prompt = question.getString("prompt");
 
@@ -158,7 +158,7 @@ public class DataHandler {
             case "FreeResponse":
                 return jsonToFreeResponse(question, prompt);
             default:
-                throw new CorruptDataException();
+                throw new JSONException("Question type is incorrect");
         }
     }
 

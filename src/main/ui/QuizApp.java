@@ -1,6 +1,5 @@
 package ui;
 
-import exceptions.CorruptDataException;
 import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
 import model.InputOutput;
@@ -42,7 +41,6 @@ public class QuizApp {
 
         System.out.println("Bye! (and good luck on your tests!)");
     }
-
 
     /*
      * MODIFIES: this
