@@ -219,13 +219,24 @@ public class DataHandler {
     }
 
     /*
-     * EFFECTS: creates a new file at path file does not exist
+     * EFFECTS: creates a new file at path if file does not exist
      *          throws IOException if unable to create file
      */
     public void ensureFileExists() throws IOException {
         File dataFile = new File(filePath);
         if (!dataFile.exists()) {
             dataFile.createNewFile();
+        }
+    }
+
+    /*
+     * EFFECTS: deletes file at path if file exists
+     *          throws IOException if unable to delete file
+     */
+    public void deleteFile() throws IOException {
+        File dataFile = new File(filePath);
+        if (dataFile.exists()) {
+            dataFile.delete();
         }
     }
 }
