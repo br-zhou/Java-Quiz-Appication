@@ -6,16 +6,15 @@ import model.Quiz;
 import model.questions.FreeResponse;
 import model.questions.MultipleChoice;
 import model.questions.Question;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,14 +27,12 @@ public class DataHandlerTest {
     DataHandler emptyFile;
     DataHandler invalidFile;
     DataHandler corruptFile;
-    DataHandler file1;
 
     @BeforeEach
     public void runBefore() {
         emptyFile = new DataHandler(TEST_EMPTY_FILE_PATH);
         invalidFile = new DataHandler("/c/tmp/home");
         corruptFile = new DataHandler("./data/testCorruptedFile.json");
-        file1 = new DataHandler("./data/file.json");
     }
 
     @Test
@@ -78,13 +75,13 @@ public class DataHandlerTest {
 
     @Test
     public void testUpdateData() {
-        List<Quiz> quizzes = createQuizList();
-        JSONObject rawQuizzesJson = convertQuizzesToJsonObject(quizzes);
+        DataHandler file = new DataHandler("./data/file.json");
+
+        List<Quiz> quizzes = createQuizList1();
         JSONObject importedQuizzesJson;
         try {
-            file1.updateData(quizzes);
-            importedQuizzesJson = convertQuizzesToJsonObject(file1.retrieveData());
-            assertEquals(rawQuizzesJson.toString(), importedQuizzesJson.toString());
+            file.updateData(quizzes);
+            assertTrue(equalQuizList(quizzes, file.retrieveData()));
         } catch (Exception e) {
             fail("Error occurred while running testUpdateData");
         }
@@ -103,15 +100,9 @@ public class DataHandlerTest {
         DataHandler storedData = new DataHandler("./data/testRetrieveData.json");
 
         try {
-            List<Quiz> quizzes = storedData.retrieveData();
+            List<Quiz> storeQuizzes = storedData.retrieveData();
 
-            assertEquals(2, quizzes.size());
 
-            Quiz quiz = quizzes.get(0);
-
-            List<Question> questions = quiz.getQuestions();
-
-            assertEquals(2, questions.size());
 
         } catch (Exception e) {
             fail("Error occurred while running testUpdateData");
@@ -133,12 +124,22 @@ public class DataHandlerTest {
 
     }
 
-
-    private List<Quiz> createQuizList() {
+    private List<Quiz> createQuizList1() {
         List<Quiz> result = new ArrayList<>();
 
         result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
         result.add(new Quiz(QUIZ_2_NAME, createQuestionList2()));
+
+        return result;
+    }
+
+    private List<Quiz> createQuizList2() {
+        List<Quiz> result = new ArrayList<>();
+
+        result.add(new Quiz(QUIZ_2_NAME, createQuestionList2()));
+        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
+        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
+        result.add(new Quiz(QUIZ_1_NAME, createQuestionList1()));
 
         return result;
     }
@@ -202,17 +203,77 @@ public class DataHandlerTest {
         return result;
     }
 
-    private JSONObject convertQuizzesToJsonObject(List<Quiz> quizzes) {
-        JSONObject result = new JSONObject();
-        JSONArray quizzesJson = new JSONArray();
-
-        for (Quiz quiz : quizzes) {
-            quizzesJson.put(quiz.toJson());
+    private boolean equalQuizList(List<Quiz> a, List<Quiz> b) {
+        if (a.size() != b.size()) {
+            return false;
         }
 
-        result.put("quizzes", quizzesJson);
+        for (int i = 0; i < a.size(); i++) {
+            if (!equalQuizzes(a.get(i), b.get(i))) {
+                return false;
+            }
+        }
 
-        return result;
+        return true;
+    }
+
+    private boolean equalQuizzes(Quiz a, Quiz b) {
+        if (a.getQuestions().size() != b.getQuestions().size()) {
+            return false;
+        }
+
+        if (!a.getName().equals(b.getName())) {
+            return false;
+        }
+
+        for (int i = 0; i < a.getQuestions().size(); i++) {
+            if(!equalQuestions(a.getQuestions().get(i), b.getQuestions().get(i))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean equalQuestions(Question a, Question b) {
+        if (!a.getPrompt().equals(b.getPrompt())) {
+            return false;
+        }
+
+        if (!a.getType().equals(b.getType())) {
+            return false;
+        }
+
+        switch (a.getType()) {
+            case "MultipleChoice":
+                return equalMultipleChoiceQuestions((MultipleChoice) a, (MultipleChoice) b);
+            case "FreeResponse":
+                return equalFreeResponseQuestions((FreeResponse) a, (FreeResponse) b);
+            default:
+                return false;
+        }
+    }
+
+    private boolean equalMultipleChoiceQuestions(MultipleChoice a, MultipleChoice b) {
+        return equalArrayList(a.getChoices(), b.getChoices());
+    }
+
+    private boolean equalFreeResponseQuestions(FreeResponse a, FreeResponse b) {
+        return equalArrayList(a.getKeywords(), b.getKeywords());
+    }
+
+    private boolean equalArrayList(List<String> a, List<String>  b) {
+        if (a.size() != b.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < a.size(); i++) {
+            if (!Objects.equals(a.get(i), b.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

@@ -47,6 +47,10 @@ public abstract class Question implements Writable {
         return correct;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public String getPrompt() {
         return prompt;
     }
