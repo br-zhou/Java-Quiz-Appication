@@ -36,7 +36,7 @@ public class SwingGui extends JFrame {
     }
 
     public static int centerY(int height) {
-        return (HEIGHT - height * 2) / 2;
+        return (HEIGHT - height - 40) / 2;
     }
 
     public static void newPopup(String message) {

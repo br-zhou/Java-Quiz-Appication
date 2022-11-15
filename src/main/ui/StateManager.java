@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.util.HashMap;
 
 public class StateManager {
-    State currentState;
-    HashMap<String, State> stateHash;
+    GuiState currentState;
+    HashMap<String, GuiState> stateHash;
 
     StateManager(JFrame jframe) {
         stateHash = new HashMap<>();
@@ -14,12 +14,12 @@ public class StateManager {
         addState("New Quiz", new NewQuizState(jframe, this));
     }
 
-    void setInitialState(State state) {
+    void setInitialState(GuiState state) {
         currentState = state;
         currentState.loadState();
     }
 
-    public void addState(String name, State state) {
+    public void addState(String name, GuiState state) {
         stateHash.put(name, state);
 
         if (stateHash.size() == 1) {
@@ -29,6 +29,7 @@ public class StateManager {
 
     public void gotoState(String name) {
         currentState.unloadState();
-        stateHash.get(name).loadState();
+        currentState = stateHash.get(name);
+        currentState.loadState();
     }
 }

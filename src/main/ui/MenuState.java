@@ -3,19 +3,17 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuState extends State {
-    JFrame jframe;
-    StateManager stateManager;
+public class MenuState extends GuiState {
     JButton newQuizButton;
     JButton takeQuizButton;
     JButton loadDataButton;
     JButton saveDataButton;
+    JButton backToMenuButton;
     JLabel titleLabel;
     JLabel titleImage;
 
     public MenuState(JFrame jframe, StateManager stateManager) {
-        this.jframe = jframe;
-        this.stateManager = stateManager;
+        super(jframe, stateManager);
 
         makeMenuButtons();
         makeTitle();
@@ -25,21 +23,15 @@ public class MenuState extends State {
     }
 
     @Override
-    public void loadState() {
-        setContentVisibility(true);
-    }
-
-    @Override
-    public void unloadState() {
-        setContentVisibility(false);
-    }
-
     public void setContentVisibility(boolean value) {
         newQuizButton.setVisible(value);
         takeQuizButton.setVisible(value);
         loadDataButton.setVisible(value);
         saveDataButton.setVisible(value);
         titleLabel.setVisible(value);
+        titleImage.setVisible(value);
+
+        backToMenuButton.setVisible(!value);
     }
 
     void makeMenuButtons() {
@@ -47,6 +39,7 @@ public class MenuState extends State {
         takeQuizButton = generateMenuButton("Take Quiz", 50);
         loadDataButton = generateMenuButton("Load Data", 100);
         saveDataButton = generateMenuButton("Save Data", 150);
+        backToMenuButton = generateBackButton();
     }
 
     void makeTitle() {
@@ -65,7 +58,7 @@ public class MenuState extends State {
         final int WIDTH = (int)(500 * SCALE);
         final int HEIGHT = (int)(295 * SCALE);
         final int OFFSET_X = 0;
-        final int OFFSET_Y = -145;
+        final int OFFSET_Y = -160;
         ImageIcon image = new ImageIcon("./src/main/ui/img/star.gif");
         Image scaleImage = image.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT);
 
@@ -80,7 +73,6 @@ public class MenuState extends State {
         );
 
         jframe.add(titleImage);
-
     }
 
     void addEvenListeners() {
@@ -89,11 +81,15 @@ public class MenuState extends State {
         });
 
         loadDataButton.addActionListener(e -> {
-            SwingGui.newPopup("Data NOT loaded hehe!");
+            SwingGui.newPopup("Data loaded successfully!");
         });
 
         saveDataButton.addActionListener(e -> {
-            SwingGui.newPopup("Data NOT save hehe!");
+            SwingGui.newPopup("Data saved successfully!");
+        });
+
+        backToMenuButton.addActionListener(e -> {
+            stateManager.gotoState("Menu");
         });
     }
 
@@ -103,6 +99,20 @@ public class MenuState extends State {
 
         JButton result = new JButton(text);
         result.setBounds(SwingGui.centerX(WIDTH),  SwingGui.centerY(HEIGHT) + centerOffsetY, WIDTH, HEIGHT);
+
+        result.setBackground(new Color(252, 186, 3));
+
+        jframe.add(result);
+
+        return result;
+    }
+
+    JButton generateBackButton() {
+        final int WIDTH = 150;
+        final int HEIGHT = 40;
+
+        JButton result = new JButton("Back to Menu");
+        result.setBounds(SwingGui.centerX(WIDTH) + 400,  SwingGui.centerY(HEIGHT) + 200, WIDTH, HEIGHT);
 
         result.setBackground(new Color(252, 186, 3));
 
