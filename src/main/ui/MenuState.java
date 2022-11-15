@@ -11,6 +11,7 @@ public class MenuState extends State {
     JButton loadDataButton;
     JButton saveDataButton;
     JLabel titleLabel;
+    JLabel titleImage;
 
     public MenuState(JFrame jframe, StateManager stateManager) {
         this.jframe = jframe;
@@ -18,6 +19,7 @@ public class MenuState extends State {
 
         makeMenuButtons();
         makeTitle();
+        makeTitleImage();
         addEvenListeners();
         setContentVisibility(false);
     }
@@ -56,6 +58,29 @@ public class MenuState extends State {
         titleLabel.setBounds(SwingGui.centerX(WIDTH),  SwingGui.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
 
         jframe.add(titleLabel);
+    }
+
+    void makeTitleImage() {
+        final double SCALE = 0.3;
+        final int WIDTH = (int)(500 * SCALE);
+        final int HEIGHT = (int)(295 * SCALE);
+        final int OFFSET_X = 0;
+        final int OFFSET_Y = -145;
+        ImageIcon image = new ImageIcon("./src/main/ui/img/star.gif");
+        Image scaleImage = image.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT);
+
+        titleImage = new JLabel();
+        titleImage.setIcon(new ImageIcon(scaleImage));
+
+        titleImage.setBounds(
+                SwingGui.centerX(WIDTH) + OFFSET_X,
+                SwingGui.centerY(HEIGHT) + OFFSET_Y,
+                WIDTH,
+                HEIGHT
+        );
+
+        jframe.add(titleImage);
+
     }
 
     void addEvenListeners() {
