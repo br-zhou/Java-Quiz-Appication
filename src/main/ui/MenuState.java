@@ -48,9 +48,13 @@ public class MenuState extends State {
     }
 
     void makeTitle() {
-        titleLabel = new JLabel();
-        titleLabel.setText("HIdddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-        jframe.revalidate();
+        final int WIDTH = 500;
+        final int HEIGHT = 50;
+
+        titleLabel = new JLabel("JAVA QUIZ APPLICATION", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
+        titleLabel.setBounds(SwingGui.centerX(WIDTH),  SwingGui.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
+
         jframe.add(titleLabel);
     }
 
