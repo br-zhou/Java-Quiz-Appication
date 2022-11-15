@@ -22,6 +22,13 @@ public class QuizApp {
     private List<Quiz> quizzes;
 
     /*
+     * EFFECTS: starts application
+     */
+    public static void main(String[] args) {
+        new QuizApp();
+    }
+
+    /*
      * EFFECTS: creates and runs the Quiz application
      */
     public QuizApp() {

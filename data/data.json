@@ -1,44 +1,46 @@
 {"quizzes": [
     {
-        "name": "Quiz 1",
+        "name": "Brian's Quiz",
         "questions": [
             {
-                "type": "MultipleChoice",
-                "correctChoice": "true",
-                "choices": [
-                    "true",
-                    "false"
-                ],
-                "prompt": "prompt"
+                "keywords": ["blue"],
+                "type": "FreeResponse",
+                "prompt": "What is the color of the sky"
             },
             {
-                "keywords": [
-                    "key1",
-                    "key2"
+                "type": "MultipleChoice",
+                "correctChoice": "1",
+                "choices": [
+                    "1",
+                    "2",
+                    "4"
                 ],
-                "type": "FreeResponse",
-                "prompt": "prompt"
+                "prompt": "Which is a prime"
             }
         ]
     },
     {
-        "name": "Quiz 2",
+        "name": "Mazen's Quiz",
         "questions": [
             {
-                "keywords": ["key"],
-                "type": "FreeResponse",
-                "prompt": "prompt"
+                "type": "MultipleChoice",
+                "correctChoice": "320",
+                "choices": [
+                    "320",
+                    "110",
+                    "313",
+                    "221"
+                ],
+                "prompt": "Which course is the most painpul cs course"
             },
             {
-                "type": "MultipleChoice",
-                "correctChoice": "true",
-                "choices": [
-                    "true",
-                    "false",
-                    "false",
-                    "false"
+                "keywords": [
+                    "philly",
+                    "madona",
+                    "mazen"
                 ],
-                "prompt": "prompt"
+                "type": "FreeResponse",
+                "prompt": "who's the best TA"
             }
         ]
     }
