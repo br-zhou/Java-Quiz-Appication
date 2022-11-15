@@ -1,21 +1,16 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
-
 
 public class SwingGui extends JFrame {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 500;
 
     private StateManager stateManager;
-    private State menuState;
 
     public SwingGui() {
         initializeJFrame();
-        menuState = new MenuState(this);
-
-        stateManager = new StateManager(menuState);
+        initializeStates();
     }
 
     void initializeJFrame() {
@@ -32,6 +27,10 @@ public class SwingGui extends JFrame {
         setVisible(true);
     }
 
+    void initializeStates() {
+        stateManager = new StateManager(this);
+    }
+
     public static int centerX(int width) {
         return (WIDTH - width) / 2;
     }
@@ -40,4 +39,7 @@ public class SwingGui extends JFrame {
         return (HEIGHT - height * 2) / 2;
     }
 
+    public static void newPopup(String message) {
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.NO_OPTION);
+    }
 }
