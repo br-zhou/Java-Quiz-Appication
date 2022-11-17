@@ -1,5 +1,7 @@
 package ui;
 
+import ui.states.StateManager;
+
 import javax.swing.*;
 
 public abstract class GuiState {

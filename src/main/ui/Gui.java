@@ -1,14 +1,18 @@
 package ui;
 
-import javax.swing.*;
+import ui.states.StateManager;
 
-public class SwingGui extends JFrame {
+import javax.swing.*;
+import java.awt.*;
+
+public class Gui extends JFrame {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 500;
+    public static final int TITLE_BAR_BIAS = 40;
 
     private StateManager stateManager;
 
-    public SwingGui() {
+    public Gui() {
         initializeJFrame();
         initializeStates();
     }
@@ -41,5 +45,23 @@ public class SwingGui extends JFrame {
 
     public static void newPopup(String message) {
         JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.NO_OPTION);
+    }
+
+    public static void applyCustomButtonStyle(JButton btn) {
+        btn.setBackground(new Color(252, 186, 3));
+        removeButtonOutline(btn);
+    }
+
+    public static void removeButtonOutline(JButton btn) {
+        btn.setBorderPainted(false);
+        btn.setFocusPainted(false);
+
+    }
+
+    public static JPanel newEmptyPanel(JFrame jframe) {
+        JPanel panel = new JPanel(null);
+        panel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
+        jframe.add(panel);
+        return panel;
     }
 }

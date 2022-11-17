@@ -1,4 +1,8 @@
-package ui;
+package ui.states;
+
+import ui.GuiState;
+import ui.states.MenuState;
+import ui.states.NewQuizState;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -7,7 +11,7 @@ public class StateManager {
     GuiState currentState;
     HashMap<String, GuiState> stateHash;
 
-    StateManager(JFrame jframe) {
+    public StateManager(JFrame jframe) {
         stateHash = new HashMap<>();
 
         addState("Menu", new MenuState(jframe, this));

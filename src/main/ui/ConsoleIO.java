@@ -6,13 +6,13 @@ import model.questions.Question;
 import java.util.Scanner;
 
 // Gets user input from console
-public class Console extends InputOutput {
+public class ConsoleIO extends InputOutput {
     private final Scanner input;
 
     /*
      * EFFECTS: creates a new InputOutput based on the console
      */
-    public Console() {
+    public ConsoleIO() {
         input = new Scanner(System.in);
     }
 

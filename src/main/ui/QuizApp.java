@@ -1,6 +1,5 @@
 package ui;
 
-import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
 import model.InputOutput;
 import model.Quiz;
@@ -33,7 +32,7 @@ public class QuizApp {
      */
     public QuizApp() {
         quizzes = new ArrayList<>();
-        console = new Console();
+        console = new ConsoleIO();
         storage = new DataHandler(FILE_PATH);
 
         try {

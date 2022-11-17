@@ -1,4 +1,7 @@
-package ui;
+package ui.states;
+
+import ui.Gui;
+import ui.GuiState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +51,7 @@ public class MenuState extends GuiState {
 
         titleLabel = new JLabel("JAVA QUIZ APPLICATION", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
-        titleLabel.setBounds(SwingGui.centerX(WIDTH),  SwingGui.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
+        titleLabel.setBounds(Gui.centerX(WIDTH),  Gui.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
 
         jframe.add(titleLabel);
     }
@@ -66,8 +69,8 @@ public class MenuState extends GuiState {
         titleImage.setIcon(new ImageIcon(scaleImage));
 
         titleImage.setBounds(
-                SwingGui.centerX(WIDTH) + OFFSET_X,
-                SwingGui.centerY(HEIGHT) + OFFSET_Y,
+                Gui.centerX(WIDTH) + OFFSET_X,
+                Gui.centerY(HEIGHT) + OFFSET_Y,
                 WIDTH,
                 HEIGHT
         );
@@ -81,11 +84,11 @@ public class MenuState extends GuiState {
         });
 
         loadDataButton.addActionListener(e -> {
-            SwingGui.newPopup("Data loaded successfully!");
+            Gui.newPopup("Data loaded successfully!");
         });
 
         saveDataButton.addActionListener(e -> {
-            SwingGui.newPopup("Data saved successfully!");
+            Gui.newPopup("Data saved successfully!");
         });
 
         backToMenuButton.addActionListener(e -> {
@@ -98,9 +101,9 @@ public class MenuState extends GuiState {
         final int HEIGHT = 40;
 
         JButton result = new JButton(text);
-        result.setBounds(SwingGui.centerX(WIDTH),  SwingGui.centerY(HEIGHT) + centerOffsetY, WIDTH, HEIGHT);
+        result.setBounds(Gui.centerX(WIDTH),  Gui.centerY(HEIGHT) + centerOffsetY, WIDTH, HEIGHT);
 
-        result.setBackground(new Color(252, 186, 3));
+        Gui.applyCustomButtonStyle(result);
 
         jframe.add(result);
 
@@ -112,10 +115,11 @@ public class MenuState extends GuiState {
         final int HEIGHT = 40;
 
         JButton result = new JButton("Back to Menu");
-        result.setBounds(SwingGui.centerX(WIDTH) + 400,  SwingGui.centerY(HEIGHT) + 200, WIDTH, HEIGHT);
+        result.setBounds(25,  Gui.HEIGHT - Gui.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
+        Gui.removeButtonOutline(result);
 
-        result.setBackground(new Color(252, 186, 3));
-
+        result.setForeground(Color.white);
+        result.setBackground(new Color(0x5A5A5A));
         jframe.add(result);
 
         return result;
