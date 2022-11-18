@@ -1,5 +1,6 @@
 package ui.states;
 
+import exceptions.WriteErrorException;
 import model.AppLogic;
 import ui.Gui;
 
@@ -7,55 +8,102 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuState extends GuiState {
-    JButton newQuizButton;
-    JButton takeQuizButton;
-    JButton loadDataButton;
-    JButton saveDataButton;
+    JPanel mainPanel;
     JButton backToMenuButton;
-    JLabel titleLabel;
-    JLabel titleImage;
+
 
     public MenuState(JFrame jframe, StateManager stateManager, AppLogic actions) {
         super(jframe, stateManager, actions);
 
+        createMainPanel();
         makeMenuButtons();
         makeTitle();
         makeTitleImage();
-        addEvenListeners();
         setContentVisibility(false);
     }
 
+    // Toggles visibility of content
     @Override
     public void setContentVisibility(boolean value) {
-        newQuizButton.setVisible(value);
-        takeQuizButton.setVisible(value);
-        loadDataButton.setVisible(value);
-        saveDataButton.setVisible(value);
-        titleLabel.setVisible(value);
-        titleImage.setVisible(value);
+        mainPanel.setVisible(value);
 
         backToMenuButton.setVisible(!value);
     }
 
+    // EFFECTS: create all menu buttons
     void makeMenuButtons() {
-        newQuizButton = generateMenuButton("New Quiz", 0);
-        takeQuizButton = generateMenuButton("Take Quiz", 50);
-        loadDataButton = generateMenuButton("Load Data", 100);
-        saveDataButton = generateMenuButton("Save Data", 150);
-        backToMenuButton = generateBackButton();
+        makeNewQuizBtn();
+        makeTakeQuizBtn();
+        makeLoadDataBtn();
+        makeSaveDataBtn();
+        makeBackToMenuBtn();
     }
 
+    // EFFECTS: makes panel where all other elements sit in
+    void createMainPanel() {
+        mainPanel = new JPanel(null);
+        mainPanel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
+        jframe.add(mainPanel);
+    }
+
+    // EFFECTS: makes and adds title to panel
     void makeTitle() {
         final int WIDTH = 500;
         final int HEIGHT = 50;
 
-        titleLabel = new JLabel("JAVA QUIZ APPLICATION", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("JAVA QUIZ APPLICATION", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
         titleLabel.setBounds(Gui.centerX(WIDTH),  Gui.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
 
-        jframe.add(titleLabel);
+        mainPanel.add(titleLabel);
     }
 
+    // EFFECTS: makes and gives functionality to new quiz button
+    void makeNewQuizBtn() {
+        JButton btn = generateMenuButton("New Quiz", 0);
+
+        btn.addActionListener(e -> {
+            stateManager.gotoState("New Quiz");
+        });
+    }
+
+    // EFFECTS: makes and gives functionality to take quiz button
+    void makeTakeQuizBtn() {
+        JButton btn = generateMenuButton("Take Quiz", 50);
+
+        btn.addActionListener(e -> {
+            Gui.newPopup("Functionality not added. (Not required)");
+        });
+    }
+
+    // EFFECTS: makes and gives functionality to load data button
+    void makeLoadDataBtn() {
+        JButton btn = generateMenuButton("Load Data", 100);
+
+        btn.addActionListener(e -> {
+            loadData();
+        });
+    }
+
+    // EFFECTS: makes and gives functionality to back to save data button
+    void makeSaveDataBtn() {
+        JButton btn = generateMenuButton("Save Data", 150);
+
+        btn.addActionListener(e -> {
+            saveData();
+        });
+    }
+
+    // EFFECTS: makes and gives functionality to back to menu button
+    void makeBackToMenuBtn() {
+        backToMenuButton = generateBackButton();
+
+        backToMenuButton.addActionListener(e -> {
+            stateManager.gotoState("Menu");
+        });
+    }
+
+    // EFFECTS: creates and adds image to panel
     void makeTitleImage() {
         final double SCALE = 0.3;
         final int WIDTH = (int)(500 * SCALE);
@@ -65,7 +113,7 @@ public class MenuState extends GuiState {
         ImageIcon image = new ImageIcon("./src/main/ui/img/star.gif");
         Image scaleImage = image.getImage().getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT);
 
-        titleImage = new JLabel();
+        JLabel titleImage = new JLabel();
         titleImage.setIcon(new ImageIcon(scaleImage));
 
         titleImage.setBounds(
@@ -75,27 +123,10 @@ public class MenuState extends GuiState {
                 HEIGHT
         );
 
-        jframe.add(titleImage);
+        mainPanel.add(titleImage);
     }
 
-    void addEvenListeners() {
-        newQuizButton.addActionListener(e -> {
-            stateManager.gotoState("New Quiz");
-        });
-
-        loadDataButton.addActionListener(e -> {
-            Gui.newPopup("Data loaded successfully!");
-        });
-
-        saveDataButton.addActionListener(e -> {
-            Gui.newPopup("Data saved successfully!");
-        });
-
-        backToMenuButton.addActionListener(e -> {
-            stateManager.gotoState("Menu");
-        });
-    }
-
+    // EFFECTS: creates, adds to panel, and returns new menu
     JButton generateMenuButton(String text, int centerOffsetY) {
         final int WIDTH = 250;
         final int HEIGHT = 40;
@@ -105,11 +136,12 @@ public class MenuState extends GuiState {
 
         Gui.applyCustomButtonStyle(result);
 
-        jframe.add(result);
+        mainPanel.add(result);
 
         return result;
     }
 
+    // EFFECTS: creates, adds to panel, and returns new back button
     JButton generateBackButton() {
         final int WIDTH = 150;
         final int HEIGHT = 40;
@@ -123,5 +155,35 @@ public class MenuState extends GuiState {
         jframe.add(result);
 
         return result;
+    }
+
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: saves quizzes to storage
+     *          gives popup warning if unable to save resource
+     */
+    void saveData() {
+        try {
+            actions.updateData();
+            Gui.newPopup("Data saved successfully!");
+        } catch (WriteErrorException e) {
+            Gui.newPopup("An error occurred while trying to save data.");
+
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads quizzes from storage
+     *          gives popup warning if unable to load resource
+     */
+    public void loadData() {
+        try {
+            actions.retrieveData();
+            Gui.newPopup("Data saved successfully!");
+        } catch (Exception e) {
+            Gui.newPopup("An error occurred while trying to load data.");
+        }
     }
 }

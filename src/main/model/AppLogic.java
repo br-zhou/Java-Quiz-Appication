@@ -35,7 +35,7 @@ public class AppLogic {
         return quizzes;
     }
 
-    public Quiz getQuiz(int index) {
+    public Quiz getQuizAtIndex(int index) {
         return quizzes.get(index);
     }
 
@@ -44,7 +44,7 @@ public class AppLogic {
      * EFFECTS: updates file at destination with current quizzes data
      *          throws WriteErrorException if unable to update data
      */
-    public void updateData(List<Quiz> quizzes) throws WriteErrorException {
+    public void updateData() throws WriteErrorException {
         dataHandler.updateData(quizzes);
     }
 
@@ -54,8 +54,8 @@ public class AppLogic {
      *          throws ReadErrorException if unable to read file
      *          throws CorruptDataException if file is formatted incorrectly
      */
-    public List<Quiz> retrieveData() throws ReadErrorException {
-        return dataHandler.retrieveData();
+    public void retrieveData() throws ReadErrorException {
+        quizzes = dataHandler.retrieveData();
     }
 
 }

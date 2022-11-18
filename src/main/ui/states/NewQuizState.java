@@ -23,7 +23,9 @@ public class NewQuizState extends GuiState {
         listContent = new DefaultListModel<>();
 
 
-        for (int i = 0; i < 10; i++) listContent.addElement("Question #" + i);
+        for (int i = 0; i < 10; i++) {
+            listContent.addElement("Question #" + i);
+        }
 
         createGuiElements();
         addEventListeners();
