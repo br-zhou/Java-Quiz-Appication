@@ -55,13 +55,5 @@ public class Gui extends JFrame {
     public static void removeButtonOutline(JButton btn) {
         btn.setBorderPainted(false);
         btn.setFocusPainted(false);
-
-    }
-
-    public static JPanel newEmptyPanel(JFrame jframe) {
-        JPanel panel = new JPanel(null);
-        panel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
-        jframe.add(panel);
-        return panel;
     }
 }

@@ -13,6 +13,9 @@ public class NewQuizState extends GuiState {
     JList<String> questionsList;
     DefaultListModel<String> listContent;
     JPanel questionsListPanel;
+    JPanel mainBodyPanel;
+    JTextField promptInput;
+    JTextArea responseInput;
 
 
     public NewQuizState(JFrame jframe, StateManager stateManager) {
@@ -31,10 +34,12 @@ public class NewQuizState extends GuiState {
     public void setContentVisibility(boolean value) {
         newQuizBtn.setVisible(value);
         questionsListPanel.setVisible(value);
+        mainBodyPanel.setVisible(value);
     }
 
     void createGuiElements() {
         newQuizBtn = generateBackToMenuButton();
+        mainBodyPanel = makeMainBodyPanel();
         questionsListPanel = makeQuestionsListPanel();
     }
 
@@ -52,7 +57,9 @@ public class NewQuizState extends GuiState {
     }
 
     JPanel makeQuestionsListPanel() {
-        JPanel panel = Gui.newEmptyPanel(jframe);
+        JPanel panel = new JPanel(null);
+        panel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
+        jframe.add(panel);
 
         questionsList = makeQuestionsJList();
         JScrollPane scrollPane = new JScrollPane(questionsList,
@@ -123,6 +130,52 @@ public class NewQuizState extends GuiState {
 
         jframe.add(result);
 
+        return result;
+    }
+
+    JPanel makeMainBodyPanel() {
+        JPanel panel = new JPanel(null);
+        panel.setBounds(60,60,700, 300);
+        jframe.add(panel);
+
+        panel.add(makePromptLabel());
+
+        promptInput = generatePromptInput();
+        panel.add(promptInput);
+
+        responseInput = generateResponseInput();
+        panel.add(responseInput);
+
+        panel.add(makeResponseLabel());
+
+        return panel;
+    }
+
+    JLabel makePromptLabel() {
+        JLabel promptLabel = new JLabel("Prompt:");
+        promptLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+        promptLabel.setBounds(0,0, 150,40);
+
+        return promptLabel;
+    }
+
+    JTextField generatePromptInput() {
+        JTextField result = new JTextField();
+        result.setBounds(0,50, 500, 40);
+        return result;
+    }
+
+    JLabel makeResponseLabel() {
+        JLabel promptLabel = new JLabel("Keywords: (separate keywords by newline)");
+        promptLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
+        promptLabel.setBounds(0,100, 500,40);
+
+        return promptLabel;
+    }
+
+    JTextArea generateResponseInput() {
+        JTextArea result = new JTextArea();
+        result.setBounds(0,150, 500, 150);
         return result;
     }
 
