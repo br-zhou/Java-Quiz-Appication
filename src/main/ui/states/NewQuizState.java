@@ -1,7 +1,6 @@
 package ui.states;
 
 import ui.Gui;
-import ui.GuiState;
 
 import javax.swing.*;
 import java.awt.*;

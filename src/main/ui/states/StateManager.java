@@ -1,9 +1,5 @@
 package ui.states;
 
-import ui.GuiState;
-import ui.states.MenuState;
-import ui.states.NewQuizState;
-
 import javax.swing.*;
 import java.util.HashMap;
 

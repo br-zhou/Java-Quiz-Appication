@@ -1,4 +1,4 @@
-package ui;
+package ui.states;
 
 import ui.states.StateManager;
 

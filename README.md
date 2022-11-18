@@ -16,6 +16,9 @@ with my goals - doing well on my tests.
   when making a new question
 - As a user, I want to be able to take the quizzes I make
 - As a user, I want to be able to edit the quizzes I make
+- As a user, I want to be able to add multiple questions to a quiz through the GUI
+- As a user, I want to be able to edit existing quizzes through the GUI
+- As a user, I want to be able to load and save the state of the application through the GUI
 
 ### Credit:
 I took inspiration from the TellerApp reference project when designing my application.
