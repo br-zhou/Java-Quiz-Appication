@@ -1,6 +1,6 @@
 package model.questions;
 
-import model.InputOutput;
+import ui.InputOutput;
 import org.json.JSONObject;
 import persistance.Writable;
 

@@ -1,7 +1,6 @@
 package ui;
 
 import exceptions.WriteErrorException;
-import model.InputOutput;
 import model.Quiz;
 import model.Result;
 import model.questions.FreeResponse;

@@ -1,6 +1,7 @@
 package model;
 
 import model.questions.Question;
+import ui.InputOutput;
 
 public class InputOutputForTests extends InputOutput {
         @Override
@@ -17,7 +18,6 @@ public class InputOutputForTests extends InputOutput {
         public String getNonEmptyString() {
             return "abc";
         }
-
         @Override
         public int getInt() {
             return 1;

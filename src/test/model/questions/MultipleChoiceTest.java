@@ -1,6 +1,6 @@
 package model.questions;
 
-import model.InputOutput;
+import ui.InputOutput;
 import model.InputOutputForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

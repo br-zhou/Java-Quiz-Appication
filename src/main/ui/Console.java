@@ -1,6 +1,5 @@
 package ui;
 
-import model.InputOutput;
 import model.questions.Question;
 
 import java.util.Scanner;
