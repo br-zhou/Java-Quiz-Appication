@@ -1,5 +1,6 @@
 package ui.states;
 
+import model.AppLogic;
 import ui.Gui;
 
 import javax.swing.*;
@@ -14,8 +15,8 @@ public class MenuState extends GuiState {
     JLabel titleLabel;
     JLabel titleImage;
 
-    public MenuState(JFrame jframe, StateManager stateManager) {
-        super(jframe, stateManager);
+    public MenuState(JFrame jframe, StateManager stateManager, AppLogic actions) {
+        super(jframe, stateManager, actions);
 
         makeMenuButtons();
         makeTitle();

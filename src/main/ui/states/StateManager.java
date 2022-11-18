@@ -1,5 +1,7 @@
 package ui.states;
 
+import model.AppLogic;
+
 import javax.swing.*;
 import java.util.HashMap;
 
@@ -7,11 +9,11 @@ public class StateManager {
     GuiState currentState;
     HashMap<String, GuiState> stateHash;
 
-    public StateManager(JFrame jframe) {
+    public StateManager(JFrame jframe, AppLogic actions) {
         stateHash = new HashMap<>();
 
-        addState("Menu", new MenuState(jframe, this));
-        addState("New Quiz", new NewQuizState(jframe, this));
+        addState("Menu", new MenuState(jframe, this, actions));
+        addState("New Quiz", new NewQuizState(jframe, this, actions));
     }
 
     void setInitialState(GuiState state) {

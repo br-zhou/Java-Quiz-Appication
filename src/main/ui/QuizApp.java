@@ -32,7 +32,7 @@ public class QuizApp {
      */
     public QuizApp() {
         quizzes = new ArrayList<>();
-        console = new ConsoleIO();
+        console = new Console();
         storage = new DataHandler(FILE_PATH);
 
         try {

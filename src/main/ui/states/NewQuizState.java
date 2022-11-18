@@ -1,5 +1,6 @@
 package ui.states;
 
+import model.AppLogic;
 import ui.Gui;
 
 import javax.swing.*;
@@ -17,8 +18,8 @@ public class NewQuizState extends GuiState {
     JTextArea responseInput;
 
 
-    public NewQuizState(JFrame jframe, StateManager stateManager) {
-        super(jframe, stateManager);
+    public NewQuizState(JFrame jframe, StateManager stateManager, AppLogic actions) {
+        super(jframe, stateManager, actions);
         listContent = new DefaultListModel<>();
 
 

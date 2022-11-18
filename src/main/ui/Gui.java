@@ -1,18 +1,21 @@
 package ui;
 
+import model.AppLogic;
 import ui.states.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Gui extends JFrame {
+    private static final String FILE_PATH = "./data/gui-data.json";
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 500;
     public static final int TITLE_BAR_BIAS = 40;
 
-    private StateManager stateManager;
+    private final AppLogic actions;
 
     public Gui() {
+        actions = new AppLogic(FILE_PATH);
         initializeJFrame();
         initializeStates();
     }
@@ -32,7 +35,7 @@ public class Gui extends JFrame {
     }
 
     void initializeStates() {
-        stateManager = new StateManager(this);
+        new StateManager(this, actions);
     }
 
     public static int centerX(int width) {
@@ -44,7 +47,7 @@ public class Gui extends JFrame {
     }
 
     public static void newPopup(String message) {
-        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.NO_OPTION);
+        JOptionPane.showMessageDialog(null, message, "Message", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void applyCustomButtonStyle(JButton btn) {
