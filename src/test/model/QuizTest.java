@@ -64,4 +64,35 @@ public class QuizTest {
         quiz2Questions.get(0).setCorrect(true);
         assertEquals(3, quiz2.getResult().getScore());
     }
+
+    @Test
+    public void testAddQestion() {
+    List<Question> testQuestions = QuizTemplateMaker.createQuestionList1();
+        quiz1.addQuestion(testQuestions.get(0));
+
+        assertEquals(2, quiz1.getQuestions().size());
+
+        assertEquals(testQuestions.get(0), quiz1.getQuestions().get(1));
+
+        quiz1.addQuestion(testQuestions.get(1));
+
+        assertEquals(3, quiz1.getQuestions().size());
+        assertEquals(testQuestions.get(1), quiz1.getQuestions().get(2));
+    }
+
+    @Test
+    public void testDeleteQuestion() {
+        Question deleteQuestion = quiz2Questions.get(0);
+        quiz2.deleteQuestion(deleteQuestion);
+
+        assertEquals(2, quiz2.getQuestions().size());
+        assertFalse(quiz2.getQuestions().get(0) == deleteQuestion);
+        assertFalse(quiz2.getQuestions().get(1) == deleteQuestion);
+
+        Question deleteQuestion2 = quiz2Questions.get(0);
+        quiz2.deleteQuestion(deleteQuestion2);
+
+        assertEquals(1, quiz2.getQuestions().size());
+        assertFalse(quiz2.getQuestions().get(0) == deleteQuestion2);
+    }
 }
