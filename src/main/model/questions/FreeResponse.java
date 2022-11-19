@@ -8,7 +8,7 @@ import java.util.List;
 
 // Represents a free response question, with the required keywords to make response correct
 public class FreeResponse extends Question {
-    private final List<String> keywords;
+    private List<String> keywords;
 
     /*
      * REQUIRES: 1 <= keywords size <= 10
@@ -64,5 +64,9 @@ public class FreeResponse extends Question {
 
     public List<String> getKeywords() {
         return keywords;
+    }
+
+    public void setKeywords(List<String> newKeywords) {
+        keywords = newKeywords;
     }
 }

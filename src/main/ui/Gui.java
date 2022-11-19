@@ -1,6 +1,6 @@
 package ui;
 
-import model.AppLogic;
+import model.AppFunctions;
 import ui.states.StateManager;
 
 import javax.swing.*;
@@ -12,15 +12,17 @@ public class Gui extends JFrame {
     public static final int HEIGHT = 500;
     public static final int TITLE_BAR_BIAS = 40;
 
-    private final AppLogic actions;
+    private final AppFunctions actions;
 
     public Gui() {
-        actions = new AppLogic(FILE_PATH);
-        initializeJFrame();
-        initializeStates();
+        actions = new AppFunctions(FILE_PATH);
+        loadJFrame();
+        loadStates();
+
+        setVisible(true);
     }
 
-    void initializeJFrame() {
+    void loadJFrame() {
         setLayout(null);
         setTitle("Java Quiz App");
         setSize(WIDTH,HEIGHT);
@@ -30,11 +32,9 @@ public class Gui extends JFrame {
 
         ImageIcon image = new ImageIcon("./src/main/ui/img/thumbnail.png");
         setIconImage(image.getImage());
-
-        setVisible(true);
     }
 
-    void initializeStates() {
+    void loadStates() {
         new StateManager(this, actions);
     }
 

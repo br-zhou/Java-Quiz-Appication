@@ -2,20 +2,16 @@ package model;
 
 import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
-import model.Quiz;
-import org.json.JSONObject;
 import persistance.DataHandler;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppLogic {
+public class AppFunctions {
     private List<Quiz> quizzes;
     private DataHandler dataHandler;
 
-    public AppLogic(String filePath) {
+    public AppFunctions(String filePath) {
         quizzes = new ArrayList<>();
         dataHandler = new DataHandler(filePath);
     }
@@ -44,7 +40,7 @@ public class AppLogic {
      * EFFECTS: updates file at destination with current quizzes data
      *          throws WriteErrorException if unable to update data
      */
-    public void updateData() throws WriteErrorException {
+    public void pushDataToStorage() throws WriteErrorException {
         dataHandler.updateData(quizzes);
     }
 
@@ -54,7 +50,7 @@ public class AppLogic {
      *          throws ReadErrorException if unable to read file
      *          throws CorruptDataException if file is formatted incorrectly
      */
-    public void retrieveData() throws ReadErrorException {
+    public void pullDataFromStorage() throws ReadErrorException {
         quizzes = dataHandler.retrieveData();
     }
 

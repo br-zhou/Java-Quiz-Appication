@@ -1,16 +1,15 @@
 package ui.states;
 
-import model.AppLogic;
-import ui.states.StateManager;
+import model.AppFunctions;
 
 import javax.swing.*;
 
 public abstract class GuiState {
     protected JFrame jframe;
     protected StateManager stateManager;
-    protected AppLogic actions;
+    protected AppFunctions actions;
 
-    public GuiState(JFrame jframe, StateManager stateManager, AppLogic actions) {
+    public GuiState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
         this.jframe = jframe;
         this.stateManager = stateManager;
         this.actions = actions;

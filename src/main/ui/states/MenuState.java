@@ -1,7 +1,7 @@
 package ui.states;
 
 import exceptions.WriteErrorException;
-import model.AppLogic;
+import model.AppFunctions;
 import ui.Gui;
 
 import javax.swing.*;
@@ -11,8 +11,7 @@ public class MenuState extends GuiState {
     JPanel mainPanel;
     JButton backToMenuButton;
 
-
-    public MenuState(JFrame jframe, StateManager stateManager, AppLogic actions) {
+    public MenuState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
         super(jframe, stateManager, actions);
 
         createMainPanel();
@@ -63,7 +62,8 @@ public class MenuState extends GuiState {
         JButton btn = generateMenuButton("New Quiz", 0);
 
         btn.addActionListener(e -> {
-            stateManager.gotoState("New Quiz");
+            stateManager.setEditingQuizTarget(null);
+            stateManager.gotoState(StateManager.State.EDIT_QUIZ);
         });
     }
 
@@ -99,7 +99,7 @@ public class MenuState extends GuiState {
         backToMenuButton = generateBackButton();
 
         backToMenuButton.addActionListener(e -> {
-            stateManager.gotoState("Menu");
+            stateManager.gotoState(StateManager.State.MENU);
         });
     }
 
@@ -165,7 +165,7 @@ public class MenuState extends GuiState {
      */
     void saveData() {
         try {
-            actions.updateData();
+            actions.pushDataToStorage();
             Gui.newPopup("Data saved successfully!");
         } catch (WriteErrorException e) {
             Gui.newPopup("An error occurred while trying to save data.");
@@ -180,7 +180,7 @@ public class MenuState extends GuiState {
      */
     public void loadData() {
         try {
-            actions.retrieveData();
+            actions.pullDataFromStorage();
             Gui.newPopup("Data saved successfully!");
         } catch (Exception e) {
             Gui.newPopup("An error occurred while trying to load data.");

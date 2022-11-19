@@ -1,19 +1,30 @@
 package ui.states;
 
-import model.AppLogic;
+import model.AppFunctions;
+import model.Quiz;
 
 import javax.swing.*;
 import java.util.HashMap;
 
 public class StateManager {
+    public enum State {
+        MENU,
+        EDIT_QUIZ
+    }
+
     GuiState currentState;
-    HashMap<String, GuiState> stateHash;
+    HashMap<Enum<?>, GuiState> stateHash;
 
-    public StateManager(JFrame jframe, AppLogic actions) {
+    MenuState menuState;
+    EditQuizState editQuizState;
+
+    public StateManager(JFrame jframe, AppFunctions actions) {
         stateHash = new HashMap<>();
+        menuState = new MenuState(jframe, this, actions);
+        editQuizState = new EditQuizState(jframe, this, actions);
 
-        addState("Menu", new MenuState(jframe, this, actions));
-        addState("New Quiz", new NewQuizState(jframe, this, actions));
+        addState(State.MENU, menuState);
+        addState(State.EDIT_QUIZ, editQuizState);
     }
 
     void setInitialState(GuiState state) {
@@ -21,7 +32,7 @@ public class StateManager {
         currentState.loadState();
     }
 
-    public void addState(String name, GuiState state) {
+    public void addState(State name, GuiState state) {
         stateHash.put(name, state);
 
         if (stateHash.size() == 1) {
@@ -29,9 +40,13 @@ public class StateManager {
         }
     }
 
-    public void gotoState(String name) {
+    public void gotoState(State name) {
         currentState.unloadState();
         currentState = stateHash.get(name);
         currentState.loadState();
+    }
+
+    public void setEditingQuizTarget(Quiz quiz) {
+        editQuizState.setTargetQuiz(quiz);
     }
 }

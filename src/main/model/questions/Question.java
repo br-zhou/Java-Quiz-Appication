@@ -6,7 +6,7 @@ import persistance.Writable;
 
 // represents a question, with a prompt and a variable holding whether the question was answered correctly
 public abstract class Question implements Writable {
-    private final String prompt;
+    private String prompt;
     private final String type;
     protected boolean correct;
 
@@ -60,5 +60,9 @@ public abstract class Question implements Writable {
      */
     public void setCorrect(boolean value) {
         this.correct = value;
+    }
+
+    public void setPrompt(String str) {
+        this.prompt = str;
     }
 }

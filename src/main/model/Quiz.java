@@ -66,4 +66,12 @@ public class Quiz implements Writable {
 
         return result;
     }
+
+    public void addQuestion(Question question) {
+        questions.add(question);
+    }
+
+    public void deleteQuestion(Question question) {
+        questions.remove(question);
+    }
 }
