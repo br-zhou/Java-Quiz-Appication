@@ -1,6 +1,5 @@
 package ui;
 
-import model.AppFunctions;
 import ui.states.StateManager;
 
 import javax.swing.*;
@@ -12,10 +11,10 @@ public class Gui extends JFrame {
     public static final int HEIGHT = 500;
     public static final int TITLE_BAR_BIAS = 40;
 
-    private final AppFunctions actions;
+    private final GuiAppFunctions actions;
 
     public Gui() {
-        actions = new AppFunctions(FILE_PATH);
+        actions = new GuiAppFunctions(FILE_PATH);
         loadJFrame();
         loadStates();
 

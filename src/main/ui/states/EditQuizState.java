@@ -1,6 +1,6 @@
 package ui.states;
 
-import model.AppFunctions;
+import ui.GuiAppFunctions;
 import model.Quiz;
 import model.questions.FreeResponse;
 import model.questions.Question;
@@ -27,7 +27,7 @@ public class EditQuizState extends GuiState {
     Quiz targetQuiz;
     Question targetQuestion;
 
-    public EditQuizState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
+    public EditQuizState(JFrame jframe, StateManager stateManager, GuiAppFunctions actions) {
         super(jframe, stateManager, actions);
         listContent = new DefaultListModel<>();
 

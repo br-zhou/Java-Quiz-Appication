@@ -1,6 +1,6 @@
 package ui.states;
 
-import model.AppFunctions;
+import ui.GuiAppFunctions;
 import model.Quiz;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class StateManager {
     EditQuizState editQuizState;
     ShowQuizzesState showQuizzesState;
 
-    public StateManager(JFrame jframe, AppFunctions actions) {
+    public StateManager(JFrame jframe, GuiAppFunctions actions) {
         stateHash = new HashMap<>();
         menuState = new MenuState(jframe, this, actions);
         editQuizState = new EditQuizState(jframe, this, actions);

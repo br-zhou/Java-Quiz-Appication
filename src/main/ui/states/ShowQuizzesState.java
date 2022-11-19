@@ -1,12 +1,11 @@
 package ui.states;
 
-import model.AppFunctions;
+import ui.GuiAppFunctions;
 import model.Quiz;
 import ui.Gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class ShowQuizzesState extends GuiState {
     JButton selectQuizBtn;
@@ -15,7 +14,7 @@ public class ShowQuizzesState extends GuiState {
     JPanel mainBodyPanel;
     JList<String> list;
 
-    public ShowQuizzesState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
+    public ShowQuizzesState(JFrame jframe, StateManager stateManager, GuiAppFunctions actions) {
         super(jframe, stateManager, actions);
         listContent = new DefaultListModel<>();
 

@@ -1,17 +1,18 @@
-package model;
+package ui;
 
 import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
+import model.Quiz;
 import persistance.DataHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppFunctions {
+public class GuiAppFunctions {
     private List<Quiz> quizzes;
     private DataHandler dataHandler;
 
-    public AppFunctions(String filePath) {
+    public GuiAppFunctions(String filePath) {
         quizzes = new ArrayList<>();
         dataHandler = new DataHandler(filePath);
     }

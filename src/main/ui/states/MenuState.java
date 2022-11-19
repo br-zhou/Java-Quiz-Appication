@@ -1,7 +1,7 @@
 package ui.states;
 
 import exceptions.WriteErrorException;
-import model.AppFunctions;
+import ui.GuiAppFunctions;
 import ui.Gui;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ public class MenuState extends GuiState {
     JPanel mainPanel;
     JButton backToMenuButton;
 
-    public MenuState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
+    public MenuState(JFrame jframe, StateManager stateManager, GuiAppFunctions actions) {
         super(jframe, stateManager, actions);
 
         createMainPanel();
