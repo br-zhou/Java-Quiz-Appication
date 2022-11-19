@@ -48,6 +48,7 @@ public class EditQuizState extends GuiState {
     public void loadState() {
         if (targetQuiz == null) {
             targetQuiz = newTemplateQuiz();
+            actions.addQuiz(targetQuiz);
         }
         redrawQuestionListGui();
         list.setSelectedIndex(0);
@@ -280,7 +281,7 @@ public class EditQuizState extends GuiState {
         ArrayList<Question> questionsList = new ArrayList<>();
         questionsList.add(newTemplateQuestion());
 
-        return new Quiz("New Quiz", questionsList);
+        return new Quiz("Quiz #" + (actions.getQuizzes().size() + 1), questionsList);
     }
 
     Question newTemplateQuestion() {

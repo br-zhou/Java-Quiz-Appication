@@ -9,7 +9,8 @@ import java.util.HashMap;
 public class StateManager {
     public enum State {
         MENU,
-        EDIT_QUIZ
+        EDIT_QUIZ,
+        SHOW_QUIZZES
     }
 
     GuiState currentState;
@@ -17,14 +18,17 @@ public class StateManager {
 
     MenuState menuState;
     EditQuizState editQuizState;
+    ShowQuizzesState showQuizzesState;
 
     public StateManager(JFrame jframe, AppFunctions actions) {
         stateHash = new HashMap<>();
         menuState = new MenuState(jframe, this, actions);
         editQuizState = new EditQuizState(jframe, this, actions);
+        showQuizzesState = new ShowQuizzesState(jframe, this, actions);
 
         addState(State.MENU, menuState);
         addState(State.EDIT_QUIZ, editQuizState);
+        addState(State.SHOW_QUIZZES, showQuizzesState);
     }
 
     void setInitialState(GuiState state) {

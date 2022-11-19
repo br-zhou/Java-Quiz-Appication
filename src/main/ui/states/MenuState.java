@@ -32,7 +32,7 @@ public class MenuState extends GuiState {
     // EFFECTS: create all menu buttons
     void makeMenuButtons() {
         makeNewQuizBtn();
-        makeTakeQuizBtn();
+        makeEditQuizBtn();
         makeLoadDataBtn();
         makeSaveDataBtn();
         makeBackToMenuBtn();
@@ -68,11 +68,17 @@ public class MenuState extends GuiState {
     }
 
     // EFFECTS: makes and gives functionality to take quiz button
-    void makeTakeQuizBtn() {
-        JButton btn = generateMenuButton("Take Quiz", 50);
+    void makeEditQuizBtn() {
+        JButton btn = generateMenuButton("Edit Quiz", 50);
 
         btn.addActionListener(e -> {
-            Gui.newPopup("Functionality not added. (Not required)");
+            if (actions.getQuizzes().size() > 0) {
+                stateManager.gotoState(StateManager.State.SHOW_QUIZZES);
+            } else {
+                Gui.newPopup("You don't have any quizzes to edit!");
+            }
+
+
         });
     }
 
