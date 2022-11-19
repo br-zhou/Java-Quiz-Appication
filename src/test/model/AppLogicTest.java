@@ -2,20 +2,19 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.GuiAppFunctions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AppLogicTest {
-    GuiAppFunctions invalidAppActions;
-    GuiAppFunctions corruptAppActions;
-    GuiAppFunctions defaultAppActions;
+    AppFunctions invalidAppActions;
+    AppFunctions corruptAppActions;
+    AppFunctions defaultAppActions;
 
     @BeforeEach
     void runBefore() {
-        invalidAppActions = new GuiAppFunctions("/c/tmp/home");
-        corruptAppActions = new GuiAppFunctions("./data/testCorruptedFile.json");
-        defaultAppActions = new GuiAppFunctions("./data/testFile.json");
+        invalidAppActions = new AppFunctions("/c/tmp/home");
+        corruptAppActions = new AppFunctions("./data/testCorruptedFile.json");
+        defaultAppActions = new AppFunctions("./data/testFile.json");
     }
 
     @Test
