@@ -31,6 +31,10 @@ public class AppFunctions {
         return quizzes;
     }
 
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+
     public Quiz getQuizAtIndex(int index) {
         return quizzes.get(index);
     }

@@ -69,12 +69,14 @@ public class AppLogicTest {
 
     @Test
     public void testUpdateData() {
-        DataHandler file = new DataHandler("./data/testFile.json");
+        AppFunctions file = new AppFunctions("./data/testFile.json");
         List<Quiz> quizzes = createQuizList1();
 
         try {
-            file.updateData(quizzes);
-            assertTrue(equalQuizList(quizzes, file.retrieveData()));
+            file.setQuizzes(quizzes);
+            file.pushDataToStorage();
+            file.pullDataFromStorage();
+            assertTrue(equalQuizList(quizzes,file.getQuizzes()));
         } catch (Exception e) {
             fail("Error occurred while running testUpdateData");
         }
@@ -89,12 +91,14 @@ public class AppLogicTest {
 
     @Test
     public void testRetrieveData() {
-        DataHandler storedData = new DataHandler("./data/testRetrieveData.json");
+        AppFunctions file = new AppFunctions("./data/testFile.json");
         List<Quiz> quizzes = createQuizList1();
 
         try {
-            storedData.updateData(quizzes);
-            assertTrue(equalQuizList(quizzes, storedData.retrieveData()));
+            file.setQuizzes(quizzes);
+            file.pushDataToStorage();
+            file.pullDataFromStorage();
+            assertTrue(equalQuizList(quizzes,file.getQuizzes()));
         } catch (Exception e) {
             fail("Error occurred while running testUpdateData");
         }

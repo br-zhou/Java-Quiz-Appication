@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// State for editing Quizzes
 public class EditQuizState extends GuiState {
     JButton saveChangesBtn;
     JButton newQuestionBtn;
@@ -27,6 +28,9 @@ public class EditQuizState extends GuiState {
     Quiz targetQuiz;
     Question targetQuestion;
 
+    /*
+     * EFFECTS: constructs new Editing Quiz state, along with associated GUI
+     */
     public EditQuizState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
         super(jframe, stateManager, actions);
         listContent = new DefaultListModel<>();
@@ -37,6 +41,10 @@ public class EditQuizState extends GuiState {
         setContentVisibility(false);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: sets visibility of GUI associated with EditQuizState to 'value'
+     */
     @Override
     public void setContentVisibility(boolean value) {
         saveChangesBtn.setVisible(value);
@@ -44,6 +52,10 @@ public class EditQuizState extends GuiState {
         mainBodyPanel.setVisible(value);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: renders state GUI
+     */
     @Override
     public void loadState() {
         if (targetQuiz == null) {
@@ -57,6 +69,10 @@ public class EditQuizState extends GuiState {
         super.loadState();
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates question list to display latest content
+     */
     void redrawQuestionListGui() {
         List<Question> listQuestions = targetQuiz.getQuestions();
 
@@ -68,11 +84,22 @@ public class EditQuizState extends GuiState {
         selectQuestionInList(targetQuiz.getQuestions().size() - 1);
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: tells state which item is selected from Questoin list
+     */
     void selectQuestionInList(int index) {
         targetQuestion = targetQuiz.getQuestions().get(index);
         loadTargetQuestion();
     }
 
+
+    /*
+     * REQUIRES: targetQuestion cannot be null
+     * MODIFIES: this
+     * EFFECTS: loads Question stored in target
+     */
     void loadTargetQuestion() {
         promptInput.setText(targetQuestion.getPrompt());
 
@@ -85,27 +112,50 @@ public class EditQuizState extends GuiState {
         responseInput.setText(responseContent.toString());
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates all gui elements associated with state
+     */
     void createGuiElements() {
         saveChangesBtn = makeSaveChangesButton();
         mainBodyPanel = makeMainBodyPanel();
         questionsListPanel = makeQuestionsListPanel();
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates target question's data with input from user
+     */
     void saveChangesToTargetQuestion() {
         updateTargetQuestion(promptInput.getText(), responseInput.getText());
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates target question with given prompt and answers
+     */
     void updateTargetQuestion(String newPrompt, String newAnswers) {
         FreeResponse question = (FreeResponse)targetQuestion;
         question.setPrompt(newPrompt);
         question.setKeywords(strToKeywords(newAnswers));
     }
 
+
+    /*
+     * EFFECTS: converts and returns given string to list of strings, spliced by newline
+     */
     List<String> strToKeywords(String str) {
         String[] keywordsArr = str.split("\\r?\\n");
         return Arrays.asList(keywordsArr);
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: draws gui for panel holding question lists and 'add/delete' buttons
+     */
     JPanel makeQuestionsListPanel() {
         JPanel panel = new JPanel(null);
         panel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
@@ -135,6 +185,11 @@ public class EditQuizState extends GuiState {
         return panel;
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: makes and returns new questions list
+     */
     JList<String> makeQuestionsJList() {
         list = new JList<>(listContent);
         jframe.add(list);
@@ -144,23 +199,39 @@ public class EditQuizState extends GuiState {
                 saveChangesToTargetQuestion();
                 targetQuestion = targetQuiz.getQuestions().get(questionsListGui.getSelectedIndex());
                 loadTargetQuestion();
-                updateGuiListTitles();
+                updateTilesOfGuiList();
             }
         });
 
         return list;
     }
 
-    void updateGuiListTitles() {
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: updates questions list with most recent data
+     */
+    void updateTilesOfGuiList() {
         for (int i = 0; i < listContent.size(); i++) {
             listContent.set(i, getQuestionPrompt(i));
         }
     }
 
+
+    /*
+     * REQUIRES: i must be valid index in quesion
+     * MODIFIES: this
+     * EFFECTS: returns question from prompt
+     */
     String getQuestionPrompt(int i) {
         return targetQuiz.getQuestions().get(i).getPrompt();
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for new question button
+     */
     JButton makeNewQuestionBtn() {
         JButton result = new JButton("New");
         result.setBounds(800,375, 70,25);
@@ -183,6 +254,10 @@ public class EditQuizState extends GuiState {
         return result;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for delete button
+     */
     JButton makeDeleteQuestionBtn() {
         JButton result = new JButton("Delete");
         result.setBounds(875,375, 70,25);
@@ -207,6 +282,10 @@ public class EditQuizState extends GuiState {
         return result;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for new save changes button
+     */
     JButton makeSaveChangesButton() {
         final int WIDTH = 250;
         final int HEIGHT = 40;
@@ -227,6 +306,10 @@ public class EditQuizState extends GuiState {
         return result;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for main gui content
+     */
     JPanel makeMainBodyPanel() {
         JPanel panel = new JPanel(null);
         panel.setBounds(60,40,700, 300);
@@ -245,6 +328,10 @@ public class EditQuizState extends GuiState {
         return panel;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for prompt text
+     */
     JLabel makePromptLabel() {
         JLabel promptLabel = new JLabel("Prompt:");
         promptLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -253,12 +340,20 @@ public class EditQuizState extends GuiState {
         return promptLabel;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for prompt input
+     */
     JTextField generatePromptInput() {
         JTextField result = new JTextField();
         result.setBounds(0,50, 500, 40);
         return result;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for response text
+     */
     JLabel makeResponseLabel() {
         JLabel promptLabel = new JLabel("Keywords: (separate keywords by newline)");
         promptLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
@@ -267,16 +362,25 @@ public class EditQuizState extends GuiState {
         return promptLabel;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: creates and returns gui for response input
+     */
     JTextArea generateResponseInput() {
         JTextArea result = new JTextArea();
         result.setBounds(0,150, 500, 150);
         return result;
     }
 
+
     void setTargetQuiz(Quiz quiz) {
         targetQuiz = quiz;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: returns template for new question
+     */
     Quiz newTemplateQuiz() {
         ArrayList<Question> questionsList = new ArrayList<>();
         questionsList.add(newTemplateQuestion());
