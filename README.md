@@ -20,5 +20,17 @@ with my goals - doing well on my tests.
 - As a user, I want to be able to edit existing quizzes through the GUI
 - As a user, I want to be able to load and save the state of the application through the GUI
 
+# Instructions for Grader
+- to add multiple Quizzes to list of Quizzes, press the "New Quiz" button
+- to add multiple Questions to a Quiz, press the "New" button in the Editor menu
+- to delete a Question from a Quiz, press the "Delete" button in the Editor menu
+- to save all data, press the "Save Data" button in the main menu
+- to load existing data, press the "Load Data" button in the main menu
+- the visual component can be found in the main menu
+
+Extra Notes: 
+The editor menu can be accessed by either clicking "New Quiz"
+Make sure to press "Save Changes" before exiting the Quiz Editor!
+
 ### Credit:
 I took inspiration from the TellerApp reference project when designing my application.
