@@ -34,7 +34,6 @@ public class EditQuizState extends GuiState {
         targetQuiz = null;
 
         createGuiElements();
-        addEventListeners();
         setContentVisibility(false);
     }
 
@@ -86,43 +85,9 @@ public class EditQuizState extends GuiState {
     }
 
     void createGuiElements() {
-        saveChangesBtn = generateBackToMenuButton();
+        saveChangesBtn = makeSaveChangesButton();
         mainBodyPanel = makeMainBodyPanel();
         questionsListPanel = makeQuestionsListPanel();
-    }
-
-    void addEventListeners() {
-        newQuestionBtn.addActionListener(e -> {
-            Question newQuestion = newTemplateQuestion();
-            targetQuiz.addQuestion(newQuestion);
-            saveChangesToTargetQuestion();
-            targetQuestion = newQuestion;
-            redrawQuestionListGui();
-            list.setSelectedIndex(targetQuiz.getQuestions().size() - 1);
-
-            loadTargetQuestion();
-        });
-
-        deleteQuestionBtn.addActionListener(e -> {
-            targetQuiz.deleteQuestion(targetQuestion);
-            redrawQuestionListGui();
-            int lastQuestionIndex = targetQuiz.getQuestions().size() - 1;
-            targetQuestion = targetQuiz.getQuestions().get(lastQuestionIndex);
-            selectQuestionInList(lastQuestionIndex);
-            loadTargetQuestion();
-        });
-
-        saveChangesBtn.addActionListener(e -> {
-            saveChangesToTargetQuestion();
-        });
-
-        questionsListGui.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting() && questionsListGui.getSelectedIndex() >= 0) {
-                saveChangesToTargetQuestion();
-                targetQuestion = targetQuiz.getQuestions().get(questionsListGui.getSelectedIndex());
-                loadTargetQuestion();
-            }
-        });
     }
 
     void saveChangesToTargetQuestion() {
@@ -173,7 +138,26 @@ public class EditQuizState extends GuiState {
         list = new JList<>(listContent);
         jframe.add(list);
 
+        list.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && questionsListGui.getSelectedIndex() >= 0) {
+                saveChangesToTargetQuestion();
+                targetQuestion = targetQuiz.getQuestions().get(questionsListGui.getSelectedIndex());
+                loadTargetQuestion();
+                updateGuiListTitles();
+            }
+        });
+
         return list;
+    }
+
+    void updateGuiListTitles() {
+        for (int i = 0; i < listContent.size(); i++) {
+            listContent.set(i, getQuestionPrompt(i));
+        }
+    }
+
+    String getQuestionPrompt(int i) {
+        return targetQuiz.getQuestions().get(i).getPrompt();
     }
 
     JButton makeNewQuestionBtn() {
@@ -183,6 +167,17 @@ public class EditQuizState extends GuiState {
         Gui.removeButtonOutline(result);
         result.setForeground(Color.white);
         result.setBackground(new Color(0x57D188));
+
+        result.addActionListener(e -> {
+            Question newQuestion = newTemplateQuestion();
+            targetQuiz.addQuestion(newQuestion);
+            saveChangesToTargetQuestion();
+            targetQuestion = newQuestion;
+            redrawQuestionListGui();
+            list.setSelectedIndex(targetQuiz.getQuestions().size() - 1);
+
+            loadTargetQuestion();
+        });
 
         return result;
     }
@@ -195,10 +190,23 @@ public class EditQuizState extends GuiState {
         result.setForeground(Color.white);
         result.setBackground(new Color(0xFF0000));
 
+        result.addActionListener(e -> {
+
+            if (targetQuiz.getQuestions().size() > 0) {
+                targetQuiz.deleteQuestion(targetQuestion);
+                redrawQuestionListGui();
+                int lastQuestionIndex = targetQuiz.getQuestions().size() - 1;
+                targetQuestion = targetQuiz.getQuestions().get(lastQuestionIndex);
+                list.setSelectedIndex(lastQuestionIndex);
+            } else {
+                Gui.newPopup("There are no questions to delete!");
+            }
+        });
+
         return result;
     }
 
-    JButton generateBackToMenuButton() {
+    JButton makeSaveChangesButton() {
         final int WIDTH = 250;
         final int HEIGHT = 40;
 
@@ -210,6 +218,10 @@ public class EditQuizState extends GuiState {
         result.setBackground(new Color(0x57D188));
 
         jframe.add(result);
+
+        result.addActionListener(e -> {
+            saveChangesToTargetQuestion();
+        });
 
         return result;
     }
