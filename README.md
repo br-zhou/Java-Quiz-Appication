@@ -24,6 +24,8 @@ with my goals - doing well on my tests.
 - to add multiple Quizzes to list of Quizzes, press the "New Quiz" button
 - to add multiple Questions to a Quiz, press the "New" button in the Editor menu
 - to delete a Question from a Quiz, press the "Delete" button in the Editor menu
+- to edit a Question in a Quiz, select the question from the list and change it's fields using the Editor, and press
+save changes to commit changes (NOTE: this will not save the data to storage, you must do that manually)
 - to save all data, press the "Save Data" button in the main menu
 - to load existing data, press the "Load Data" button in the main menu
 - the visual component can be found in the main menu
