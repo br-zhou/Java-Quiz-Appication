@@ -379,7 +379,7 @@ public class EditQuizState extends GuiState {
 
     /*
      * MODIFIES: this
-     * EFFECTS: returns template for new question
+     * EFFECTS: returns template for new quiz
      */
     Quiz newTemplateQuiz() {
         ArrayList<Question> questionsList = new ArrayList<>();
@@ -388,6 +388,10 @@ public class EditQuizState extends GuiState {
         return new Quiz("Quiz #" + (actions.getQuizzes().size() + 1), questionsList);
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: returns template for new question
+     */
     Question newTemplateQuestion() {
         ArrayList<String> answers = new ArrayList<>();
         answers.add("Keyword #1");

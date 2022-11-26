@@ -49,12 +49,13 @@ public class QuizzesListState extends GuiState {
         }
     }
 
-    // EFFECTS:
+    // EFFECTS: creates state related GUI
     void createGuiElements() {
         selectQuizBtn = makeSelectQuizButton();
         mainBodyPanel = makeMainBodyPanel();
     }
 
+    // EFFECTS: makes and returns GUI list for quizzes
     JList<String> makeQuizzesJList() {
         list = new JList<>(listContent);
         jframe.add(list);
@@ -62,6 +63,7 @@ public class QuizzesListState extends GuiState {
         return list;
     }
 
+    // EFFECTS: makes and returns 'select button'
     JButton makeSelectQuizButton() {
         final int WIDTH = 250;
         final int HEIGHT = 40;
@@ -83,6 +85,7 @@ public class QuizzesListState extends GuiState {
         return result;
     }
 
+    // EFFECTS: makes and returns main body panel
     JPanel makeMainBodyPanel() {
         JPanel panel = new JPanel(null);
         panel.setBounds(Gui.centerX(300),40,700, 300);
@@ -101,6 +104,7 @@ public class QuizzesListState extends GuiState {
         return panel;
     }
 
+    // EFFECTS: makes title text
     JLabel makeTitleLabel() {
         JLabel promptLabel = new JLabel("Quizzes:");
         promptLabel.setFont(new Font("Verdana", Font.PLAIN, 20));
