@@ -7,10 +7,13 @@ import ui.Gui;
 import javax.swing.*;
 import java.awt.*;
 
+// GUI state that represents main menu page
 public class MenuState extends GuiState {
     JPanel mainPanel;
     JButton backToMenuButton;
 
+    // REQUIRES: given objects must be non-null
+    // EFFECTS: creates a new GUI state representing main menu page
     public MenuState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
         super(jframe, stateManager, actions);
 
@@ -73,7 +76,7 @@ public class MenuState extends GuiState {
 
         btn.addActionListener(e -> {
             if (actions.getQuizzes().size() > 0) {
-                stateManager.gotoState(StateManager.State.SHOW_QUIZZES);
+                stateManager.gotoState(StateManager.State.LIST_QUIZZES);
             } else {
                 Gui.newPopup("You don't have any quizzes to edit!");
             }

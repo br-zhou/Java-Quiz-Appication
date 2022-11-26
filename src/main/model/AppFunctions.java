@@ -7,10 +7,13 @@ import persistance.DataHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+// Functions that UI will call upon to control quizzes
 public class AppFunctions {
     private List<Quiz> quizzes;
-    private DataHandler dataHandler;
+    private final DataHandler dataHandler;
 
+    // REQUIRES: filePath must be a valid path relative to root directory
+    // EFFECTS: Initializes app functions at file path
     public AppFunctions(String filePath) {
         quizzes = new ArrayList<>();
         dataHandler = new DataHandler(filePath);

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// State for editing Quizzes
+// State that represents the EDIT Quiz state
 public class EditQuizState extends GuiState {
     JButton saveChangesBtn;
     JButton newQuestionBtn;
@@ -268,14 +268,14 @@ public class EditQuizState extends GuiState {
 
         result.addActionListener(e -> {
 
-            if (targetQuiz.getQuestions().size() > 0) {
+            if (targetQuiz.getQuestions().size() > 1) {
                 targetQuiz.deleteQuestion(targetQuestion);
                 redrawQuestionListGui();
                 int lastQuestionIndex = targetQuiz.getQuestions().size() - 1;
                 targetQuestion = targetQuiz.getQuestions().get(lastQuestionIndex);
                 list.setSelectedIndex(lastQuestionIndex);
             } else {
-                Gui.newPopup("There are no questions to delete!");
+                Gui.newPopup("You must have at least one question!");
             }
         });
 

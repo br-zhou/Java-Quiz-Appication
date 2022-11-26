@@ -7,14 +7,17 @@ import ui.Gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class ShowQuizzesState extends GuiState {
+// State that represents 'load quizzes' page
+public class QuizzesListState extends GuiState {
     JButton selectQuizBtn;
     JList<String> quizListGui;
     DefaultListModel<String> listContent;
     JPanel mainBodyPanel;
     JList<String> list;
 
-    public ShowQuizzesState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
+    // REQUIRES: given objects must be non-null
+    // EFFECTS: creates a new GUI state representing main menu page
+    public QuizzesListState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
         super(jframe, stateManager, actions);
         listContent = new DefaultListModel<>();
 
@@ -22,28 +25,31 @@ public class ShowQuizzesState extends GuiState {
         setContentVisibility(false);
     }
 
+    // EFFECTS: Sets related GUI elements' visibility to target value
     @Override
     public void setContentVisibility(boolean value) {
         selectQuizBtn.setVisible(value);
         mainBodyPanel.setVisible(value);
     }
 
+    // EFFECTS: Loads elements and sets selected item of quiz list to first tiem
     @Override
     public void loadState() {
-        redrawQuestionListGui();
+        loadQuizListGui();
         list.setSelectedIndex(0);
 
         super.loadState();
     }
 
-    void redrawQuestionListGui() {
-
+    // EFFECTS: Loads the GUI list
+    void loadQuizListGui() {
         listContent.clear();
         for (Quiz quiz : actions.getQuizzes()) {
             listContent.addElement(quiz.getName());
         }
     }
 
+    // EFFECTS:
     void createGuiElements() {
         selectQuizBtn = makeSelectQuizButton();
         mainBodyPanel = makeMainBodyPanel();

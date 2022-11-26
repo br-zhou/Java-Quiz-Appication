@@ -62,6 +62,9 @@ public abstract class Question implements Writable {
         this.correct = value;
     }
 
+    /*
+     * MODIFIES: this
+     */
     public void setPrompt(String str) {
         this.prompt = str;
     }
