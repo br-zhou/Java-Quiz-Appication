@@ -23,7 +23,7 @@ public class EditQuizState extends GuiState {
     JPanel mainBodyPanel;
     JTextField promptInput;
     JTextArea responseInput;
-    JList<String> list;
+    JList<String> questionList;
 
     Quiz targetQuiz;
     Question targetQuestion;
@@ -63,7 +63,7 @@ public class EditQuizState extends GuiState {
             actions.addQuiz(targetQuiz);
         }
         redrawQuestionListGui();
-        list.setSelectedIndex(0);
+        questionList.setSelectedIndex(0);
         selectQuestionInList(0);
 
         super.loadState();
@@ -87,7 +87,7 @@ public class EditQuizState extends GuiState {
 
     /*
      * MODIFIES: this
-     * EFFECTS: tells state which item is selected from Questoin list
+     * EFFECTS: tells state which item is selected from Question list
      */
     void selectQuestionInList(int index) {
         targetQuestion = targetQuiz.getQuestions().get(index);
@@ -191,10 +191,10 @@ public class EditQuizState extends GuiState {
      * EFFECTS: makes and returns new questions list
      */
     JList<String> makeQuestionsJList() {
-        list = new JList<>(listContent);
-        jframe.add(list);
+        questionList = new JList<>(listContent);
+        jframe.add(questionList);
 
-        list.addListSelectionListener(e -> {
+        questionList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && questionsListGui.getSelectedIndex() >= 0) {
                 saveChangesToTargetQuestion();
                 targetQuestion = targetQuiz.getQuestions().get(questionsListGui.getSelectedIndex());
@@ -203,7 +203,7 @@ public class EditQuizState extends GuiState {
             }
         });
 
-        return list;
+        return questionList;
     }
 
 
@@ -246,7 +246,7 @@ public class EditQuizState extends GuiState {
             saveChangesToTargetQuestion();
             targetQuestion = newQuestion;
             redrawQuestionListGui();
-            list.setSelectedIndex(targetQuiz.getQuestions().size() - 1);
+            questionList.setSelectedIndex(targetQuiz.getQuestions().size() - 1);
 
             loadTargetQuestion();
         });
@@ -273,7 +273,7 @@ public class EditQuizState extends GuiState {
                 redrawQuestionListGui();
                 int lastQuestionIndex = targetQuiz.getQuestions().size() - 1;
                 targetQuestion = targetQuiz.getQuestions().get(lastQuestionIndex);
-                list.setSelectedIndex(lastQuestionIndex);
+                questionList.setSelectedIndex(lastQuestionIndex);
             } else {
                 Gui.newPopup("You must have at least one question!");
             }
@@ -371,7 +371,6 @@ public class EditQuizState extends GuiState {
         result.setBounds(0,150, 500, 150);
         return result;
     }
-
 
     void setTargetQuiz(Quiz quiz) {
         targetQuiz = quiz;

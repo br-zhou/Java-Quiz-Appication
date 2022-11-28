@@ -4,6 +4,7 @@ import ui.InputOutput;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Collections;
 import java.util.List;
 
 // Represents a free response question, with the required keywords to make response correct
@@ -63,7 +64,7 @@ public class FreeResponse extends Question {
     }
 
     public List<String> getKeywords() {
-        return keywords;
+        return Collections.unmodifiableList(keywords);
     }
 
     public void setKeywords(List<String> newKeywords) {

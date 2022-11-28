@@ -5,6 +5,8 @@ import ui.states.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 // Represents the GUI frame
 public class Gui extends JFrame {
@@ -33,9 +35,17 @@ public class Gui extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        printEventLogOnClose();
         ImageIcon image = new ImageIcon("./src/main/ui/img/thumbnail.png");
         setIconImage(image.getImage());
+    }
+
+    void printEventLogOnClose() {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                actions.printLog();
+            }
+        });
     }
 
     void loadStates() {

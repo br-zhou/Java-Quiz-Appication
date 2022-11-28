@@ -80,8 +80,6 @@ public class MenuState extends GuiState {
             } else {
                 Gui.newPopup("You don't have any quizzes to edit!");
             }
-
-
         });
     }
 

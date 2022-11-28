@@ -9,6 +9,7 @@ import java.util.List;
 
 // Functions that UI will call upon to control quizzes
 public class AppFunctions {
+    private EventLog log;
     private List<Quiz> quizzes;
     private final DataHandler dataHandler;
 
@@ -17,16 +18,19 @@ public class AppFunctions {
     public AppFunctions(String filePath) {
         quizzes = new ArrayList<>();
         dataHandler = new DataHandler(filePath);
+        log = EventLog.getInstance();
     }
 
     // EFFECTS: adds quiz to list of quizzes
     public void addQuiz(Quiz quiz) {
         quizzes.add(quiz);
+        logEvent("New Quiz Added!");
     }
 
     // EFFECTS: returns true and deletes quizzes from list collection if it exists
     //          returns false is quiz does not exist
     public boolean deleteQuiz(Quiz quiz) {
+        logEvent("Quiz Deleted!");
         return quizzes.remove(quiz);
     }
 
@@ -59,6 +63,23 @@ public class AppFunctions {
      */
     public void pullDataFromStorage() throws ReadErrorException {
         quizzes = dataHandler.retrieveData();
+    }
+
+    /*
+     * EFFECTS: Prints every event in log to console
+     */
+    public void printLog() {
+        System.out.println("Event Log: ");
+        for (Event event : log) {
+            System.out.println(event);
+        }
+    }
+
+    /*
+     * EFFECTS: adds new event to log with description of given message
+     */
+    private void logEvent(String message) {
+        log.logEvent(new Event(message));
     }
 
 }
