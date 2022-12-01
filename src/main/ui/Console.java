@@ -5,7 +5,7 @@ import model.questions.Question;
 import java.util.List;
 import java.util.Scanner;
 
-// Gets user input from console
+// used for communications between console and user
 public class Console {
     private final Scanner input;
 

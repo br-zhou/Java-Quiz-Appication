@@ -4,7 +4,7 @@ import model.AppFunctions;
 import model.Quiz;
 import model.questions.FreeResponse;
 import model.questions.Question;
-import ui.Gui;
+import ui.GuiApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -153,7 +153,7 @@ public class EditQuizState extends GuiState {
      */
     JPanel makeQuestionsListPanel() {
         JPanel panel = new JPanel(null);
-        panel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
+        panel.setBounds(0,0, GuiApp.WIDTH, GuiApp.HEIGHT);
         jframe.add(panel);
 
         questionsListGui = makeQuestionsJList();
@@ -231,7 +231,7 @@ public class EditQuizState extends GuiState {
         JButton result = new JButton("New");
         result.setBounds(800,375, 70,25);
 
-        Gui.removeButtonOutline(result);
+        GuiApp.removeButtonOutline(result);
         result.setForeground(Color.white);
         result.setBackground(new Color(0x57D188));
 
@@ -262,7 +262,7 @@ public class EditQuizState extends GuiState {
         JButton result = new JButton("Delete");
         result.setBounds(875,375, 70,25);
 
-        Gui.removeButtonOutline(result);
+        GuiApp.removeButtonOutline(result);
         result.setForeground(Color.white);
         result.setBackground(new Color(0xFF0000));
 
@@ -271,7 +271,7 @@ public class EditQuizState extends GuiState {
             if (actions.getTargetQuestions().size() > 1) {
                 deleteQuestionFunc();
             } else {
-                Gui.newPopup("You must have at least one question!");
+                GuiApp.newPopup("You must have at least one question!");
             }
         });
 
@@ -299,9 +299,9 @@ public class EditQuizState extends GuiState {
         final int HEIGHT = 40;
 
         JButton result = new JButton("Save Changes!");
-        result.setBounds(Gui.centerX(WIDTH),  Gui.HEIGHT - Gui.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
+        result.setBounds(GuiApp.centerX(WIDTH),  GuiApp.HEIGHT - GuiApp.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
 
-        Gui.removeButtonOutline(result);
+        GuiApp.removeButtonOutline(result);
         result.setForeground(Color.white);
         result.setBackground(new Color(0x57D188));
 

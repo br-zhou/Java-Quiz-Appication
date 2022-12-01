@@ -9,7 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 // Represents the GUI frame
-public class Gui extends JFrame {
+public class GuiApp extends JFrame {
     private static final String FILE_PATH = "./data/gui-data.json";
 
     public static final int WIDTH = 1000;
@@ -18,8 +18,15 @@ public class Gui extends JFrame {
 
     private final AppFunctions actions;
 
+    /*
+     * EFFECTS: starts application
+     */
+    public static void main(String[] args) {
+        new GuiApp();
+    }
+
     // EFFECTS: creates new window with some initial state loaded
-    public Gui() {
+    public GuiApp() {
         actions = new AppFunctions(FILE_PATH);
         loadJFrame();
         loadStates();

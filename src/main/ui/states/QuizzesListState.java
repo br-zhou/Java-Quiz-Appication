@@ -2,7 +2,7 @@ package ui.states;
 
 import model.AppFunctions;
 import model.Quiz;
-import ui.Gui;
+import ui.GuiApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,9 +69,9 @@ public class QuizzesListState extends GuiState {
         final int HEIGHT = 40;
 
         JButton result = new JButton("Edit Quiz!");
-        result.setBounds(Gui.centerX(WIDTH),  Gui.HEIGHT - Gui.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
+        result.setBounds(GuiApp.centerX(WIDTH),  GuiApp.HEIGHT - GuiApp.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
 
-        Gui.removeButtonOutline(result);
+        GuiApp.removeButtonOutline(result);
         result.setForeground(Color.white);
         result.setBackground(new Color(0x57D188));
 
@@ -88,7 +88,7 @@ public class QuizzesListState extends GuiState {
     // EFFECTS: makes and returns main body panel
     JPanel makeMainBodyPanel() {
         JPanel panel = new JPanel(null);
-        panel.setBounds(Gui.centerX(300),40,700, 300);
+        panel.setBounds(GuiApp.centerX(300),40,700, 300);
         jframe.add(panel);
 
         panel.add(makeTitleLabel());

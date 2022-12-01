@@ -1,9 +1,9 @@
 package ui;
 
-import model.Result;
-
+// Runs Console or Gui app
 public class Main {
+    // Starts GUI Application
     public static void main(String[] args) {
-        new Gui();
+        new GuiApp();
     }
 }

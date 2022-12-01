@@ -2,7 +2,7 @@ package ui.states;
 
 import exceptions.WriteErrorException;
 import model.AppFunctions;
-import ui.Gui;
+import ui.GuiApp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +44,7 @@ public class MenuState extends GuiState {
     // EFFECTS: makes panel where all other elements sit in
     void createMainPanel() {
         mainPanel = new JPanel(null);
-        mainPanel.setBounds(0,0,Gui.WIDTH, Gui.HEIGHT);
+        mainPanel.setBounds(0,0, GuiApp.WIDTH, GuiApp.HEIGHT);
         jframe.add(mainPanel);
     }
 
@@ -55,7 +55,7 @@ public class MenuState extends GuiState {
 
         JLabel titleLabel = new JLabel("JAVA QUIZ APPLICATION", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
-        titleLabel.setBounds(Gui.centerX(WIDTH),  Gui.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
+        titleLabel.setBounds(GuiApp.centerX(WIDTH),  GuiApp.centerY(HEIGHT) - 100, WIDTH, HEIGHT);
 
         mainPanel.add(titleLabel);
     }
@@ -78,7 +78,7 @@ public class MenuState extends GuiState {
             if (actions.getQuizzes().size() > 0) {
                 stateManager.gotoState(StateManager.State.LIST_QUIZZES);
             } else {
-                Gui.newPopup("You don't have any quizzes to edit!");
+                GuiApp.newPopup("You don't have any quizzes to edit!");
             }
         });
     }
@@ -124,8 +124,8 @@ public class MenuState extends GuiState {
         titleImage.setIcon(new ImageIcon(scaleImage));
 
         titleImage.setBounds(
-                Gui.centerX(WIDTH) + OFFSET_X,
-                Gui.centerY(HEIGHT) + OFFSET_Y,
+                GuiApp.centerX(WIDTH) + OFFSET_X,
+                GuiApp.centerY(HEIGHT) + OFFSET_Y,
                 WIDTH,
                 HEIGHT
         );
@@ -139,9 +139,9 @@ public class MenuState extends GuiState {
         final int HEIGHT = 40;
 
         JButton result = new JButton(text);
-        result.setBounds(Gui.centerX(WIDTH),  Gui.centerY(HEIGHT) + centerOffsetY, WIDTH, HEIGHT);
+        result.setBounds(GuiApp.centerX(WIDTH),  GuiApp.centerY(HEIGHT) + centerOffsetY, WIDTH, HEIGHT);
 
-        Gui.applyCustomButtonStyle(result);
+        GuiApp.applyCustomButtonStyle(result);
 
         mainPanel.add(result);
 
@@ -154,8 +154,8 @@ public class MenuState extends GuiState {
         final int HEIGHT = 40;
 
         JButton result = new JButton("Back to Menu");
-        result.setBounds(25,  Gui.HEIGHT - Gui.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
-        Gui.removeButtonOutline(result);
+        result.setBounds(25,  GuiApp.HEIGHT - GuiApp.TITLE_BAR_BIAS - HEIGHT - 25, WIDTH, HEIGHT);
+        GuiApp.removeButtonOutline(result);
 
         result.setForeground(Color.white);
         result.setBackground(new Color(0x5A5A5A));
@@ -173,9 +173,9 @@ public class MenuState extends GuiState {
     void saveData() {
         try {
             actions.pushDataToStorage();
-            Gui.newPopup("Data saved successfully!");
+            GuiApp.newPopup("Data saved successfully!");
         } catch (WriteErrorException e) {
-            Gui.newPopup("An error occurred while trying to save data.");
+            GuiApp.newPopup("An error occurred while trying to save data.");
 
         }
     }
@@ -188,9 +188,9 @@ public class MenuState extends GuiState {
     public void loadData() {
         try {
             actions.pullDataFromStorage();
-            Gui.newPopup("Data saved successfully!");
+            GuiApp.newPopup("Data saved successfully!");
         } catch (Exception e) {
-            Gui.newPopup("An error occurred while trying to load data.");
+            GuiApp.newPopup("An error occurred while trying to load data.");
         }
     }
 }

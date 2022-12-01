@@ -8,13 +8,12 @@ import model.questions.MultipleChoice;
 import model.questions.Question;
 import persistance.DataHandler;
 
-import javax.swing.plaf.IconUIResource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 // Quiz Application
-public class QuizApp {
+public class ConsoleApp {
     private static final String FILE_PATH = "./data/data.json";
     private final Console console;
     private final DataHandler storage;
@@ -24,13 +23,13 @@ public class QuizApp {
      * EFFECTS: starts application
      */
     public static void main(String[] args) {
-        new QuizApp();
+        new ConsoleApp();
     }
 
     /*
      * EFFECTS: creates and runs the Quiz application
      */
-    public QuizApp() {
+    public ConsoleApp() {
         quizzes = new ArrayList<>();
         console = new Console();
         storage = new DataHandler(FILE_PATH);
