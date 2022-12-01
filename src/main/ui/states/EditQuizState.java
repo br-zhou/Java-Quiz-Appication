@@ -58,7 +58,7 @@ public class EditQuizState extends GuiState {
             actions.addQuiz(newQuiz);
             actions.setTargetQuiz(newQuiz);
         }
-        redrawQuestionListGui();
+        updateQuestionListGui();
         questionList.setSelectedIndex(0);
         selectQuestionInList(0);
 
@@ -69,7 +69,7 @@ public class EditQuizState extends GuiState {
      * MODIFIES: this
      * EFFECTS: updates question list to display latest content
      */
-    void redrawQuestionListGui() {
+    void updateQuestionListGui() {
         List<Question> listQuestions = actions.getTargetQuiz().getQuestions();
 
         listContent.clear();
@@ -236,18 +236,23 @@ public class EditQuizState extends GuiState {
         result.setBackground(new Color(0x57D188));
 
         result.addActionListener(e -> {
-            Question newQuestion = newTemplateQuestion();
-            actions.addQuestionToTarget(newQuestion);
-            saveChangesToTargetQuestion();
-            actions.setTargetQuestion(newQuestion);
-            redrawQuestionListGui();
-            questionList.setSelectedIndex(actions.getTargetQuiz().getQuestions().size() - 1);
-
-            loadTargetQuestionInGUI();
+            makeNewQuestionFunc();
         });
 
         return result;
     }
+
+    void makeNewQuestionFunc() {
+        Question newQuestion = newTemplateQuestion();
+        actions.addQuestionToTarget(newQuestion);
+        saveChangesToTargetQuestion();
+        actions.setTargetQuestion(newQuestion);
+        updateQuestionListGui();
+        questionList.setSelectedIndex(actions.getTargetQuiz().getQuestions().size() - 1);
+
+        loadTargetQuestionInGUI();
+    }
+
 
     /*
      * MODIFIES: this
@@ -264,18 +269,25 @@ public class EditQuizState extends GuiState {
         result.addActionListener(e -> {
 
             if (actions.getTargetQuestions().size() > 1) {
-                actions.deleteTargetQuestion();
-                redrawQuestionListGui();
-
-                int lastQuestionIndex = actions.getTargetQuestions().size() - 1;
-                actions.setTargetQuestion(lastQuestionIndex);
-                questionList.setSelectedIndex(lastQuestionIndex);
+                deleteQuestionFunc();
             } else {
                 Gui.newPopup("You must have at least one question!");
             }
         });
 
         return result;
+    }
+
+    void deleteQuestionFunc() {
+        actions.deleteTargetQuestion();
+        updateQuestionListGui();
+        selectLastOptionInGuiList();
+    }
+
+    void selectLastOptionInGuiList() {
+        int lastQuestionIndex = actions.getTargetQuestions().size() - 1;
+        actions.setTargetQuestion(lastQuestionIndex);
+        questionList.setSelectedIndex(lastQuestionIndex);
     }
 
     /*

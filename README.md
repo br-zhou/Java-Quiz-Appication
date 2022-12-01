@@ -36,3 +36,25 @@ Make sure to press "Save Changes" before exiting the Quiz Editor!
 
 ### Credit:
 I took inspiration from the TellerApp reference project when designing my application.
+
+
+### Phase 4: Task 2
+Event Log:<br>
+Wed Nov 30 18:27:49 PST 2022<br>
+Selected a quiz<br>
+Wed Nov 30 18:27:49 PST 2022<br>
+New Quiz Added!<br>
+Wed Nov 30 18:27:49 PST 2022<br>
+Selected a quiz<br>
+Wed Nov 30 18:27:53 PST 2022<br>
+Added new question<br>
+Wed Nov 30 18:27:55 PST 2022<br>
+Added new question<br>
+Wed Nov 30 18:27:55 PST 2022<br>
+Added new question<br>
+Wed Nov 30 18:27:58 PST 2022<br>
+Selected a quiz<br>
+Wed Nov 30 18:28:00 PST 2022<br>
+Deleted a question<br>
+Wed Nov 30 18:28:01 PST 2022<br>
+Deleted a question<br>

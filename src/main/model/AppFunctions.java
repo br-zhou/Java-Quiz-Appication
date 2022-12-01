@@ -80,7 +80,7 @@ public class AppFunctions {
     // MODIFIES: this
     // EFFECTS: sets targeted quiz to given quiz
     public void setTargetQuiz(Quiz quiz) {
-        logEvent("Select Quiz");
+        logEvent("Selected a quiz");
         this.targetQuiz = quiz;
     }
 
@@ -88,15 +88,14 @@ public class AppFunctions {
     // MODIFIES: this
     // EFFECTS: sets targeted quiz to quiz at given index
     public void setTargetQuiz(int index) {
-        logEvent("Select Quiz");
-        this.targetQuiz = quizzes.get(index);
+        setTargetQuiz(quizzes.get(index));
     }
 
     // REQUIRES: question must not already be in target
     // MODIFIES: this
     // EFFECTS: adds question to list of questions in target quiz
     public void addQuestionToTarget(Question question) {
-        logEvent("Add Question");
+        logEvent("Added new question");
         targetQuiz.addQuestion(question);
     }
 
@@ -104,7 +103,7 @@ public class AppFunctions {
     // MODIFIES: this
     // EFFECTS: deletes question from target quiz
     public void deleteQuestion(Question question) {
-        logEvent("Delete Question");
+        logEvent("Deleted a question");
         targetQuiz.deleteQuestion(question);
     }
 
@@ -118,7 +117,7 @@ public class AppFunctions {
 
     // todo integrate this
     public void updateQuestion(Question question, String prompt, List<String> answers) {
-        logEvent("Updated Question");
+        logEvent("Updated a question");
         question.setPrompt(prompt);
 
         if (FreeResponse.class.equals(question.getClass())) {
