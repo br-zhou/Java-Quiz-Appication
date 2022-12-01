@@ -60,11 +60,4 @@ public class StateManager {
         currentState = stateHash.get(name);
         currentState.loadState();
     }
-
-    // REQUIRES: name cannot be associated with existing state
-    // MODIFIES: this
-    // EFFECTS: sets the targeted quiz to given quiz
-    public void setEditingQuizTarget(Quiz quiz) {
-        editQuizState.setTargetQuiz(quiz);
-    }
 }

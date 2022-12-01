@@ -72,23 +72,34 @@ public class AppFunctions {
     }
 
     // todo add documentation for these methods
-    Quiz getTargetQuiz() {
+    public Quiz getTargetQuiz() {
         return targetQuiz;
     }
 
-    void setTargetQuiz(Quiz quiz) {
+    public void setTargetQuiz(Quiz quiz) {
         logEvent("Select Quiz");
         this.targetQuiz = quiz;
     }
 
-    void addQuestionToTarget(Question question) {
+    public void setTargetQuiz(int index) {
+        logEvent("Select Quiz");
+        this.targetQuiz = quizzes.get(index);
+    }
+
+
+    public void addQuestionToTarget(Question question) {
         logEvent("Add Question");
         targetQuiz.addQuestion(question);
     }
 
-    public void deleteQuestionFromTarget(Question question) {
+    public void deleteQuestion(Question question) {
         logEvent("Delete Question");
         targetQuiz.deleteQuestion(question);
+    }
+
+    public void deleteTargetQuestion() {
+        deleteQuestion(targetQuestion);
+        targetQuestion = null;
     }
 
     public void updateQuestion(Question question, String prompt, List<String> answers) {
@@ -106,6 +117,19 @@ public class AppFunctions {
 
     public void setTargetQuestion(int index) {
         targetQuestion = targetQuiz.getQuestions().get(index);
+    }
+
+    public void setTargetQuestion(Question question) {
+        targetQuestion = question;
+    }
+
+    public List<Question> getTargetQuestions() {
+        return targetQuiz.getQuestions();
+    }
+
+
+    public Question getTargetQuestion() {
+        return targetQuestion;
     }
     // todo //
 

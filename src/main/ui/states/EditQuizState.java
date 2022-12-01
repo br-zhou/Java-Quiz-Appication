@@ -25,17 +25,12 @@ public class EditQuizState extends GuiState {
     JTextArea responseInput;
     JList<String> questionList;
 
-    Quiz targetQuiz;
-    Question targetQuestion;
-
     /*
      * EFFECTS: constructs new Editing Quiz state, along with associated GUI
      */
     public EditQuizState(JFrame jframe, StateManager stateManager, AppFunctions actions) {
         super(jframe, stateManager, actions);
         listContent = new DefaultListModel<>();
-
-        targetQuiz = null;
 
         createGuiElements();
         setContentVisibility(false);
@@ -58,9 +53,10 @@ public class EditQuizState extends GuiState {
      */
     @Override
     public void loadState() {
-        if (targetQuiz == null) {
-            targetQuiz = newTemplateQuiz();
-            actions.addQuiz(targetQuiz);
+        if (actions.getTargetQuiz() == null) {
+            Quiz newQuiz = newTemplateQuiz();
+            actions.addQuiz(newQuiz);
+            actions.setTargetQuiz(newQuiz);
         }
         redrawQuestionListGui();
         questionList.setSelectedIndex(0);
@@ -74,14 +70,14 @@ public class EditQuizState extends GuiState {
      * EFFECTS: updates question list to display latest content
      */
     void redrawQuestionListGui() {
-        List<Question> listQuestions = targetQuiz.getQuestions();
+        List<Question> listQuestions = actions.getTargetQuiz().getQuestions();
 
         listContent.clear();
         for (int i = 0; i < listQuestions.size(); i++) {
             listContent.addElement(listQuestions.get(i).getPrompt());
         }
 
-        selectQuestionInList(targetQuiz.getQuestions().size() - 1);
+        selectQuestionInList(actions.getTargetQuiz().getQuestions().size() - 1);
     }
 
 
@@ -90,8 +86,8 @@ public class EditQuizState extends GuiState {
      * EFFECTS: tells state which item is selected from Question list
      */
     void selectQuestionInList(int index) {
-        targetQuestion = targetQuiz.getQuestions().get(index);
-        loadTargetQuestion();
+        actions.setTargetQuestion(index);
+        loadTargetQuestionInGUI();
     }
 
     /*
@@ -99,10 +95,10 @@ public class EditQuizState extends GuiState {
      * MODIFIES: this
      * EFFECTS: loads Question stored in target
      */
-    void loadTargetQuestion() {
-        promptInput.setText(targetQuestion.getPrompt());
+    void loadTargetQuestionInGUI() {
+        promptInput.setText(actions.getTargetQuestion().getPrompt());
 
-        FreeResponse question = (FreeResponse) targetQuestion;
+        FreeResponse question = (FreeResponse) actions.getTargetQuestion();
         StringBuilder responseContent = new StringBuilder();
         for (String keyword : question.getKeywords()) {
             responseContent.append(keyword + '\n');
@@ -136,7 +132,7 @@ public class EditQuizState extends GuiState {
      * EFFECTS: updates target question with given prompt and answers
      */
     void updateTargetQuestion(String newPrompt, String newAnswers) {
-        FreeResponse question = (FreeResponse)targetQuestion;
+        FreeResponse question = (FreeResponse) actions.getTargetQuestion();
         question.setPrompt(newPrompt);
         question.setKeywords(strToKeywords(newAnswers));
     }
@@ -196,8 +192,8 @@ public class EditQuizState extends GuiState {
         questionList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && questionsListGui.getSelectedIndex() >= 0) {
                 saveChangesToTargetQuestion();
-                targetQuestion = targetQuiz.getQuestions().get(questionsListGui.getSelectedIndex());
-                loadTargetQuestion();
+                actions.setTargetQuestion(questionsListGui.getSelectedIndex());
+                loadTargetQuestionInGUI();
                 updateTilesOfGuiList();
             }
         });
@@ -223,7 +219,7 @@ public class EditQuizState extends GuiState {
      * EFFECTS: returns question from prompt
      */
     String getQuestionPrompt(int i) {
-        return targetQuiz.getQuestions().get(i).getPrompt();
+        return actions.getTargetQuiz().getQuestions().get(i).getPrompt();
     }
 
 
@@ -241,13 +237,13 @@ public class EditQuizState extends GuiState {
 
         result.addActionListener(e -> {
             Question newQuestion = newTemplateQuestion();
-            targetQuiz.addQuestion(newQuestion);
+            actions.addQuestionToTarget(newQuestion);
             saveChangesToTargetQuestion();
-            targetQuestion = newQuestion;
+            actions.setTargetQuestion(newQuestion);
             redrawQuestionListGui();
-            questionList.setSelectedIndex(targetQuiz.getQuestions().size() - 1);
+            questionList.setSelectedIndex(actions.getTargetQuiz().getQuestions().size() - 1);
 
-            loadTargetQuestion();
+            loadTargetQuestionInGUI();
         });
 
         return result;
@@ -267,11 +263,12 @@ public class EditQuizState extends GuiState {
 
         result.addActionListener(e -> {
 
-            if (targetQuiz.getQuestions().size() > 1) {
-                targetQuiz.deleteQuestion(targetQuestion);
+            if (actions.getTargetQuestions().size() > 1) {
+                actions.deleteTargetQuestion();
                 redrawQuestionListGui();
-                int lastQuestionIndex = targetQuiz.getQuestions().size() - 1;
-                targetQuestion = targetQuiz.getQuestions().get(lastQuestionIndex);
+
+                int lastQuestionIndex = actions.getTargetQuestions().size() - 1;
+                actions.setTargetQuestion(lastQuestionIndex);
                 questionList.setSelectedIndex(lastQuestionIndex);
             } else {
                 Gui.newPopup("You must have at least one question!");
@@ -369,10 +366,6 @@ public class EditQuizState extends GuiState {
         JTextArea result = new JTextArea();
         result.setBounds(0,150, 500, 150);
         return result;
-    }
-
-    void setTargetQuiz(Quiz quiz) {
-        targetQuiz = quiz;
     }
 
     /*

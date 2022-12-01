@@ -65,7 +65,7 @@ public class MenuState extends GuiState {
         JButton btn = generateMenuButton("New Quiz", 0);
 
         btn.addActionListener(e -> {
-            stateManager.setEditingQuizTarget(null);
+            actions.setTargetQuiz(null);
             stateManager.gotoState(StateManager.State.EDIT_QUIZ);
         });
     }

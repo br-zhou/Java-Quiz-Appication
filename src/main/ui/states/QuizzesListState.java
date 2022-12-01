@@ -78,7 +78,7 @@ public class QuizzesListState extends GuiState {
         jframe.add(result);
 
         result.addActionListener(e -> {
-            stateManager.setEditingQuizTarget(actions.getQuizAtIndex(list.getSelectedIndex()));
+            actions.setTargetQuiz(list.getSelectedIndex());
             stateManager.gotoState(StateManager.State.EDIT_QUIZ);
         });
 
