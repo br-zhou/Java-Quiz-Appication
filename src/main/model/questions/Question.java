@@ -4,6 +4,8 @@ import ui.InputOutput;
 import org.json.JSONObject;
 import persistance.Writable;
 
+import java.util.List;
+
 // represents a question, with a prompt and a variable holding whether the question was answered correctly
 public abstract class Question implements Writable {
     private String prompt;

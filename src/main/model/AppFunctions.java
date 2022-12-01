@@ -2,6 +2,9 @@ package model;
 
 import exceptions.ReadErrorException;
 import exceptions.WriteErrorException;
+import model.questions.FreeResponse;
+import model.questions.MultipleChoice;
+import model.questions.Question;
 import persistance.DataHandler;
 
 import java.util.ArrayList;
@@ -12,6 +15,9 @@ public class AppFunctions {
     private EventLog log;
     private List<Quiz> quizzes;
     private final DataHandler dataHandler;
+    private Quiz targetQuiz;
+    private Question targetQuestion;
+
 
     // REQUIRES: filePath must be a valid path relative to root directory
     // EFFECTS: Initializes app functions at file path
@@ -64,6 +70,44 @@ public class AppFunctions {
     public void pullDataFromStorage() throws ReadErrorException {
         quizzes = dataHandler.retrieveData();
     }
+
+    // todo add documentation for these methods
+    Quiz getTargetQuiz() {
+        return targetQuiz;
+    }
+
+    void setTargetQuiz(Quiz quiz) {
+        logEvent("Select Quiz");
+        this.targetQuiz = quiz;
+    }
+
+    void addQuestionToTarget(Question question) {
+        logEvent("Add Question");
+        targetQuiz.addQuestion(question);
+    }
+
+    public void deleteQuestionFromTarget(Question question) {
+        logEvent("Delete Question");
+        targetQuiz.deleteQuestion(question);
+    }
+
+    public void updateQuestion(Question question, String prompt, List<String> answers) {
+        logEvent("Updated Question");
+        question.setPrompt(prompt);
+
+        if (FreeResponse.class.equals(question.getClass())) {
+            FreeResponse freeResponse = (FreeResponse) question;
+            freeResponse.setKeywords(answers);
+
+        } else if (MultipleChoice.class.equals(question.getClass())) {
+            // pass
+        }
+    }
+
+    public void setTargetQuestion(int index) {
+        targetQuestion = targetQuiz.getQuestions().get(index);
+    }
+    // todo //
 
     /*
      * EFFECTS: Prints every event in log to console

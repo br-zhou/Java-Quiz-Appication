@@ -94,7 +94,6 @@ public class EditQuizState extends GuiState {
         loadTargetQuestion();
     }
 
-
     /*
      * REQUIRES: targetQuestion cannot be null
      * MODIFIES: this
