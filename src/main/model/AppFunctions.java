@@ -71,37 +71,52 @@ public class AppFunctions {
         quizzes = dataHandler.retrieveData();
     }
 
-    // todo add documentation for these methods
+    // EFFECTS: returns target quiz;
     public Quiz getTargetQuiz() {
         return targetQuiz;
     }
 
+    // REQUIRES: quizzes must contain given quiz
+    // MODIFIES: this
+    // EFFECTS: sets targeted quiz to given quiz
     public void setTargetQuiz(Quiz quiz) {
         logEvent("Select Quiz");
         this.targetQuiz = quiz;
     }
 
+    // REQUIRES: 0 <= index < quizzes.size()
+    // MODIFIES: this
+    // EFFECTS: sets targeted quiz to quiz at given index
     public void setTargetQuiz(int index) {
         logEvent("Select Quiz");
         this.targetQuiz = quizzes.get(index);
     }
 
-
+    // REQUIRES: question must not already be in target
+    // MODIFIES: this
+    // EFFECTS: adds question to list of questions in target quiz
     public void addQuestionToTarget(Question question) {
         logEvent("Add Question");
         targetQuiz.addQuestion(question);
     }
 
+    // REQUIRES: targetQuiz must contain given quiz
+    // MODIFIES: this
+    // EFFECTS: deletes question from target quiz
     public void deleteQuestion(Question question) {
         logEvent("Delete Question");
         targetQuiz.deleteQuestion(question);
     }
 
+    // REQUIRES: targetQuiz's questions must contain targetQuestion
+    // MODIFIES: this
+    // EFFECTS: deletes question from targetQuiz
     public void deleteTargetQuestion() {
         deleteQuestion(targetQuestion);
         targetQuestion = null;
     }
 
+    // todo integrate this
     public void updateQuestion(Question question, String prompt, List<String> answers) {
         logEvent("Updated Question");
         question.setPrompt(prompt);
@@ -115,23 +130,32 @@ public class AppFunctions {
         }
     }
 
+    // REQUIRES: 0 <= index < targetQuiz.getQuestions.size()
+    // MODIFIES: this
+    // EFFECTS: sets targeted question to question at given index of targetQuiz's questions
     public void setTargetQuestion(int index) {
         targetQuestion = targetQuiz.getQuestions().get(index);
     }
 
+    // REQUIRES: targetQuiz's questions must contain targetQuestion
+    // MODIFIES: this
+    // EFFECTS: sets targetQuestion to given question
     public void setTargetQuestion(Question question) {
         targetQuestion = question;
     }
 
+    // REQUIRES: targetQuiz's questions must contain targetQuestion
+    // MODIFIES: this
+    // EFFECTS: deletes question from targetQuiz
     public List<Question> getTargetQuestions() {
         return targetQuiz.getQuestions();
     }
 
 
+    // EFFECTS: returns targeted question
     public Question getTargetQuestion() {
         return targetQuestion;
     }
-    // todo //
 
     /*
      * EFFECTS: Prints every event in log to console
