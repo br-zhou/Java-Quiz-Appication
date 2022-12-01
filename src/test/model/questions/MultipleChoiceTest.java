@@ -91,4 +91,16 @@ public class MultipleChoiceTest {
                         "\n 5) " + question3Answers.get(4),
                 question3String);
     }
+
+    @Test
+    public void testEquals() {
+        assertTrue(question1.equals(question1));
+        assertFalse(question1.equals(question2));
+
+        Question question3Copy = new MultipleChoice("Question 3", new ArrayList<>(question3Answers));
+
+        assertTrue(question3.equals(question3Copy));
+
+
+    }
 }

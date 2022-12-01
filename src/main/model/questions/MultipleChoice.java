@@ -70,4 +70,24 @@ public class MultipleChoice extends Question {
     public List<String> getChoices() {
         return choices;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        MultipleChoice freeResponse = (MultipleChoice) o;
+
+        if (!choices.equals(freeResponse.choices)
+                || !correctChoice.equals(freeResponse.correctChoice)) {
+            return false;
+        }
+
+        return true;
+    }
 }

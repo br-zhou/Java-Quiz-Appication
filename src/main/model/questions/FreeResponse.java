@@ -69,4 +69,23 @@ public class FreeResponse extends Question {
     public void setKeywords(List<String> newKeywords) {
         keywords = newKeywords;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!super.equals(o)) {
+            return false;
+        }
+
+        FreeResponse freeResponse = (FreeResponse) o;
+
+        if (!keywords.equals(freeResponse.getKeywords())) {
+            return false;
+        }
+
+        return true;
+    }
 }

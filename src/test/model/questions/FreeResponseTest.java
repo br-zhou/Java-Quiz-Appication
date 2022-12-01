@@ -58,4 +58,16 @@ public class FreeResponseTest {
         assertEquals(question1.getPrompt() + "\nPlease type your answer below.", question1.toString());
         assertEquals(question2.getPrompt() + "\nPlease type your answer below.", question2.toString());
     }
+
+    @Test
+    public void testEquals() {
+        assertTrue(question1.equals(question1));
+        assertFalse(question1.equals(question2));
+
+        Question question1Copy = new FreeResponse("Question 1", new ArrayList<>(question1Keywords));
+
+        assertTrue(question1.equals(question1Copy));
+
+
+    }
 }
