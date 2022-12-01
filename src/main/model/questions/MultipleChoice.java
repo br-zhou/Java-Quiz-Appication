@@ -1,6 +1,5 @@
 package model.questions;
 
-import ui.InputOutput;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,10 +25,9 @@ public class MultipleChoice extends Question {
      * EFFECTS: sets isCorrect to true if user inputs correct choice
      */
     @Override
-    public void attempt(InputOutput inputOutput) {
-        String choice = inputOutput.getItemFromList(choices);
-
-        correct = choice.equals(correctChoice);
+    public boolean attempt(String input) { // todo inputOutput.getItemFromList(choices);
+        correct = input.equals(correctChoice);
+        return correct;
     }
 
     /*

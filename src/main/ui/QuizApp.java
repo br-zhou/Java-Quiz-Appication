@@ -8,6 +8,7 @@ import model.questions.MultipleChoice;
 import model.questions.Question;
 import persistance.DataHandler;
 
+import javax.swing.plaf.IconUIResource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 // Quiz Application
 public class QuizApp {
     private static final String FILE_PATH = "./data/data.json";
-    private final InputOutput console;
+    private final Console console;
     private final DataHandler storage;
     private List<Quiz> quizzes;
 
@@ -242,7 +243,14 @@ public class QuizApp {
     public Result startQuiz(Quiz quiz) {
         for (Question question : quiz.getQuestions()) {
             console.displayQuestion(question);
-            question.attempt(console);
+
+            if (question.getClass().equals(FreeResponse.class)) {
+                question.attempt(console.getNonEmptyString());
+            } else if (question.getClass().equals(MultipleChoice.class)) {
+                MultipleChoice multiChoiceQuestion = (MultipleChoice) question;
+                String choiceStr = console.getItemFromList(multiChoiceQuestion.getChoices());
+                multiChoiceQuestion.attempt(choiceStr);
+            }
         }
 
         return quiz.getResult();

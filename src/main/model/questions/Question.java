@@ -1,6 +1,5 @@
 package model.questions;
 
-import ui.InputOutput;
 import org.json.JSONObject;
 import persistance.Writable;
 
@@ -27,7 +26,7 @@ public abstract class Question implements Writable {
      * EFFECTS: if user input is correct, 'isCorrect' method now output true.
      *          Otherwise, 'isCorrect' method outputs false
      */
-    public abstract void attempt(InputOutput inputOutput);
+    public abstract boolean attempt(String input);
 
     /*
      * EFFECTS: returns the question prompt and all relevant information

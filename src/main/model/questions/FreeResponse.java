@@ -1,6 +1,5 @@
 package model.questions;
 
-import ui.InputOutput;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,16 +23,16 @@ public class FreeResponse extends Question {
      * EFFECTS: returns true if input contains all required keywords
      */
     @Override
-    public void attempt(InputOutput inputOutput) {
-        String response = inputOutput.getString();
-
+    public boolean attempt(String input) { // todo io.getString
         correct = true;
         for (String keyword : keywords) {
-            if (!response.contains(keyword)) {
+            if (!input.contains(keyword)) {
                 correct = false;
                 break;
             }
         }
+
+        return correct;
     }
 
     @Override
