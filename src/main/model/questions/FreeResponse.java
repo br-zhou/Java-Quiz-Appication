@@ -76,11 +76,17 @@ public class FreeResponse extends Question {
             return true;
         }
 
-        if (!super.equals(o)) {
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
         }
 
         FreeResponse freeResponse = (FreeResponse) o;
+
+        if (!this.getPrompt().equals(freeResponse.getPrompt())
+                || !this.getType().equals(freeResponse.getType())
+        ) {
+            return false;
+        }
 
         if (!keywords.equals(freeResponse.getKeywords())) {
             return false;

@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FreeResponseTest {
     private FreeResponse question1;
     private FreeResponse question2;
+    private MultipleChoice mCQuestion;
     List<String> question1Keywords;
     List<String> question2Keywords;
 
@@ -26,6 +27,7 @@ public class FreeResponseTest {
 
         question1 = new FreeResponse("Question 1", question1Keywords);
         question2 = new FreeResponse("Question 2", question2Keywords);
+        mCQuestion = new MultipleChoice("Question 1", question1Keywords);
     }
 
     @Test
@@ -68,6 +70,16 @@ public class FreeResponseTest {
 
         assertTrue(question1.equals(question1Copy));
 
+        question2.setPrompt("Question 1");
+        assertFalse(question1.equals(question2));
 
+        assertFalse(question1.equals(null));
+        assertFalse(question1.equals(mCQuestion));
+    }
+
+    @Test
+    public void testSetKeywords() {
+        question1.setKeywords(question2Keywords);
+        assertTrue(question1.getKeywords().equals(question2Keywords));
     }
 }

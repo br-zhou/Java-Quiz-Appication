@@ -97,10 +97,12 @@ public class MultipleChoiceTest {
         assertTrue(question1.equals(question1));
         assertFalse(question1.equals(question2));
 
-        Question question3Copy = new MultipleChoice("Question 3", new ArrayList<>(question3Answers));
+        MultipleChoice question3Copy = new MultipleChoice("Question 3", new ArrayList<>(question3Answers));
 
         assertTrue(question3.equals(question3Copy));
 
+        question3Copy.setChoices(question2Answers);
 
+        assertFalse(question3.equals(question3Copy));
     }
 }

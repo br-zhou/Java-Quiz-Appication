@@ -8,8 +8,8 @@ import java.util.List;
 
 // represents a multiple choice question, with choices and a correct answer
 public class MultipleChoice extends Question {
-    private final List<String> choices;
-    private final String correctChoice;
+    private List<String> choices;
+    private String correctChoice;
 
     /*
      * REQUIRES: 2 <= choices size <= 5, with the correct choice being the first element
@@ -71,20 +71,30 @@ public class MultipleChoice extends Question {
         return choices;
     }
 
+    public void setChoices(List<String> choices) {
+        this.choices = choices;
+        this.correctChoice = choices.get(0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
         }
 
-        if (!super.equals(o)) {
+        if (o == null || o.getClass() != this.getClass()) {
             return false;
         }
 
-        MultipleChoice freeResponse = (MultipleChoice) o;
+        MultipleChoice multipleChoice = (MultipleChoice) o;
 
-        if (!choices.equals(freeResponse.choices)
-                || !correctChoice.equals(freeResponse.correctChoice)) {
+        if (!this.getPrompt().equals(multipleChoice.getPrompt())
+                || !this.getType().equals(multipleChoice.getType())
+        ) {
+            return false;
+        }
+
+        if (!choices.equals(multipleChoice.choices)) {
             return false;
         }
 

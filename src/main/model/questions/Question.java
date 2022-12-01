@@ -69,25 +69,4 @@ public abstract class Question implements Writable {
     public void setPrompt(String str) {
         this.prompt = str;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-
-        if (o == null || o.getClass() != this.getClass()) {
-            return false;
-        }
-
-        Question question = (Question) o;
-
-        if (!this.getPrompt().equals(question.getPrompt())
-                || !this.getType().equals(question.getType())
-        ) {
-            return false;
-        }
-
-        return true;
-    }
 }
