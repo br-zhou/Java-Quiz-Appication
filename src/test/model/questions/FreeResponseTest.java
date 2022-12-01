@@ -1,7 +1,5 @@
 package model.questions;
 
-import ui.InputOutput;
-import model.InputOutputForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +13,6 @@ public class FreeResponseTest {
     private FreeResponse question2;
     List<String> question1Keywords;
     List<String> question2Keywords;
-    private InputOutput correctInputForQ1;
-    private InputOutput correctInputForQ2;
-    private InputOutput incorrectInput;
 
     @BeforeEach
     public void runBefore() {
@@ -31,27 +26,6 @@ public class FreeResponseTest {
 
         question1 = new FreeResponse("Question 1", question1Keywords);
         question2 = new FreeResponse("Question 2", question2Keywords);
-
-        correctInputForQ1 = new InputOutputForTests() {
-            @Override
-            public String getString() {
-                return "this sentence contains words.";
-            }
-        };
-
-        correctInputForQ2 = new InputOutputForTests() {
-            @Override
-            public String getString() {
-                return "word1word2word3";
-            }
-        };
-
-        incorrectInput = new InputOutputForTests() {
-            @Override
-            public String getNonEmptyString() {
-                return "abc";
-            }
-        };
     }
 
     @Test
@@ -68,14 +42,14 @@ public class FreeResponseTest {
 
     @Test
     public void testAttempt() {
-        question1.attempt(incorrectInput);
+        question1.attempt("incorrectInput");
         assertFalse(question1.isCorrect());
-        question1.attempt(correctInputForQ1);
+        question1.attempt("word");
         assertTrue(question1.isCorrect());
 
-        question2.attempt(incorrectInput);
+        question2.attempt("word1word2word 3");
         assertFalse(question2.isCorrect());
-        question2.attempt(correctInputForQ2);
+        question2.attempt("222word12word3word200");
         assertTrue(question2.isCorrect());
     }
 

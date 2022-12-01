@@ -1,7 +1,5 @@
 package model.questions;
 
-import ui.InputOutput;
-import model.InputOutputForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +15,6 @@ public class MultipleChoiceTest {
     List<String> question1Answers;
     List<String> question2Answers;
     List<String> question3Answers;
-    private InputOutput correctInput;
-    private InputOutput incorrectInput;
 
     @BeforeEach
     public void runBefore() {
@@ -41,20 +37,6 @@ public class MultipleChoiceTest {
         question1 = new MultipleChoice("Question 1", question1Answers);
         question2 = new MultipleChoice("Question 2", question2Answers);
         question3 = new MultipleChoice("Question 3", question3Answers);
-
-        correctInput = new InputOutputForTests() {
-            @Override
-            public int getIntWithinRange(int min, int max) {
-                return min;
-            }
-        };
-
-        incorrectInput = new InputOutputForTests() {
-            @Override
-            public int getIntWithinRange(int min, int max) {
-                return max;
-            }
-        };
     }
 
     @Test
@@ -74,19 +56,19 @@ public class MultipleChoiceTest {
 
     @Test
     public void testAttempt() {
-        question1.attempt(incorrectInput);
+        question1.attempt("correct ");
         assertFalse(question1.isCorrect());
-        question1.attempt(correctInput);
+        question1.attempt("correct");
         assertTrue(question1.isCorrect());
 
-        question2.attempt(incorrectInput);
+        question2.attempt("incorrect1");
         assertFalse(question2.isCorrect());
-        question2.attempt(correctInput);
+        question2.attempt("correct");
         assertTrue(question2.isCorrect());
 
-        question3.attempt(incorrectInput);
+        question3.attempt("incorrent");
         assertFalse(question3.isCorrect());
-        question3.attempt(correctInput);
+        question3.attempt("correct");
         assertTrue(question3.isCorrect());
     }
 
