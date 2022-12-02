@@ -82,9 +82,7 @@ public class FreeResponse extends Question {
 
         FreeResponse freeResponse = (FreeResponse) o;
 
-        if (!this.getPrompt().equals(freeResponse.getPrompt())
-                || !this.getType().equals(freeResponse.getType())
-        ) {
+        if (!this.getPrompt().equals(freeResponse.getPrompt())) {
             return false;
         }
 

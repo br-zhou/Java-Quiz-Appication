@@ -12,6 +12,8 @@ public class MultipleChoiceTest {
     private MultipleChoice question1;
     private MultipleChoice question2;
     private MultipleChoice question3;
+    private FreeResponse differentQuestionType;
+
     List<String> question1Answers;
     List<String> question2Answers;
     List<String> question3Answers;
@@ -37,6 +39,7 @@ public class MultipleChoiceTest {
         question1 = new MultipleChoice("Question 1", question1Answers);
         question2 = new MultipleChoice("Question 2", question2Answers);
         question3 = new MultipleChoice("Question 3", question3Answers);
+        differentQuestionType = new FreeResponse("Question 1", question1Answers);
     }
 
     @Test
@@ -96,6 +99,9 @@ public class MultipleChoiceTest {
     public void testEquals() {
         assertTrue(question1.equals(question1));
         assertFalse(question1.equals(question2));
+        assertFalse(question1.equals(null));
+        assertFalse(question1.equals(differentQuestionType));
+
 
         MultipleChoice question3Copy = new MultipleChoice("Question 3", new ArrayList<>(question3Answers));
 
