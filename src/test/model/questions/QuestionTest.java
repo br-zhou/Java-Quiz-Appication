@@ -24,6 +24,6 @@ public class QuestionTest {
     @Test
     void testSetPrompt() {
         testQuestionCopy.setPrompt("Clone");
-        assertEquals("Clone", testQuestion.getPrompt());
+        assertEquals("Clone", testQuestionCopy.getPrompt());
     }
 }

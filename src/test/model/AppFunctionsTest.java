@@ -175,7 +175,7 @@ public class AppFunctionsTest {
             eventIterator.next();
         }
 
-        assertEquals(6, iteratorSize);
+        assertEquals(5, iteratorSize);
     }
 
     // HELPERS

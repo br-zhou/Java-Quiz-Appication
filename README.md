@@ -40,21 +40,33 @@ I took inspiration from the TellerApp reference project when designing my applic
 
 ### Phase 4: Task 2
 Event log:<br>
-Wed Nov 30 18:27:49 PST 2022<br>
-Selected a quiz<br>
-Wed Nov 30 18:27:49 PST 2022<br>
+Fri Dec 02 20:41:27 PST 2022<br>
 New Quiz Added!<br>
-Wed Nov 30 18:27:49 PST 2022<br>
-Selected a quiz<br>
-Wed Nov 30 18:27:53 PST 2022<br>
+Fri Dec 02 20:41:29 PST 2022<br>
 Added new question<br>
-Wed Nov 30 18:27:55 PST 2022<br>
+Fri Dec 02 20:41:30 PST 2022<br>
 Added new question<br>
-Wed Nov 30 18:27:55 PST 2022<br>
+Fri Dec 02 20:41:31 PST 2022<br>
 Added new question<br>
-Wed Nov 30 18:27:58 PST 2022<br>
-Selected a quiz<br>
-Wed Nov 30 18:28:00 PST 2022<br>
+Fri Dec 02 20:41:32 PST 2022<br>
+Added new question<br>
+Fri Dec 02 20:41:32 PST 2022<br>
+Added new question<br>
+Fri Dec 02 20:41:32 PST 2022<br>
+Added new question<br>
+Fri Dec 02 20:41:34 PST 2022<br>
 Deleted a question<br>
-Wed Nov 30 18:28:01 PST 2022<br>
+Fri Dec 02 20:41:34 PST 2022<br>
 Deleted a question<br>
+Fri Dec 02 20:41:34 PST 2022<br>
+Deleted a question<br>
+Fri Dec 02 20:41:37 PST 2022<br>
+New Quiz Added!<br>
+Fri Dec 02 20:41:38 PST 2022<br>
+Added new question<br>
+Fri Dec 02 20:41:38 PST 2022<br>
+Added new question<br>
+Fri Dec 02 20:41:38 PST 2022<br>
+Added new question<br>
+Fri Dec 02 20:41:38 PST 2022<br>
+Added new question<br>

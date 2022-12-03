@@ -82,7 +82,6 @@ public class AppFunctions {
     // MODIFIES: this
     // EFFECTS: sets targeted quiz to given quiz
     public void setTargetQuiz(Quiz quiz) {
-        logEvent("Selected a quiz");
         this.targetQuiz = quiz;
     }
 

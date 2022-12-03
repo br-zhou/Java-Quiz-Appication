@@ -53,7 +53,7 @@ public class EventTest {
     public void testEquals() {
         assertFalse(e.equals(null));
         assertFalse(e.equals(d));
-        assertFalse( e.equals(new Event("Sensor open at door")));
+        assertFalse(e.equals(new Event("Sensor open at doo")));
         assertTrue(e.equals(e));
         assertTrue((new Event("A")).equals(new Event("A")));
     }
