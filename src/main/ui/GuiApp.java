@@ -1,12 +1,14 @@
 package ui;
 
 import model.AppFunctions;
+import model.Event;
 import ui.states.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Iterator;
 
 // Represents the GUI frame
 public class GuiApp extends JFrame {
@@ -42,17 +44,26 @@ public class GuiApp extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        printEventLogOnClose();
+
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onClose();
+            }
+        });
+
         ImageIcon image = new ImageIcon("./src/main/ui/img/thumbnail.png");
         setIconImage(image.getImage());
     }
 
-    void printEventLogOnClose() {
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                actions.printLog();
-            }
-        });
+    // EFFECTS: prints event log to console
+    void onClose() {
+        Iterator<Event> eventIterator = actions.getEventIterator();
+
+        System.out.println("Event log:");
+
+        while (eventIterator.hasNext()) {
+            System.out.println(eventIterator.next());
+        }
     }
 
     void loadStates() {

@@ -88,9 +88,7 @@ public class MultipleChoice extends Question {
 
         MultipleChoice multipleChoice = (MultipleChoice) o;
 
-        if (!this.getPrompt().equals(multipleChoice.getPrompt())
-                || !this.getType().equals(multipleChoice.getType())
-        ) {
+        if (!this.getPrompt().equals(multipleChoice.getPrompt())) {
             return false;
         }
 

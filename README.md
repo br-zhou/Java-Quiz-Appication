@@ -39,7 +39,7 @@ I took inspiration from the TellerApp reference project when designing my applic
 
 
 ### Phase 4: Task 2
-Event Log:<br>
+Event log:<br>
 Wed Nov 30 18:27:49 PST 2022<br>
 Selected a quiz<br>
 Wed Nov 30 18:27:49 PST 2022<br>

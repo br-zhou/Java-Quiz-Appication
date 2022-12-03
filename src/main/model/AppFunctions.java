@@ -8,6 +8,8 @@ import model.questions.Question;
 import persistance.DataHandler;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 // Functions that UI will call upon to control quizzes
@@ -156,14 +158,9 @@ public class AppFunctions {
         return targetQuestion;
     }
 
-    /*
-     * EFFECTS: Prints every event in log to console
-     */
-    public void printLog() {
-        System.out.println("Event Log: ");
-        for (Event event : log) {
-            System.out.println(event);
-        }
+    // EFFECTS: returns event iterator
+    public Iterator<Event> getEventIterator() {
+        return log.iterator();
     }
 
     /*
