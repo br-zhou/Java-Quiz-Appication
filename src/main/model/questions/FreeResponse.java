@@ -23,7 +23,7 @@ public class FreeResponse extends Question {
      * EFFECTS: returns true if input contains all required keywords
      */
     @Override
-    public boolean attempt(String input) { // todo io.getString
+    public boolean attempt(String input) {
         correct = true;
         for (String keyword : keywords) {
             if (!input.contains(keyword)) {

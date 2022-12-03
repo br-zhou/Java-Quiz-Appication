@@ -117,20 +117,6 @@ public class AppFunctions {
         targetQuestion = null;
     }
 
-    // todo integrate this
-    public void updateQuestion(Question question, String prompt, List<String> answers) {
-        logEvent("Updated a question");
-        question.setPrompt(prompt);
-
-        if (FreeResponse.class.equals(question.getClass())) {
-            FreeResponse freeResponse = (FreeResponse) question;
-            freeResponse.setKeywords(answers);
-
-        } else if (MultipleChoice.class.equals(question.getClass())) {
-            // pass
-        }
-    }
-
     // REQUIRES: 0 <= index < targetQuiz.getQuestions.size()
     // MODIFIES: this
     // EFFECTS: sets targeted question to question at given index of targetQuiz's questions

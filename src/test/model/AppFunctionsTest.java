@@ -8,6 +8,8 @@ import model.questions.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,12 +20,25 @@ public class AppFunctionsTest {
     AppFunctions invalidAppActions;
     AppFunctions corruptAppActions;
     AppFunctions defaultAppActions;
+    AppFunctions actions;
+    Quiz newQuiz1;
+    Quiz newQuiz2;
 
     @BeforeEach
     void runBefore() {
         invalidAppActions = new AppFunctions("/c/tmp/home");
         corruptAppActions = new AppFunctions("./data/testCorruptedFile.json");
         defaultAppActions = new AppFunctions("./data/testFile.json");
+
+        newQuiz1 = new Quiz("Name", new ArrayList<>());
+        newQuiz2 = new Quiz("Name2", new ArrayList<>());
+
+        actions = new AppFunctions("./irrelevantPath.json");
+
+        for (Quiz quiz : QuizTemplateMaker.createQuizList1()) {
+            actions.addQuiz(quiz);
+        }
+
     }
 
     @Test
@@ -64,7 +79,6 @@ public class AppFunctionsTest {
 
         assertEquals(0, defaultAppActions.getQuizzes().size());
     }
-
 
     @Test
     public void testUpdateData() {
@@ -118,9 +132,53 @@ public class AppFunctionsTest {
 
     }
 
+    @Test
+    void testSetTargetQuiz() {
+        defaultAppActions.addQuiz(newQuiz1);
+        defaultAppActions.setTargetQuiz(newQuiz1);
+        assertEquals(newQuiz1, defaultAppActions.getTargetQuiz());
+
+        defaultAppActions.addQuiz(newQuiz2);
+        defaultAppActions.setTargetQuiz(newQuiz2);
+        assertEquals(newQuiz2, defaultAppActions.getTargetQuiz());
+    }
+
+    @Test
+    void testAddQuestionToTarget() {
+        actions.setTargetQuiz(0);
+        final int NUM_OF_QUESTIONS = actions.getTargetQuestions().size();
+        actions.addQuestionToTarget(new MultipleChoice("HI",QuizTemplateMaker.createMultipleChoiceAnswers2()));
+        assertEquals(NUM_OF_QUESTIONS + 1, actions.getTargetQuestions().size());
+
+        actions.setTargetQuestion(0);
+        Question targetQuestion = actions.getTargetQuestion();
+        actions.deleteTargetQuestion();
+        assertFalse(actions.getTargetQuestions().contains(targetQuestion));
+        assertEquals(NUM_OF_QUESTIONS, actions.getTargetQuestions().size());
+    }
+
+    @Test
+    void testSetTargetQuestion() {
+        Question newQuestion = QuizTemplateMaker.createQuestionList1().get(0);
+        actions.setTargetQuiz(0);
+        actions.addQuestionToTarget(newQuestion);
+        actions.setTargetQuestion(newQuestion);
+        assertEquals(newQuestion, actions.getTargetQuestion());
+    }
+
+    @Test
+    void testGetIterator() {
+        Iterator<Event> eventIterator = actions.getEventIterator();
+        int iteratorSize = 0;
+        while (eventIterator.hasNext()) {
+            iteratorSize++;
+            eventIterator.next();
+        }
+
+        assertEquals(6, iteratorSize);
+    }
+
     // HELPERS
-
-
     // returns whether Quiz List a has the same values as Quiz list b
     private boolean equalQuizList(List<Quiz> a, List<Quiz> b) {
         if (a.size() != b.size()) {

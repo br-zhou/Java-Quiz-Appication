@@ -25,7 +25,7 @@ public class MultipleChoice extends Question {
      * EFFECTS: sets isCorrect to true if user inputs correct choice
      */
     @Override
-    public boolean attempt(String input) { // todo inputOutput.getItemFromList(choices);
+    public boolean attempt(String input) {
         correct = input.equals(correctChoice);
         return correct;
     }
