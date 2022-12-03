@@ -70,3 +70,17 @@ Fri Dec 02 20:41:38 PST 2022<br>
 Added new question<br>
 Fri Dec 02 20:41:38 PST 2022<br>
 Added new question<br>
+
+### Phase 4: Task 3
+I'm quite happy with my design with the UML. Granted, there was a LOT of refactoring from my original design - I made
+many poor choices such as originally using GUI to directly control the models, without the "AppFunctions" class. The
+reason I refactored my code was to be able to implement Phase 4: Task 2, which disallowed logging events directly
+from the UI. I originally also had another issue: I had a class that contained all the logic, which controlled the
+UI and the state. This turned out to be a horrible idea because console UI and graphical GUI had different requirements
+and limitations. For example, in the console, the only way a user was able to interact with the program was through
+the console. However, in the GUI, there were multiple buttons the user was able to click on, so the console logic class
+was not compatible. I ended up refactoring that class as well, since I had to rewrite it anyway. Basically, I had
+a lot of refactoring issues, but I fixed them already. 
+
+Right now, the main issue I have is that AppFunctions is very messy, I would like to reduce the coupling that class
+has, or at least make the coupling more understandable.
